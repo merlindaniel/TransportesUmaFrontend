@@ -28,6 +28,10 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
+  <!-- development version, includes helpful console warnings -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" defer></script>
+  <script src="vue/publicarViaje.js" defer></script>
+
   <!-- =======================================================
   * Template Name: Transportes UMA - v4.7.0
   * Template URL: https://bootstrapmade.com/Transportes UMA-free-bootstrap-html-template-corporate/
@@ -63,47 +67,50 @@
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex align-items-center">
 
-    <div class="container">
-        <div class="row">
+    
+      <div id="app" class="container">
+          <div class="row">
 
-            <div class="col-12">
-                <h1 class="text-center">Publicar un Viaje</h1>
-            </div>
+              <div class="col-12">
+                  <h1 class="text-center">{{cabecera}}</h1>
+              </div>
 
-            <div class="col-6 d-flex flex-column justify-content-center pt-4 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-                
-                <input class="form-control customFirstBorders" type="text" placeholder="Origen" aria-describedby="buttonSearch">
-                <input class="form-control customFirstBorders mt-3" type="text" placeholder="Destino" aria-describedby="textSet1">
-                <input class="form-control customFirstBorders mt-3" type="number" min="1" placeholder="Número de plazas" aria-describedby="buttonSearch">
-                <!-- <input class="form-control customFirstBorders mt-3" type="text" placeholder="Email" aria-describedby="textSet1"> -->
-                
-                <!-- <input class="form-control customFirstBorders" type="text" placeholder="Nombre" aria-describedby="textSet1">
-                <input class="form-control customFirstBorders" type="text" placeholder="Apellidos" aria-describedby="buttonSearch">
-                <input class="form-control customFirstBorders" type="text" placeholder="Nombre" aria-describedby="textSet1">
-                <input class="form-control customFirstBorders" type="text" placeholder="Apellidos" aria-describedby="buttonSearch"> -->
+              <div class="col-6 d-flex flex-column justify-content-center pt-4 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+                  
+                  <input class="form-control customFirstBorders" type="text" placeholder="Origen" id="origin" v-model="journey.origin">
+                  <input class="form-control customFirstBorders mt-3" type="text" placeholder="Destino" id="destination" v-model="journey.destination">
+                  <input class="form-control customFirstBorders mt-3" type="number" min="1" placeholder="Número de plazas" id="numberParticipants" v-model="journey.numberParticipants" >
+                  <select class="form-control customFirstBorders mt-3" id="vehicle" v-model="journey.vehicle" >
+                    <option value="none" selected>Vehículo</option>
+                    <option value="Vehiculo1">Ford Mustang 2021 Perfomance</option>
+                    <option value="Vehiculo2">Porsche 911 Carrera</option>
+                  </select>
+              </div>
 
-            </div>
+              <div class="col-6 d-flex flex-column justify-content-center pt-4 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+                  
+                <input class="form-control customFirstBorders" type="number" placeholder="Precio por plaza" id="price" v-model="journey.price">
+                <input class="form-control customFirstBorders mt-3" type="date" placeholder="Fecha" id="vehicle" v-model="journey.starDate" >
+                <input class="form-control customFirstBorders mt-3" type="time" placeholder="Hora" id="hour" v-model="journey.hour" >
+                <select class="form-control customFirstBorders mt-3" id="exam" v-model="journey.exam">
+                  <option value="none" selected>Examen</option>
+                  <option value="true">Sí</option>
+                  <option value="false">No</option>
+                </select>
 
-            <div class="col-6 d-flex flex-column justify-content-center pt-4 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-                
-              <input class="form-control customFirstBorders" type="number" placeholder="Precio por plaza" aria-describedby="buttonSearch">
-              <input class="form-control customFirstBorders mt-3" type="date" placeholder="Fecha" aria-describedby="textSet1">
-              <input class="form-control customFirstBorders mt-3" type="time" placeholder="Hora" aria-describedby="buttonSearch">
-              <!-- type="number" value="1" min="1" -->
+              </div>
 
-            </div>
-
-            
-        </div>
-
-        <div class="row">
-          <div class="col-12 d-flex justify-content-center justify-content-lg-center mt-3 inputCustom" data-aos="fade-up" data-aos-delay="200">
-            <button class="btn btn-primary rounded-pill w-25" type="button">Publicar</button>
+              
           </div>
-        </div>
-        
 
-    </div>
+          <div class="row">
+            <div class="col-12 d-flex justify-content-center justify-content-lg-center mt-3 inputCustom" data-aos="fade-up" data-aos-delay="200">
+              <button class="btn btn-primary rounded-pill w-25" type="button" v-on:click="publicarViaje">Publicar</button>
+            </div>
+          </div>
+          
+
+      </div>
 
   </section><!-- End Hero -->
 

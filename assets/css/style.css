@@ -18,6 +18,22 @@ a {
   text-decoration: none;
 }
 
+a.journeysLink{
+  color:#444444;
+}
+
+span.navJourneys{
+  color:#ffffff;
+}
+
+div.lineDown{
+  border-bottom: 1px solid #ffffff;
+}
+
+a.journeysLink:hover{
+  color:#444444;
+}
+
 a:hover {
   color: #73c5eb;
   text-decoration: none;
@@ -958,7 +974,7 @@ section {
 }
 .team .member .pic {
   overflow: hidden;
-  width: 180px;
+  width: 130px;
   border-radius: 50%;
 }
 .team .member .pic img {
