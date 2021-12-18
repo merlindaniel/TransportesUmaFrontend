@@ -29,7 +29,7 @@
   <link href="assets/css/style.css" rel="stylesheet">
 
   <!-- development version, includes helpful console warnings -->
-  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" defer></script>
+  <script src="./vue/vue.js" defer></script>
   <script src="vue/publicarViaje.js" defer></script>
 
   <!-- =======================================================
@@ -77,15 +77,16 @@
 
               <div class="col-6 d-flex flex-column justify-content-center pt-4 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
 
-                  <input class="form-control customFirstBorders" type="text" placeholder="Origen" id="origin" v-model="origen" v-on:input="obtenerOrigen">
-                  <input class="form-control customFirstBorders mt-3" type="text" placeholder="Destino" id="destination" v-model="destino" v-on:input="obtenerDestino">
-                  <input class="form-control customFirstBorders mt-3" type="number" min="1" placeholder="Número de plazas" id="numberParticipants" v-model="journey.numberParticipants" >
+                  <input class="form-control customFirstBorders" type="text" placeholder="Origen" id="origin" v-model="origen" v-on:input="obtenerOrigen"/>
+                  <input class="form-control customFirstBorders mt-3" type="text" placeholder="Destino" id="destination" v-model="destino" v-on:input="obtenerDestino"/>
+                  <input class="form-control customFirstBorders mt-3" type="number" min="1" placeholder="Número de plazas" id="numberParticipants" v-model="journey.numberParticipants" />
                   <select class="form-control customFirstBorders mt-3" id="vehicle">
-                    <div v-for="vehicle in listaVehiculos">
-                      <option value="">{{vehicle.name}}</option>
+                    <option v-if="listaVehiculos.length === 0">(CAMBIAR Fran) Sin vehiculos</option>
+                    <div v-else>
+                        <option v-for="vehicle in listaVehiculos">{{vehicle.name}}</option>
                     </div>
-                    <!-- <option value="Vehiculo1">Ford Mustang 2021 Perfomance</option>
-                    <option value="Vehiculo2">Porsche 911 Carrera</option> -->
+                    
+                    
                   </select>
               </div>
 

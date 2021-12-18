@@ -2,7 +2,7 @@ const app = new Vue({
 
     el: '#app',
     data: {
-
+        
         cabecera: 'Publicar un Viaje',
         // userLogged : 
         userId: '619666eddf50cc5ce72bb82b',
@@ -90,6 +90,7 @@ const app = new Vue({
                 // Devuelve la lista con posibles destinos
                 this.listaVehiculos = await response.json();
                 console.log(this.listaVehiculos.length);
+
             } else {
                 // Muestra un error
 
@@ -105,7 +106,8 @@ const app = new Vue({
             // this.journey.destination = ;
             // this.journey.vehicle = ;
         }
-    },created: function (){
+    },
+    mounted: function (){
         this.obtenerVehiculos();
     }
 
