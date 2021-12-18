@@ -30,8 +30,17 @@ div.lineDown{
   border-bottom: 1px solid #ffffff;
 }
 
-a.journeysLink:hover{
+.journeysLink:hover{
   color:#444444;
+}
+
+a.button-journey {
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.journey-item .is-active{
+  color:#000000
 }
 
 a:hover {
@@ -409,7 +418,6 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 991px) {
   #hero {
     height: 100vh;
-    text-align: center;
   }
   #hero .animated {
     -webkit-animation: none;
@@ -463,6 +471,87 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(-10px);
   }
 }
+
+.hero .member {
+  position: relative;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  border-radius: 5px;
+  background: #fff;
+  transition: 0.5s;
+}
+.hero .member .pic {
+  overflow: hidden;
+  width: 130px;
+  border-radius: 50%;
+}
+.hero .member .pic img {
+  transition: ease-in-out 0.3s;
+}
+.hero .member:hover {
+  transform: translateY(-10px);
+}
+.hero .member .member-info {
+  padding-left: 30px;
+}
+.hero .member h4 {
+  font-weight: 700;
+  margin-bottom: 5px;
+  font-size: 20px;
+  color: #37517e;
+}
+.hero .member span {
+  display: block;
+  font-size: 15px;
+  padding-bottom: 10px;
+  position: relative;
+  font-weight: 500;
+}
+.hero .member span::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 1px;
+  background: #cbd6e9;
+  bottom: 0;
+  left: 0;
+}
+.hero .member p {
+  margin: 10px 0 0 0;
+  font-size: 14px;
+}
+.hero .member .social {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.hero .member .social a {
+  transition: ease-in-out 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  width: 32px;
+  height: 32px;
+  background: #eff2f8;
+}
+.hero .member .social a i {
+  color: #37517e;
+  font-size: 16px;
+  margin: 0 2px;
+}
+.hero .member .social a:hover {
+  background: #47b2e4;
+}
+.hero .member .social a:hover i {
+  color: #fff;
+}
+.hero .member .social a + a {
+  margin-left: 8px;
+}
+
 /*--------------------------------------------------------------
 # Sections General
 --------------------------------------------------------------*/
@@ -473,6 +562,10 @@ section {
 
 .section-bg {
   background-color: #f3f5fa;
+}
+
+.hero-bg {
+  background-color: #37517e;
 }
 
 .section-title {

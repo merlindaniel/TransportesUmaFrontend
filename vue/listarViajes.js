@@ -5,48 +5,53 @@ const app = new Vue({
         
         cabecera: 'Lista de tus Viajes',
         userLogged: null,
+        userId: '619666eddf50cc5ce72bb82b',
+        isDriver: true,
         listaViajesParticipados: [], 
         listaViajesOrganizados: [],
         listaViajes: []
 
     },
     methods: {
+        async obtenerViajes(){
 
-        // Viajes participados: /participating/userLogged.id
-        // Viajes organizados: /organizing/userLogged.id
-        async obtenerViajesParticipados(){
-            let response = await fetch('http://localhost:8080/api/journeys/participating/'+this.userLogged.id);
+            if(this.isDriver){
+                let response= await fetch('http://localhost:8080/api/journeys/organizing/'+this.userId);
+                // let response = await fetch('http://localhost:8080/api/journeys/');
 
-            if(response.ok){
-                this.listaViajesParticipados = response.json();
-            } else {
+                if(response.ok){
+                    this.listaViajesOrganizados = await response.json();
+                } else {
+
+                }
 
             }
-
-        }, 
-        async obtenerViajesOrganizados(){
-            let response = await fetch('http://localhost:8080/api/journeys/organizing/'+this.userLogged.id);
+            
+            let response = await fetch('http://localhost:8080/api/journeys/participating/'+this.userId);
+            // let response = await fetch('http://localhost:8080/api/journeys/');
 
             if(response.ok){
-                this.listaViajesOrganizados = response.json();
+                this.listaViajesParticipados = await response.json();
+                console.log(this.listaViajesParticipados.length);
             } else {
 
             }
 
         },
-        async obtenerViajes(){
-            let response = await fetch('http://localhost:8080/api/journeys/');
+        async obtenerUsuario(){
+            let response = await fetch('http://localhost:8080/api/users/'+this.userId);
 
             if(response.ok){
-                this.listaViajes = await response.json();
+                this.userLogged = await response.json();
             } else {
-                
+
             }
         }
 
     },
     created: function (){
         this.obtenerViajes();
+        this.obtenerUsuario();
     }
 
 })
