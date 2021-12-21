@@ -14,7 +14,9 @@
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
@@ -68,53 +70,84 @@
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex align-items-center">
 
-    
-      <div id="app" class="container">
-          <div class="row">
 
-              <div class="col-12">
-                  <h1 class="text-center">{{cabecera}}</h1>
-              </div>
+    <div id="app" class="container">
+      <div class="row">
 
-              <div class="col-6 d-flex flex-column justify-content-center pt-4 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+        <div class="col-12">
+          <h1 class="text-center">{{cabecera}}</h1>
+        </div>
 
-                  <input class="form-control customFirstBorders" type="text" placeholder="Origen" id="origin" v-model="origen" v-on:input="obtenerOrigen"/>
-                  <input class="form-control customFirstBorders mt-3" type="text" placeholder="Destino" id="destination" v-model="destino" v-on:input="obtenerDestino"/>
-                  <input class="form-control customFirstBorders mt-3" type="number" min="1" placeholder="Número de plazas" id="numberParticipants" v-model="journey.numberParticipants" />
-                  <select class="form-control customFirstBorders mt-3" id="vehicle">
-                    <option v-if="listaVehiculos.length === 0">(CAMBIAR Fran) Sin vehiculos</option>
-                    <div v-else>
-                        <option v-for="vehicle in listaVehiculos">{{vehicle.name}}</option>
-                    </div>
-                    
-                    
-                  </select>
-              </div>
+        <div class="col-6 d-flex flex-column justify-content-center pt-4 order-2 order-lg-1" data-aos="fade-up"
+          data-aos-delay="200">
 
-              <div class="col-6 d-flex flex-column justify-content-center pt-4 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-                  
-                <input class="form-control customFirstBorders" type="number" placeholder="Precio por plaza" id="price" v-model="journey.price">
-                <input class="form-control customFirstBorders mt-3" type="date" placeholder="Fecha" id="vehicle" v-model="journey.starDate" >
-                <input class="form-control customFirstBorders mt-3" type="time" placeholder="Hora" id="hour" v-model="journey.hour" >
-                <select class="form-control customFirstBorders mt-3" id="exam" v-model="journey.exam">
-                  <option selected value="none" >Examen</option>
-                  <option value="true">Sí</option>
-                  <option value="false">No</option>
-                </select>
 
-              </div>
 
-              
-          </div>
-
-          <div class="row">
-            <div class="col-12 d-flex justify-content-center justify-content-lg-center mt-3 inputCustom" data-aos="fade-up" data-aos-delay="200">
-              <button class="btn btn-primary rounded-pill w-25" type="button" v-on:click="publicarViaje">Publicar</button>
+          <!-- <input class="form-control dropdown-toggle custom-dropdown-size customFirstBorders" type="text"
+            placeholder="Origen" data-bs-toggle="dropdown" aria-expanded="false" id="origin" v-model="origen"
+            v-on:input="obtenerOrigen" />
+          <ul class="dropdown-menu custom-dropdown-size">
+            <li v-for="origenes in listaOrigenes">{{origenes.address}}</a></li>
+          </ul> -->
+          <input class="form-control dropdown-toggle custom-dropdown-size customFirstBorders" list="listaOrigenes" type="text" placeholder="Origen" v-model="origen"
+          v-on:input="obteneListaOrigenes"/>
+          <datalist id="listaOrigenes">
+            <option v-for="origenes in listaOrigenes">{{origenes.address}}</option>
+          </datalist>
+          <!-- <input class="form-control dropdown-toggle custom-dropdown-size customFirstBorders mt-3" type="text"
+            placeholder="Destino" data-bs-toggle="dropdown" aria-expanded="false" id="destino" v-model="destino"
+            v-on:input="obtenerDestino" />
+          <ul class="dropdown-menu custom-dropdown-size">
+            <li v-for="destinos in listaDestinos">{{destinos.address}}</a></li>
+          </ul> -->
+          <input class="form-control dropdown-toggle custom-dropdown-size customFirstBorders mt-3" list="listaDestinos" type="text" placeholder="Destino" v-model="destino"
+          v-on:input="obteneListaDestinos"/>
+          <datalist id="listaDestinos">
+            <option v-for="destinos in listaDestinos">{{destinos.address}}</option>
+          </datalist>
+          <input class="form-control customFirstBorders mt-3" type="number" min="1" placeholder="Número de plazas"
+            id="numberParticipants" v-model="journey.numberParticipants" />
+          <select class="form-control customFirstBorders mt-3" v-model="vehicleUser">
+            <option v-if="listaVehiculos.length === 0">Sin vehiculos</option>
+            <div v-else>
+              <option v-for="(vehicle, index) in listaVehiculos" v-bind:value="vehicle.id" v-bind:selected="index === 0" >{{vehicle.name}} </option>
             </div>
-          </div>
-          
+
+
+          </select>
+        </div>
+
+        <div class="col-6 d-flex flex-column justify-content-center pt-4 order-2 order-lg-1" data-aos="fade-up"
+          data-aos-delay="200">
+
+          <input class="form-control customFirstBorders" type="number" placeholder="Precio por plaza" id="price"
+            v-model="journey.price">
+          <input class="form-control customFirstBorders mt-3" type="date" placeholder="Fecha" id="fecha"
+            v-model="fecha">
+          <input class="form-control customFirstBorders mt-3" type="time" placeholder="Hora" id="hour"
+            v-model="journey.hour">
+          <select class="form-control customFirstBorders mt-3" id="exam" v-model="journey.exam">
+            <option v-bind:selected="0 === 0" disabled>Examen</option>
+            <option v-bind:value="true">Sí</option>
+            <option v-bind:value="false">No</option>
+          </select>
+          <!-- v-bind:selected -->
+        </div>
+
 
       </div>
+
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center justify-content-lg-center mt-3 inputCustom" data-aos="fade-up"
+          data-aos-delay="200">
+          <button class="btn btn-primary rounded-pill w-25" type="button" v-on:click="publicarViaje">Publicar</button>
+        </div>
+      </div>
+
+      {{errorDePublicacion}}
+
+
+    </div>
 
   </section><!-- End Hero -->
 
