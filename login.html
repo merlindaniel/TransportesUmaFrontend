@@ -30,7 +30,8 @@
 
   <!--VUE 2.0-->
   <script src="./vue/vue.js" defer></script>
-  <script src="https://unpkg.com/vue-cookies@1.7.4/vue-cookies.js" defer></script>
+  <script src="./vue/node_modules/vue-cookies/vue-cookies.js" defer></script>
+  <script src="./js/paths.js" defer></script>
   <script src="./js/login.js" defer></script>
 </head>
 
@@ -68,8 +69,12 @@
           <h1 class="text-center">Iniciar Sesión</h1>
           
           <div id="appVue"> <!--Running with Vue-->
-            <form action="" method="">
+            <form action="" method="" @submit="logIn">
               <div class="row mt-3 g-3">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="error">
+                  <strong>Usuario o contraseña incorrecto!</strong> Vuelve a introducir los datos. 
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                   
                 <div class="col-12">
                   <label for="username" class="form-label text-white">Usuario</label>
