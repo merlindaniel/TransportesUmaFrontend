@@ -8,7 +8,6 @@ let app = new Vue({
     },
     methods: {
         async logIn(e){
-            let v = Vue.$cookies.get('TokenJWT');
             e.preventDefault();
             let response = await fetch(backendPaths.preffix + backendPaths.pathAuthenticationLogin, {
                 method: 'POST',
