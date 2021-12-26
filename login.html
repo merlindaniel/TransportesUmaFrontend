@@ -28,12 +28,10 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: Transportes UMA - v4.7.0
-  * Template URL: https://bootstrapmade.com/Transportes UMA-free-bootstrap-html-template-corporate/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+  <!--VUE 2.0-->
+  <script src="./vue/vue.js" defer></script>
+  <script src="https://unpkg.com/vue-cookies@1.7.4/vue-cookies.js" defer></script>
+  <script src="./js/login.js" defer></script>
 </head>
 
 <body>
@@ -66,50 +64,35 @@
 
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-5 col-xxl-4 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+        <div class="col-md-8 col-lg-5 col-xxl-4 pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
           <h1 class="text-center">Iniciar Sesión</h1>
-          <!-- <h2>Viaja a la universidad compartiendo coche y reduciendo la contaminación.</h2> -->
-          <div class="d-flex justify-content-center justify-content-lg-start inputCustom">
-              
-            <div class="input-group">
+          
+          <div id="appVue"> <!--Running with Vue-->
+            <form action="" method="">
+              <div class="row mt-3 g-3">
+                  
+                <div class="col-12">
+                  <label for="username" class="form-label text-white">Usuario</label>
+                  <input class="form-control" type="text" placeholder="Usuario" id="username" v-model="username">
+                </div>
+  
+                <div class="col-12">
+                  <label for="name" class="form-label text-white">Contraseña</label>
+                  <input class="form-control" type="password" placeholder="Contraseña" v-model="password">
+                </div>
 
-                <input class="form-control customFirstBorders" type="text" placeholder="Usuario" aria-describedby="textSet1">
-                <!-- <button class="btn btn-primary customLastBorders" type="button" id="buttonSearch">Button</button> -->
-
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-center justify-content-lg-start mt-3 inputCustom">
-              
-            <div class="input-group">
-
-                <input class="form-control customFirstBorders" type="text" placeholder="Contraseña" aria-describedby="buttonSearch">
-            
-            </div>
+              </div>
+  
+              <div class="row mt-3">
+                <div class="col-12 text-center">
+                  <button class="btn btn-primary rounded-pill w-50 mb-2" type="submit">Entrar <i class="fas fa-chevron-right"></i></button>
+                  <hr class="text-white">
+                  <p class="me-auto text-white mt-2">¿No tienes cuenta? <a href="signup.html">Regístrate</a></p>
+                </div>
+              </div>
+            </form>
           </div>
           
-          <!-- <div class="d-flex justify-content-center justify-content-lg-center mt-3">
-              
-            <div class="input-group justify-content-end">
-                <button class="btn btn-primary rounded-pill w-25" type="button">Entrar <i class="fas fa-chevron-right"></i></button>
-            </div>
-
-          </div> -->
-
-          <div class="row mt-3">
-            <div class="col-12 text-center">
-              <button class="btn btn-primary rounded-pill w-50" type="button">Entrar <i class="fas fa-chevron-right"></i></button>
-            </div>
-            <div class="col-12 text-center mt-2">
-              <hr class="text-white">
-              <p class="me-auto text-white mt-2">¿No tienes cuenta? <a href="signup.html">Regístrate</a></p>
-            </div>
-          </div>
-          
-
-        <!-- <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
-          <img src="assets/img/car-traveling-small.png" class="img-fluid animated" alt="">
-        </div> -->
 
       </div>
     </div>
