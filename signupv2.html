@@ -28,6 +28,12 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
+  <!--VUE 2.0-->
+  <script src="./vue/vue.js" defer></script>
+  <script src="./vue/node_modules/vue-cookies/vue-cookies.js" defer></script>
+  <script src="./js/paths.js" defer></script>
+  <script src="./js/signup.js" defer></script>
+
   <style>
     .custom-rounded-borders {
       border-radius: 2rem;
@@ -97,36 +103,38 @@
                     <h1>Registrarse</h1>
                     <hr/>
                 </div>
-                <form action="" method="">
-                  <div class="row g-3 mt-2">
-                          <div class="col-12">
-                            <label for="name" class="form-label">Nombre y apellido</label>
-                            <input type="text" class="form-control" id="name" required>
-                          </div>
-                          <div class="col-12">
-                              <label for="email" class="form-label" >Email</label>
-                              <input type="email" class="form-control" id="email" placeholder="ejemplo@gmail.com" required>
-                          </div>
-                          <div class="col-12">
-                            <label for="user" class="form-label">Nombre de usuario</label>
-                            <div class="input-group">
-                              <div class="input-group-text">@</div>
-                              <input type="text" class="form-control" id="user" required placeholder="Nombre De Usuario">
-                            </div>
-                          </div>
-                          <div class="col-12">
-                            <label for="password" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
-                          </div>
-                          <div class="col-12">
-                            <label for="password2" class="form-label">Confirmar contraseña</label>
-                            <input type="password" class="form-control" id="password2" placeholder="Confirmar contraseña" required>
-                          </div>
-                          <div class="col-12 d-grid gap-2 mt-5">
-                            <button type="submit" class="btn btn-success rounded-pill">Registrarse!</button>
-                          </div>
-                  </div>
-                </form>
+                <div id="appVue">
+                  <form action="" method="" @submit="signUp">
+                    <div class="row g-3 mt-2">
+                      <div class="col-12">
+                        <label for="name" class="form-label">Nombre y apellido</label>
+                        <input type="text" v-model="name" class="form-control" id="name" required>
+                      </div>
+                      <div class="col-12">
+                          <label for="email" class="form-label" >Email</label>
+                          <input type="email" v-model="email" class="form-control" id="email" placeholder="ejemplo@gmail.com" required>
+                      </div>
+                      <div class="col-12">
+                        <label for="user" class="form-label">Nombre de usuario</label>
+                        <div class="input-group">
+                          <div class="input-group-text">@</div>
+                          <input type="text" v-model="username" class="form-control" id="user" required placeholder="Nombre De Usuario">
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" v-model="password" class="form-control" id="password" placeholder="Contraseña" required>
+                      </div>
+                      <div class="col-12">
+                        <label for="password2" class="form-label">Confirmar contraseña</label>
+                        <input type="password" v-model="confirmPassword" class="form-control" id="password2" placeholder="Confirmar contraseña" required>
+                      </div>
+                      <div class="col-12 d-grid gap-2 mt-5">
+                        <button type="submit" class="btn btn-success rounded-pill">Registrarse!</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
             </div>
         </div>
       </div>
