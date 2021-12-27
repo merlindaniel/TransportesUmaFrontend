@@ -32,5 +32,10 @@ let app = new Vue({
                 console.log("Contraseña no iguales");
             }
         }
+    },
+    beforeCreate: function() {
+        let token = Vue.$cookies.get('TokenJWT');
+        if(token !== null)
+            window.location.href = frontendPaths.pathIndex;
     }
 });

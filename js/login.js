@@ -30,5 +30,10 @@ let app = new Vue({
                 this.error = true;
             }
         }
+    },
+    beforeCreate: function() {
+        let token = Vue.$cookies.get('TokenJWT');
+        if(token !== null)
+            window.location.href = frontendPaths.pathIndex;
     }
 });
