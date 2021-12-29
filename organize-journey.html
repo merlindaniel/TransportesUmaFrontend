@@ -31,7 +31,9 @@
   <link href="assets/css/style.css" rel="stylesheet">
 
   <!-- development version, includes helpful console warnings -->
-  <script src="./vue/vue.js" defer></script>
+  <script src="vue/vue.js" defer></script>
+  <script src="vue/node_modules/vue-cookies/vue-cookies.js" defer></script>
+  <script src="./js/paths.js" defer></script>
   <script src="vue/publicarViaje.js" defer></script>
 
   <!-- =======================================================
@@ -56,10 +58,10 @@
         <ul>
           <li><a class="nav-link scrollto" href="index.html">Inicio</a></li>
           <li><a class="nav-link scrollto" href="search.html">Buscar</a></li>
-          <li><a class="nav-link scrollto" href="organize-journey.html">Publicar viaje</a></li>
+          <li><a class="nav-link scrollto active" href="organize-journey.html">Publicar viaje</a></li>
           <li><a class="nav-link scrollto" href="your-travels.html">Tus viajes</a></li>
           <li><a class="nav-link scrollto" href="profile.html">Mi perfil</a></li>
-          <li><a class="getstarted scrollto active" href="login.html">Iniciar Sesión</a></li>
+          <li><a class="getstarted scrollto" href="login.html">Iniciar Sesión</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -83,23 +85,11 @@
 
 
 
-          <!-- <input class="form-control dropdown-toggle custom-dropdown-size customFirstBorders" type="text"
-            placeholder="Origen" data-bs-toggle="dropdown" aria-expanded="false" id="origin" v-model="origen"
-            v-on:input="obtenerOrigen" />
-          <ul class="dropdown-menu custom-dropdown-size">
-            <li v-for="origenes in listaOrigenes">{{origenes.address}}</a></li>
-          </ul> -->
           <input class="form-control dropdown-toggle custom-dropdown-size customFirstBorders" list="listaOrigenes" type="text" placeholder="Origen" v-model="origen"
           v-on:input="obteneListaOrigenes"/>
           <datalist id="listaOrigenes">
             <option v-for="origenes in listaOrigenes">{{origenes.address}}</option>
           </datalist>
-          <!-- <input class="form-control dropdown-toggle custom-dropdown-size customFirstBorders mt-3" type="text"
-            placeholder="Destino" data-bs-toggle="dropdown" aria-expanded="false" id="destino" v-model="destino"
-            v-on:input="obtenerDestino" />
-          <ul class="dropdown-menu custom-dropdown-size">
-            <li v-for="destinos in listaDestinos">{{destinos.address}}</a></li>
-          </ul> -->
           <input class="form-control dropdown-toggle custom-dropdown-size customFirstBorders mt-3" list="listaDestinos" type="text" placeholder="Destino" v-model="destino"
           v-on:input="obteneListaDestinos"/>
           <datalist id="listaDestinos">

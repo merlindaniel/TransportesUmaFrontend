@@ -2,22 +2,32 @@ const app = new Vue({
 
     el: '#app',
     data: {
-        
+
+        tokenConBearer: null,
         cabecera: 'Lista de tus Viajes',
-        userLogged: null,
-        userId: '619666eddf50cc5ce72bb82b',
+        //user: {},
+        userId: '61c28804cca492069b7eb609',
         isDriver: true,
         listaViajesParticipados: [], 
-        listaViajesOrganizados: [],
-        listaViajes: []
+        listaViajesOrganizados: []
 
     },
     methods: {
         async obtenerViajes(){
 
             if(this.isDriver){
-                let response= await fetch('http://localhost:8080/api/journeys/organizing/'+this.userId);
-                // let response = await fetch('http://localhost:8080/api/journeys/');
+
+                /*
+                let response = await fetch('http://localhost:8080/api/journeys/user/organizing', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization':this.tokenConBearer
+                    }});*/
+                let response= await fetch('http://localhost:8080/api/journeys/organizing/'+this.userId, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization':this.tokenConBearer
+                    }});
 
                 if(response.ok){
                     this.listaViajesOrganizados = await response.json();
@@ -26,32 +36,53 @@ const app = new Vue({
                 }
 
             }
+
+            /*
+            let response = await fetch('http://localhost:8080/api/journeys/user/participating', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization':this.tokenConBearer
+                }});*/
             
-            let response = await fetch('http://localhost:8080/api/journeys/participating/'+this.userId);
-            // let response = await fetch('http://localhost:8080/api/journeys/');
+            let response = await fetch('http://localhost:8080/api/journeys/participating/'+this.userId, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization':this.tokenConBearer
+                }});
 
             if(response.ok){
                 this.listaViajesParticipados = await response.json();
-                console.log(this.listaViajesParticipados.length);
             } else {
 
             }
 
         },
-        async obtenerUsuario(){
-            let response = await fetch('http://localhost:8080/api/users/'+this.userId);
+        /*async obtenerUsuario(){
+            let response = await fetch('http://localhost:8080/api/users/'+this.userId, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization':this.tokenConBearer
+                }});
 
             if(response.ok){
-                this.userLogged = await response.json();
+                this.user = await response.json();
+                console.log(this.user);
             } else {
 
             }
+        },*/
+        obtenerTokenBearer(){
+            this.tokenConBearer = $cookies.get('TokenJWT');
+            if(this.tokenConBearer===null){
+                window.location.href = frontendPaths.pathIndex;
+            } 
         }
 
     },
     created: function (){
+        this.obtenerTokenBearer();
         this.obtenerViajes();
-        this.obtenerUsuario();
-    }
+        //this.obtenerUsuario();
+    },
 
 })

@@ -32,6 +32,9 @@
 
   <!-- development version, includes helpful console warnings -->
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" defer></script>
+  <script src="vue/vue.js" defer></script>
+  <script src="vue/node_modules/vue-cookies/vue-cookies.js" defer></script>
+  <script src="./js/paths.js" defer></script>
   <script src="vue/listarViajes.js" defer></script>
 
   <!-- =======================================================
@@ -57,9 +60,9 @@
           <li><a class="nav-link scrollto" href="index.html">Inicio</a></li>
           <li><a class="nav-link scrollto" href="search.html">Buscar</a></li>
           <li><a class="nav-link scrollto" href="organize-journey.html">Publicar viaje</a></li>
-          <li><a class="nav-link scrollto" href="your-travels.html">Tus viajes</a></li>
+          <li><a class="nav-link scrollto active" href="your-travels.html">Tus viajes</a></li>
           <li><a class="nav-link scrollto" href="profile.html">Mi perfil</a></li>
-          <li><a class="getstarted scrollto active" href="login.html">Iniciar Sesión</a></li>
+          <li><a class="getstarted scrollto" href="login.html">Iniciar Sesión</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -115,12 +118,12 @@
                         <a class="journeysLink" href="#">
                           <div class="mt-4">
                             <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
-                              <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid" alt=""></div>
+                              <div class="pic"><img v-if="user.picture" :src="user.picture" class="img-fluid " alt=""></div>
                               <div class="member-info">
                                 <h4>{{journey.name}}</h4>
-                                <span>{{userLogged.username}}</span>
-                                <p>Fecha: {{journey.startDate}}</p>
-                                <p>Hora de Salida: </p>
+                                <span>{{user.name}}</span>
+                                <p>Fecha: {{journey.startDate | formatDate}}</p>
+                                <p>Hora de Salida: {{journey.hour}}</p>
                               </div>
                             </div>
                           </div>

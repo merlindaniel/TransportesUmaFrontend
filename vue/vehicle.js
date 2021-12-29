@@ -2,7 +2,9 @@ new Vue({
     el: '#hero',
     data: {
         // Logged user id
-        loggedUserId: '61c1c831437c756c894c1fe4',
+        loggedUserId: '61c28804cca492069b7eb609',
+        // Jose: 61c1c831437c756c894c1fe4
+        // Fran: 61c28804cca492069b7eb609
         isLoggedUser: false,
 
         editing: false,

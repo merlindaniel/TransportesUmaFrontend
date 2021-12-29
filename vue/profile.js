@@ -2,11 +2,11 @@ const app = new Vue({
     el: '#hero',
     data: {
         // Logged user id
-        loggedUserId: '61c1c831437c756c894c1fe4',
+        loggedUserId: '61c28804cca492069b7eb609',
 
         // Current user data:
         // Example id = 61c1c831437c756c894c1fe4
-        userId: '61c1c831437c756c894c1fe4', // Eliminar id por defecto (ahora está para hacer pruebas)
+        userId: '61c28804cca492069b7eb609', // Eliminar id por defecto (ahora está para hacer pruebas)
         user: {},
         editionUser: {},
         vehicles: [],
