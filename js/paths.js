@@ -6,6 +6,6 @@ let backendPaths = {
 }
 
 let frontendPaths = {
-    pathIndex: "/index.html",
-    pathLogin: "/login.html"
+    pathIndex: "./index.html",
+    pathLogin: "./login.html"
 }

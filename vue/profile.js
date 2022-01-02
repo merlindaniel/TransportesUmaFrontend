@@ -1,13 +1,16 @@
 const app = new Vue({
     el: '#hero',
     data: {
+        tokenConBearer: null,
+        
         // Logged user id
-        loggedUserId: '61c28804cca492069b7eb609',
+        loggedUserId: null,
+        loggedUser: null,
 
         // Current user data:
         // Example id = 61c1c831437c756c894c1fe4
-        userId: '61c28804cca492069b7eb609', // Eliminar id por defecto (ahora está para hacer pruebas)
-        user: {},
+        userId: null, // Eliminar id por defecto (ahora está para hacer pruebas)
+        user: null,
         editionUser: {},
         vehicles: [],
         isLoggedUser: false,
@@ -24,8 +27,37 @@ const app = new Vue({
                 this.userId = userId;
         },
 
+        async getLoggedUser() {
+            const response = await axios.get('http://localhost:8080/api/users/current', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization':this.tokenConBearer
+                }});
+            this.loggedUser = response.data;
+            this.loggedUserId = this.loggedUser.id;
+            console.log(this.loggedUser);
+            
+            if (this.user == null || this.user === {}) {
+                this.user = this.loggedUser;
+                this.userId = this.loggedUser.id;
+            }
+
+            // Checks if this user is the current logged user
+            this.isLoggedUser = this.user.id === this.loggedUserId;
+
+            if (this.isLoggedUser) {
+                Object.assign(this.editionUser, this.user); 
+            }
+
+            this.getVehicles();
+        },
+
         async getUser() {
-            const response = await axios.get('http://localhost:8080/api/users/' + this.userId);
+            const response = await axios.get('http://localhost:8080/api/users/' + this.userId, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization':this.tokenConBearer
+                }});
             this.user = response.data;
             console.log(this.user);
             
@@ -37,7 +69,13 @@ const app = new Vue({
         },
 
         async getVehicles() {
-            const response = await axios.get('http://localhost:8080/api/vehicles/user/' + this.userId);
+            console.log("this.userId");
+            console.log(this.userId);
+            const response = await axios.get('http://localhost:8080/api/vehicles/user/' + this.userId, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization':this.tokenConBearer
+            }});
             this.vehicles = response.data;
             console.log(this.vehicles);
         },
@@ -71,7 +109,14 @@ const app = new Vue({
                 console.log("Edited user: ");
                 console.log(this.editionUser);
 
-                const response = await axios.put('http://localhost:8080/api/users/' + this.user.id, this.editionUser);
+                // Proteger el nombre de usuario para evitar que se pueda editar
+                this.editionUser.username = this.user.username;
+
+                const response = await axios.put('http://localhost:8080/api/users/' + this.user.id, this.editionUser, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization':this.tokenConBearer
+                    }});
 
                 console.log("Response:");
                 console.log(response);
@@ -102,7 +147,11 @@ const app = new Vue({
             }
             else if (editionUsername !== this.user.username) {
                 let response;
-                response = await axios.get('http://localhost:8080/api/users/' + editionUsername).catch(error => {
+                response = await axios.get('http://localhost:8080/api/users/' + editionUsername, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization':this.tokenConBearer
+                    }}).catch(error => {
                     return {};
                 });
 
@@ -120,7 +169,11 @@ const app = new Vue({
                 this.errors.push(`El email "${editionEmail}" no es un email válido`);
             }
             else if (editionEmail !== this.user.email) {
-                let response = await axios.get('http://localhost:8080/api/users/' + editionEmail);
+                let response = await axios.get('http://localhost:8080/api/users/' + editionEmail, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization':this.tokenConBearer
+                    }});
                 if (response && response.data) {
                     this.errors.push(`El email "${editionEmail}" no está disponible`);
                     console.log(this.errors);
@@ -161,11 +214,22 @@ const app = new Vue({
                 var img = document.getElementById("picture");
                 img.src = event.target.result;
             }
-        }
+        },
+
+        getTokenBearer() {
+            this.tokenConBearer = $cookies.get('TokenJWT');
+            console.log(this.tokenConBearer);
+            if (this.tokenConBearer===null) {
+                window.location.href = './index.html';
+            } else {
+                console.log('User is logged');
+            }
+        },
     },
-    mounted: function (){
+    mounted: function () {
+        this.getTokenBearer();    
         this.getUserId();
-        this.getUser();
-        this.getVehicles();
+        if (this.userId != null) this.getUser();
+        this.getLoggedUser();
     },
 });

@@ -31,7 +31,9 @@
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/image-cropper.css" rel="stylesheet">
     <script src="vue/vue.js"></script>
+    <script src="./vue/node_modules/vue-cookies/vue-cookies.js"></script>
     <script src="vue/axios.js"></script>
+
 
     <!-- =======================================================
   * Template Name: Transportes UMA - v4.7.0
@@ -115,7 +117,7 @@
                     <div class="card p-2 my-1">
                         <div class="mx-1">
                             <label class="lead">Usuario:</label>
-                            <input id="edition-username" class="form-control customFirstBorders fw-bold m-1" type="text" placeholder="Nombre de usuario" v-model="editionUser.username" required>
+                            <input id="edition-username" class="form-control customFirstBorders fw-bold m-1" type="text" placeholder="Nombre de usuario" v-model="editionUser.username" disabled required>
                         </div>
                     </div>
 

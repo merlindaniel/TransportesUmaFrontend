@@ -2,7 +2,8 @@ new Vue({
     el: '#hero',
     data: {
         // Logged user id
-        loggedUserId: '61c28804cca492069b7eb609',
+        loggedUserId: null,
+        loggedUser: null,
         // Jose: 61c1c831437c756c894c1fe4
         // Fran: 61c28804cca492069b7eb609
         isLoggedUser: false,
@@ -50,6 +51,19 @@ new Vue({
             } else if (this.loggedUserId) {
                 this.isLoggedUser = true;
             }
+        },
+
+        async getLoggedUser() {
+            const response = await axios.get('http://localhost:8080/api/users/current', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization':this.tokenConBearer
+                }});
+            this.loggedUser = response.data;
+            this.loggedUserId = this.loggedUser.id;
+            console.log(this.loggedUser);
+            
+            this.isLoggedUser = true;
         },
         
         async vehicleSubmit() {
@@ -151,9 +165,22 @@ new Vue({
                 window.location.href = './profile.html?user=' + this.loggedUserId;
             }
         },
+
+        getTokenBearer() {
+            this.tokenConBearer = $cookies.get('TokenJWT');
+            console.log(this.tokenConBearer);
+            if (this.tokenConBearer===null) {
+                window.location.href = './index.html';
+            } else {
+                console.log('User is logged');
+            }
+        },
     },
     created: function () {
+        this.getTokenBearer();    
         this.getVehicleId();
+        this.getLoggedUser();
+
         this.getVehicle();
     },
 });
