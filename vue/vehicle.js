@@ -12,6 +12,7 @@ new Vue({
         vehicleId: null,
         vehicle: {},
         editionVehicle: {},
+        
 
         errors: [],
     },
