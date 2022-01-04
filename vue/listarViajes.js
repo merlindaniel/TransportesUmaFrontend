@@ -34,9 +34,7 @@ const app = new Vue({
 
                 if (response.ok) {
                     this.listaViajesOrganizados = await response.json();
-                    console.log("RESPONSE OK");
                 } else {
-                    console.log("ERROR");
                 }
 
             }
