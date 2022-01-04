@@ -5,8 +5,6 @@ const app = new Vue({
 
         tokenConBearer: null,        
         cabecera: 'Publicar un Viaje',
-        //userLogged: null,
-        userId: '61c28804cca492069b7eb609',
         journey: {
             name: '',                   
             description: '',            
