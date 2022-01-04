@@ -110,23 +110,15 @@ const app = new Vue({
 
         },
         async obtenerVehiculos(){
-/*
-            let response = await fetch('http://localhost:8080/api/vehicles/user/myVehicles', {
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                        'Authorization':this.tokenConBearer
-                                    }});*/
 
-            let response = await fetch('http://localhost:8080/api/vehicles/user/'+this.userId, {
+            let response = await fetch('http://localhost:8080/api/vehicles/user/myVehicles', {
                                     headers: {
                                         'Content-Type': 'application/json',
                                         'Authorization':this.tokenConBearer
                                     }});
             if(200===response.status){
-                //Todo ok
                 this.listaVehiculos = await response.json();
             } else {
-            //Mal el token. Redirect a la pagina principal
             window.location.href = frontendPaths.pathIndex;
             }
 
@@ -175,30 +167,28 @@ const app = new Vue({
             this.errorDePublicacion = '';
 
             // Mostrar los datos en la consola
-            console.log('Name: '+this.journey.name); 
-            console.log('Descripcion: '+this.journey.description); 
-            console.log('Origen: '+this.journey.origin); 
-            console.log('Destino: '+this.journey.destination); 
-            console.log('Numero de Participantes: '+this.journey.numberParticipants); 
-            console.log('Organizador: '+this.journey.organizer); 
-            console.log('Vehiculo: '+this.journey.vehicle); 
-            console.log('Precio: '+this.journey.price); 
-            console.log('StartDate: '+this.journey.startDate);
-            console.log('Hour: '+this.journey.hour);
-            console.log('Exam: '+this.journey.exam); 
-            console.log('Finisehd: '+this.journey.finished); 
+            // console.log('Name: '+this.journey.name); 
+            // console.log('Descripcion: '+this.journey.description); 
+            // console.log('Origen: '+this.journey.origin); 
+            // console.log('Destino: '+this.journey.destination); 
+            // console.log('Numero de Participantes: '+this.journey.numberParticipants); 
+            // console.log('Organizador: '+this.journey.organizer); 
+            // console.log('Vehiculo: '+this.journey.vehicle); 
+            // console.log('Precio: '+this.journey.price); 
+            // console.log('StartDate: '+this.journey.startDate);
+            // console.log('Hour: '+this.journey.hour);
+            // console.log('Exam: '+this.journey.exam); 
+            // console.log('Finisehd: '+this.journey.finished); 
         },
         obtenerTokenBearer(){
-            this.tokenConBearer = $cookies.get('TokenJWT');
+            this.tokenConBearer = Vue.$cookies.get('TokenJWT');
             if(this.tokenConBearer===null){
                 window.location.href = frontendPaths.pathIndex;
             } 
-            console.log('Está logueado');
         }
     },
     created: function (){
         this.obtenerTokenBearer();
-        
         this.obtenerVehiculos();
     }
 
