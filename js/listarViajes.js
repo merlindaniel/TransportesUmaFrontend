@@ -19,6 +19,7 @@ const app = new Vue({
                     'Authorization':this.tokenConBearer
                 }});
             this.loggedUser = await response.json();
+            
 
         },
         async obtenerViajes() {

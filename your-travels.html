@@ -116,7 +116,7 @@
                     <div v-if="isDriver">
 
                       <div v-for="journey in listaViajesOrganizados">
-                        <a class="journeysLink" href="#">
+                        <a class="journeysLink" :href="'my-journey.html?journey=' + journey.id">
                           <div class="mt-4">
                             <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
                               <div class="pic"><img v-if="loggedUser.picture" :src="loggedUser.picture" class="img-fluid " alt=""></div>

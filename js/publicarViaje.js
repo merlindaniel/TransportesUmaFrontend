@@ -3,7 +3,8 @@ const app = new Vue({
     el: '#app',
     data: {
 
-        tokenConBearer: null,        
+        tokenConBearer: null,
+        loggedUser: {},        
         cabecera: 'Publicar un Viaje',
         journey: {
             name: '',                   
@@ -41,6 +42,17 @@ const app = new Vue({
 
     },
     methods: {
+
+        async getLoggedUser() {
+            let response = await fetch('http://localhost:8080/api/users/current', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization':this.tokenConBearer
+                }});
+            this.loggedUser = await response.json();
+            
+
+        },
 
         async publicarViaje(){
 
@@ -187,6 +199,7 @@ const app = new Vue({
     },
     created: function (){
         this.obtenerTokenBearer();
+        this.getLoggedUser();
         this.obtenerVehiculos();
     }
 

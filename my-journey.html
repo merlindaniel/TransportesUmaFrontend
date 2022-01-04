@@ -37,7 +37,7 @@
     <script src="./vue/vue.js" defer></script>
     <script src="./vue/node_modules/vue-cookies/vue-cookies.js" defer></script>
     <script src="./js/paths.js" defer></script>
-    <script src="./vue/myJourney.js" defer></script>
+    <script src="./js/myJourney.js" defer></script>
 
     <!-- =======================================================
   * Template Name: Transportes UMA - v4.7.0
@@ -77,25 +77,27 @@
     </section><!-- End Hero -->
     <main id="main">
         <!-- ======= About Us Section ======= -->
-        <section id="about" class="about">
+        <section id="journeysDetail" class="about">
             <div class="container" data-aos="fade-up">
     
             <div class="section-title">
-                <h2>Mi viaje de origen a destino</h2>
+                <h2>Mi viaje de {{journey.origin.title}} a {{journey.destination.title}}</h2>
             </div>
     
             <div class="row content">
                 <div class="col-lg-3">
-                    <img class="rounded-circle mt-3 d-block pr-3" src="assets/img/icons/car.png" width="200px" height="200px"/>
+                    <img class="rounded-circle mt-3 d-block pr-3" src="assets/img/car.png" width="200px" height="200px"/>
                 </div>
                 <div class="col-lg-5">
-                <p>Nombre y apellidos del conductor: {{user.name}}</p>
-                <p>Vehículo:</p>
-                <p>Hora de salida: </p>
-                <p>Hora de llegada:</p>
-                <p>Precio:</p>
-                <p>Número de plazas reservadas: </p>
-                <p>Estado: </p>
+                <p>Nombre del conductor: {{loggedUser.name}}</p>
+                <p>Vehículo: {{journey.vehicle.model}}</p>
+                <p>Fecha de salida: {{date}}</p>
+                <p>Hora de salida: {{hour}}</p>
+                <p>Precio: {{journey.price}}€</p>
+                <p>Número de plazas reservadas: {{journey.participants.length}}</p>
+                <p>Estado: <span v-if="journey.participants.length == journey.numberParticipants">Completo</span>
+                           <span v-if="journey.participants.length != journey.numberParticipants">Disponible</span> 
+                </p>
                 </div>
                 <div class="col-lg-3 pt-4 pt-lg-0 d-flex flex-column text-center">
                 <a href="passengers.html" class="btn-learn-more">Ver lista de pasajeros</a>
