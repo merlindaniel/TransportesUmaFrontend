@@ -47,6 +47,7 @@ const app = new Vue({
 
             if (this.isLoggedUser) {
                 Object.assign(this.editionUser, this.user); 
+                this.editionUser.password = '';
             }
 
             this.getVehicles();
@@ -111,6 +112,10 @@ const app = new Vue({
 
                 // Proteger el nombre de usuario para evitar que se pueda editar
                 this.editionUser.username = this.user.username;
+
+                // Si la contraseña esta vacia asumimos que el usuario no queria cambiarla
+                if (!this.editionUser.password || this.editionUser.password === '')
+                    this.editionUser.password = this.user.password;
 
                 const response = await axios.put('http://localhost:8080/api/users/' + this.user.id, this.editionUser, {
                     headers: {
@@ -194,7 +199,7 @@ const app = new Vue({
             const editionPassword = document.getElementById('edition-password').value;
             const editionPasswordRepeat = document.getElementById('edition-password-repeat').value;
 
-            if (editionPassword !== editionPasswordRepeat || editionPassword.length < 3) {
+            if (editionPassword !== editionPasswordRepeat) {
                 this.errors.push(`Las contraseñas no coinciden o no son válidas`);
             }
         },
