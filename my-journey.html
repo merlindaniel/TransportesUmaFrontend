@@ -100,9 +100,9 @@
                 </p>
                 </div>
                 <div class="col-lg-3 pt-4 pt-lg-0 d-flex flex-column text-center">
-                <a href="passengers.html" class="btn-learn-more">Ver lista de pasajeros</a>
+                <a :href="'passengers.html?journey='+journey.id" class="btn-learn-more">Ver lista de pasajeros</a>
                 <a href="#" class="btn-learn-more">Editar viaje</a>
-                <a href="confirm-delete-journey.html" class="btn-learn-more">Eliminar viaje</a>
+                <a :href="'confirm-delete-journey.html?journey='+journey.id" class="btn-learn-more">Eliminar viaje</a>
                 </div>
             </div>
     

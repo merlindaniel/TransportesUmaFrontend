@@ -1,4 +1,4 @@
-let app = new Vue({
+let myJourneyApp = new Vue({
     el: '#journeysDetail',
     data: {
         tokenConBearer: null,
@@ -6,6 +6,7 @@ let app = new Vue({
 
         journeyId: "",
         journey: {},
+        participants: null,
 
         date: "",
         hour: "",
@@ -47,7 +48,17 @@ let app = new Vue({
             this.journey = response.data;
             console.log(this.journey);
             this.getDate();
+            this.getParticipants();
             
+        },
+
+        async deleteJourney() {
+            const response = await axios.delete('http://localhost:8080/api/journeys/' + this.journeyId, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization':this.tokenConBearer
+            }});
+            window.location.href = './your-travels.html';
         },
 
         async getDate() {
@@ -62,6 +73,16 @@ let app = new Vue({
                 minutes = "0" + dateJourney.getUTCMinutes();
             }
             this.hour = hours + ":" + minutes;
+        },
+
+        async getParticipants() {
+            const response = await axios.get('http://localhost:8080/api/journeys/participants/' + this.journeyId, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization':this.tokenConBearer
+            }});
+            this.participants = response.data;
+            console.log(participants);
         },
 
 
