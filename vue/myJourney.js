@@ -1,87 +1,25 @@
 const app = new Vue({
-
-    el: '#app',
+    el: '#hero',
     data: {
-
         tokenConBearer: null,
-        cabecera: 'Lista de tus Viajes',
         
         // Logged user id
         loggedUserId: null,
         loggedUser: null,
 
         // Current user data:
-        userId: null, 
+        // Example id = 61c1c831437c756c894c1fe4
+        userId: null, // Eliminar id por defecto (ahora está para hacer pruebas)
         user: null,
         editionUser: {},
         vehicles: [],
         isLoggedUser: false,
+        journeyId = null,
+        journey = null,
 
-        isDriver: true,
-        listaViajesParticipados: [], 
-        listaViajesOrganizados: []
-
+        errors: [],
     },
     methods: {
-        async obtenerViajes(){
-
-            if(this.isDriver){
-
-                /*
-                let response = await fetch('http://localhost:8080/api/journeys/user/organizing', {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization':this.tokenConBearer
-                    }});*/
-                let response= await fetch('http://localhost:8080/api/journeys/organizing/'+this.userId, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization':this.tokenConBearer
-                    }});
-
-                if(response.ok){
-                    this.listaViajesOrganizados = await response.json();
-                } else {
-
-                }
-
-            }
-
-            /*
-            let response = await fetch('http://localhost:8080/api/journeys/user/participating', {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization':this.tokenConBearer
-                }});*/
-            
-            let response = await fetch('http://localhost:8080/api/journeys/participating/'+this.userId, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization':this.tokenConBearer
-                }});
-
-            if(response.ok){
-                this.listaViajesParticipados = await response.json();
-            } else {
-
-            }
-
-        },
-        /*async obtenerUsuario(){
-            let response = await fetch('http://localhost:8080/api/users/'+this.userId, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization':this.tokenConBearer
-                }});
-
-            if(response.ok){
-                this.user = await response.json();
-                console.log(this.user);
-            } else {
-
-            }
-        },*/
-        
         async getUserId() {
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
@@ -113,7 +51,7 @@ const app = new Vue({
                 Object.assign(this.editionUser, this.user); 
             }
 
-            this.obtenerViajes();
+            this.getJourney();
         },
 
         async getUser() {
@@ -131,6 +69,18 @@ const app = new Vue({
             if (this.isLoggedUser)
                 Object.assign(this.editionUser, this.user);
         },
+
+        async getJourney() {
+            const response = await axios.get('http://localhost:8080/api/journeys/' + this.journeyId, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization':this.tokenConBearer
+            }});
+            this.journey = response.data;
+            console.log(this.journey);
+        },
+
+
         getTokenBearer() {
             this.tokenConBearer = $cookies.get('TokenJWT');
             console.log(this.tokenConBearer);
@@ -140,13 +90,11 @@ const app = new Vue({
                 console.log('User is logged');
             }
         },
-
     },
-    created: function (){
-        this.getTokenBearer();
+    mounted: function () {
+        this.getTokenBearer();    
         this.getUserId();
         if (this.userId != null) this.getUser();
         this.getLoggedUser();
     },
-
-})
+});

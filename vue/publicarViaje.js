@@ -6,7 +6,18 @@ const app = new Vue({
         tokenConBearer: null,        
         cabecera: 'Publicar un Viaje',
         //userLogged: null,
-        userId: '61c28804cca492069b7eb609',
+        //userId: '61c28804cca492069b7eb609',
+        // Logged user id
+        loggedUserId: null,
+        loggedUser: null,
+
+        // Current user data:
+        // Example id = 61c1c831437c756c894c1fe4
+        userId: null, // Eliminar id por defecto (ahora está para hacer pruebas)
+        user: null,
+        editionUser: {},
+        vehicles: [],
+        isLoggedUser: false,
         journey: {
             name: '',                   
             description: '',            
@@ -117,7 +128,7 @@ const app = new Vue({
                                         'Authorization':this.tokenConBearer
                                     }});*/
 
-            let response = await fetch('http://localhost:8080/api/vehicles/user/'+this.userId, {
+            let response = await fetch('http://localhost:8080/api/vehicles/user/'+this.user.id, {
                                     headers: {
                                         'Content-Type': 'application/json',
                                         'Authorization':this.tokenConBearer
@@ -126,8 +137,13 @@ const app = new Vue({
                 //Todo ok
                 this.listaVehiculos = await response.json();
             } else {
+                console.log("User: " + this.user);
+                console.log("User.id: " + this.user.id);
+                console.log("UserId: " + this.userId);
+                console.log("Logged User: " + this.loggedUser);
+                console.log("Logged user id: " + this.loggedUserId);
             //Mal el token. Redirect a la pagina principal
-            window.location.href = frontendPaths.pathIndex;
+            //window.location.href = frontendPaths.pathIndex;
             }
 
         },
@@ -168,7 +184,7 @@ const app = new Vue({
             this.journey.startDate = new Date(this.fecha+'T'+this.journey.hour);
             this.journey.name = 'Viaje de ' + this.journey.origin.title + ' a ' + this.journey.destination.title;
             this.journey.description = 'El viaje se realizará el día ' + this.journey.startDate + ' a las ' + this.journey.hour + ' horas.\nSe han ofertado ' + this.journey.numberParticipants + ' sitios a un precio de ' + this.journey.price + '€ por plaza.';
-            //this.journey.organizer = this.userId;
+            this.journey.organizer = this.userId;
             
             // Escoger el vehículo elegido en la lista de vehículos
             await this.obtenerVehiculoElegido();
@@ -188,18 +204,71 @@ const app = new Vue({
             console.log('Exam: '+this.journey.exam); 
             console.log('Finisehd: '+this.journey.finished); 
         },
-        obtenerTokenBearer(){
-            this.tokenConBearer = $cookies.get('TokenJWT');
-            if(this.tokenConBearer===null){
-                window.location.href = frontendPaths.pathIndex;
-            } 
-            console.log('Está logueado');
-        }
+        async getUserId() {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const userId = urlParams.get('user');
+
+            if (userId)
+                this.userId = userId;
+        },
+
+        async getLoggedUser() {
+            const response = await axios.get('http://localhost:8080/api/users/current', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization':this.tokenConBearer
+                }});
+            this.loggedUser = response.data;
+            this.loggedUserId = this.loggedUser.id;
+            console.log(this.loggedUser);
+            
+            if (this.user == null || this.user === {}) {
+                this.user = this.loggedUser;
+                this.userId = this.loggedUser.id;
+            }
+
+            // Checks if this user is the current logged user
+            this.isLoggedUser = this.user.id === this.loggedUserId;
+
+            if (this.isLoggedUser) {
+                Object.assign(this.editionUser, this.user); 
+            }
+            this.obtenerVehiculos();
+        },
+
+        async getUser() {
+            const response = await axios.get('http://localhost:8080/api/users/' + this.userId, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization':this.tokenConBearer
+                }});
+            this.user = response.data;
+            console.log(this.user);
+            
+            // Checks if this user is the current logged user
+            this.isLoggedUser = this.user.id === this.loggedUserId;
+
+            if (this.isLoggedUser)
+                Object.assign(this.editionUser, this.user);
+                
+        },
+
+        getTokenBearer() {
+            this.tokenConBearer = Vue.$cookies.get('TokenJWT');
+            console.log(this.tokenConBearer);
+            if (this.tokenConBearer===null) {
+                window.location.href = './index.html';
+            } else {
+                console.log('User is logged');
+            }
+        },
     },
     created: function (){
-        this.obtenerTokenBearer();
-        
-        this.obtenerVehiculos();
-    }
+        this.getTokenBearer();
+        this.getUserId();
+        if (this.userId != null) this.getUser();
+        this.getLoggedUser();
+    },
 
 })
