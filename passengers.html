@@ -33,11 +33,11 @@
     <script src="vue/axios.js"></script>
 
       <!--VUE 2.0-->
-    <script src="vue/axios.js"></script>
-    <script src="./vue/vue.js" defer></script>
-    <script src="./vue/node_modules/vue-cookies/vue-cookies.js" defer></script>
-    <script src="./js/paths.js" defer></script>
-    <script src="./vue/driverJourney.js" defer></script>
+      <script src="vue/axios.js"></script>
+      <script src="./vue/vue.js" defer></script>
+      <script src="./vue/node_modules/vue-cookies/vue-cookies.js" defer></script>
+      <script src="./js/paths.js" defer></script>
+      <script src="./js/myJourney.js" defer></script>
 
     <!-- =======================================================
   * Template Name: Transportes UMA - v4.7.0
@@ -77,55 +77,118 @@
     </section><!-- End Hero -->
     <main id="main">
         <!-- ======= Team Section ======= -->
-    <section id="team" class="team section-bg">
+    <section id="journeysDetail" class="team section-bg">
         <div class="container" data-aos="fade-up">
   
           <div class="section-title">
             <h2>Pasajeros</h2>
           </div>
+
+          <h4 v-if="journey.participants.length == 0" class="col-5 card text-danger mt-4 p-2 mx-auto d-block text-center">Aún no hay pasajeros</h4>
   
-          <div class="row">
+          <div class="row" v-for="participant in participants">
   
             <div class="col-lg-6">
               <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
-                <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid" alt=""></div>
+                <div class="pic">
+                  <img v-if="participant.picture == null || !participant.picture" class="rounded-circle mt-3 d-block pr-3" src="assets/img/car.png" width="280px" height="180px"/>
+                  <img v-if="participant.picture" class="rounded-circle mt-3 d-block pr-3" :src="participants.picture" width="280px" height="180px"/>
                 <div class="member-info">
-                  <h4>Walter</h4>
+                  <h4>{{participant.name}}</h4>
                 </div>
               </div>
             </div>
-  
-            <div class="col-lg-6 mt-4 mt-lg-0">
-              <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="200">
-                <div class="pic"><img src="assets/img/team/team-2.jpg" class="img-fluid" alt=""></div>
-                <div class="member-info">
-                  <h4>Sarah Jhonson</h4>
-                </div>
-              </div>
-            </div>
-  
-            <div class="col-lg-6 mt-4">
-              <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="300">
-                <div class="pic"><img src="assets/img/team/team-3.jpg" class="img-fluid" alt=""></div>
-                <div class="member-info">
-                  <h4>William Anderson</h4>
-              </div>
-            </div>
-  
-            
   
           </div>
+
+          <a class="col-2 btn-primary rounded-pill" :href="'my-journey.html?journey='+journey.id" >Volver</a>
   
         </div>
       </section><!-- End Team Section -->
-      <section id="cta" class="cta" style="padding: 10px;">
-        <div class="d-flex align-items-center justify-content-center">
-            <a class="mx-auto cta-btn align-middle" href="my-journey.html">Volver</a>
-        </div>
-  
-        </div>
-      </section><!-- End Cta Section -->
+      
     </main>
+    <footer id="footer">
+
+      <div class="footer-newsletter">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6">
+              <h4>Únete a nuestro Newsletter</h4>
+              <p>¡Estarás informado de las últimas noticias y novedades!</p>
+              <form action="" method="post">
+                <input type="email" name="email"><input type="submit" value="Unirme">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="footer-top">
+        <div class="container">
+          <div class="row">
+  
+            <div class="col-lg-3 col-md-6 footer-contact">
+              <h3>ShareTravel</h3>
+              <p>
+                35 Blvr. Louis Pasteur <br>
+                Malaga, MA 29071<br>
+                España <br><br>
+                <strong>Teléfono:</strong> +34 612 34 56 78<br>
+                <strong>Email:</strong> sharetravel@info.com<br>
+              </p>
+            </div>
+  
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Links</h4>
+              <ul>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+              </ul>
+            </div>
+  
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Nuestros Servicios</h4>
+              <ul>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+              </ul>
+            </div>
+  
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Nuestras redes sociales</h4>
+              <p>¡Échale un vistazo a nuestras cuentas en las redes, consigue descuentos y participa en sorteos!</p>
+              <div class="social-links mt-3">
+                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+  
+      <div class="container footer-bottom clearfix">
+        <div class="copyright">
+          &copy; Copyright <strong><span>ShareTravel</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+          <!-- All the links in the footer should remain intact. -->
+          <!-- You can delete the links only if you purchased the pro version. -->
+          <!-- Licensing information: https://bootstrapmade.com/license/ -->
+          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/Transportes UMA-free-bootstrap-html-template-corporate/ -->
+          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+      </div>
+    </footer><!-- End Footer -->
 
 
     <div id="preloader"></div>
