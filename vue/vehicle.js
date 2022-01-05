@@ -107,13 +107,13 @@ new Vue({
 
                 let response;
                 if (this.editing) {
-                    response = await axios.put('http://localhost:8080/api/vehicles/' + this.vehicle.id, this.editionVehicle, {
+                    response = await axios.put('http://localhost:8080/api/vehicles/current/' + this.vehicle.id, this.editionVehicle, {
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization':this.tokenConBearer
                         }});
                 } else {
-                    response = await axios.post('http://localhost:8080/api/vehicles/', this.editionVehicle, {
+                    response = await axios.post('http://localhost:8080/api/vehicles/current/', this.editionVehicle, {
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization':this.tokenConBearer
@@ -173,7 +173,7 @@ new Vue({
 
         async deleteVehicle() {
             if (confirm("¿Estás seguro de que quieres eliminar este vehículo? Esta acción no se puede deshacer.")) {
-                const response = await axios.delete('http://localhost:8080/api/vehicles/' + this.vehicle.id, {
+                const response = await axios.delete('http://localhost:8080/api/vehicles/current/' + this.vehicle.id, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization':this.tokenConBearer
