@@ -35,7 +35,8 @@
   <script src="vue/vue.js" defer></script>
   <script src="vue/node_modules/vue-cookies/vue-cookies.js" defer></script>
   <script src="./js/paths.js" defer></script>
-  <script src="vue/listarViajes.js" defer></script>
+  <script src="vue/axios.js" defer></script>
+  <script src="js/listarViajes.js" defer></script>
 
   <!-- =======================================================
   * Template Name: Transportes UMA - v4.7.0
@@ -115,14 +116,14 @@
                     <div v-if="isDriver">
 
                       <div v-for="journey in listaViajesOrganizados">
-                        <a class="journeysLink" href="#">
+                        <a class="journeysLink" :href="'my-journey.html?journey='+journey.id">
                           <div class="mt-4">
                             <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
-                              <div class="pic"><img v-if="user.picture" :src="user.picture" class="img-fluid " alt=""></div>
+                              <div class="pic"><img v-if="loggedUser.picture" :src="loggedUser.picture" class="img-fluid " alt=""></div>
                               <div class="member-info">
                                 <h4>{{journey.name}}</h4>
-                                <span>{{user.name}}</span>
-                                <p>Fecha: {{journey.startDate | formatDate}}</p>
+                                <span>{{loggedUser.name}}</span>
+                                <p>Fecha: {{journey.startDate}}</p>
                                 <p>Hora de Salida: {{journey.hour}}</p>
                               </div>
                             </div>
@@ -144,7 +145,7 @@
                   <div class="col-lg12">
 
                     <div v-for="journey in listaViajesParticipados">
-                      <a class="journeysLink" href="#">
+                      <a class="journeysLink" href="my-journey.html">
                         <div class="mt-4">
                           <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
                             <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid" alt="">

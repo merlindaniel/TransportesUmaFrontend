@@ -34,7 +34,8 @@
   <script src="vue/vue.js" defer></script>
   <script src="vue/node_modules/vue-cookies/vue-cookies.js" defer></script>
   <script src="./js/paths.js" defer></script>
-  <script src="vue/publicarViaje.js" defer></script>
+  <script src="vue/axios.js" defer></script>
+  <script src="js/publicarViaje.js" defer></script>
 
   <!-- =======================================================
   * Template Name: Transportes UMA - v4.7.0
@@ -102,8 +103,6 @@
             <div v-else>
               <option v-for="(vehicle, index) in listaVehiculos" v-bind:value="vehicle.id" v-bind:selected="index === 0" >{{vehicle.name}} </option>
             </div>
-
-
           </select>
         </div>
 
