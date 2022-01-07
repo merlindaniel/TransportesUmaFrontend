@@ -51,6 +51,11 @@
       border-radius: 0 50px 50px 0;
     }
   </style>
+
+    <!--VUE 2.0-->
+    <script src="./vue/vue.js" defer></script>
+    <script src="./js/paths.js" defer></script>
+    <script src="./js/index.js" defer></script>
 </head>
 
 <body>
@@ -63,14 +68,25 @@
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
+
+      <!-- Si no hay una sesión iniciada -->
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="index.html">Inicio</a></li>
+          <li><a class="nav-link scrollto" href="search.html">Buscar</a></li>
+          <li><a class="getstarted scrollto" href="login.html">Iniciar Sesión</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+      <!-- Si existe una sesión iniciada -->
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="index.html">Inicio</a></li>
           <li><a class="nav-link scrollto" href="search.html">Buscar</a></li>
           <li><a class="nav-link scrollto" href="organize-journey.html">Publicar viaje</a></li>
           <li><a class="nav-link scrollto" href="your-travels.html">Tus viajes</a></li>
-          <li><a class="nav-link scrollto" href="profile.html">Mi perfil</a></li>
-          <li><a class="getstarted scrollto" href="login.html">Iniciar Sesión</a></li>
+          <li><a class="getstarted scrollto" href="profile.html">Mi perfil</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -80,8 +96,9 @@
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex align-items-center">
-
-    <div class="container">
+    
+    
+    <div id="app" class="container">
       <div class="row">
         <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
           data-aos="fade-up" data-aos-delay="200">
