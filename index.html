@@ -54,6 +54,7 @@
 
     <!--VUE 2.0-->
     <script src="./vue/vue.js" defer></script>
+    <script src="./vue/node_modules/vue-cookies/vue-cookies.js" defer></script>
     <script src="./js/paths.js" defer></script>
     <script src="./js/index.js" defer></script>
 </head>
@@ -62,7 +63,7 @@
 
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top ">
-    <div class="container d-flex align-items-center">
+    <div id ="app" class="container d-flex align-items-center">
 
       <h1 class="logo me-auto"><a href="index.html">ShareTravel</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
@@ -70,7 +71,7 @@
 
 
       <!-- Si no hay una sesión iniciada -->
-      <nav id="navbar" class="navbar">
+      <nav v-if="tokenConBearer === null" id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="index.html">Inicio</a></li>
           <li><a class="nav-link scrollto" href="search.html">Buscar</a></li>
@@ -80,7 +81,7 @@
       </nav><!-- .navbar -->
 
       <!-- Si existe una sesión iniciada -->
-      <nav id="navbar" class="navbar">
+      <nav v-else id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="index.html">Inicio</a></li>
           <li><a class="nav-link scrollto" href="search.html">Buscar</a></li>
@@ -98,7 +99,7 @@
   <section id="hero" class="d-flex align-items-center">
     
     
-    <div id="app" class="container">
+    <div class="container">
       <div class="row">
         <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
           data-aos="fade-up" data-aos-delay="200">
