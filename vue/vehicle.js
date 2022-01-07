@@ -39,7 +39,11 @@ new Vue({
 
         async getVehicle() {
             if (this.editing) {
-                const response = await axios.get('http://localhost:8080/api/vehicles/' + this.vehicleId);
+                const response = await axios.get('http://localhost:8080/api/vehicles/current/' + this.vehicleId, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization':this.tokenConBearer
+                    }});
                 this.vehicle = response.data;
                 console.log(this.vehicle);
                 
@@ -103,9 +107,17 @@ new Vue({
 
                 let response;
                 if (this.editing) {
-                    response = await axios.put('http://localhost:8080/api/vehicles/' + this.vehicle.id, this.editionVehicle);
+                    response = await axios.put('http://localhost:8080/api/vehicles/current/' + this.vehicle.id, this.editionVehicle, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization':this.tokenConBearer
+                        }});
                 } else {
-                    response = await axios.post('http://localhost:8080/api/vehicles/', this.editionVehicle);
+                    response = await axios.post('http://localhost:8080/api/vehicles/current/', this.editionVehicle, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization':this.tokenConBearer
+                        }});
                 }
 
                 console.log("Response:");
@@ -161,9 +173,13 @@ new Vue({
 
         async deleteVehicle() {
             if (confirm("¿Estás seguro de que quieres eliminar este vehículo? Esta acción no se puede deshacer.")) {
-                const response = await axios.delete('http://localhost:8080/api/vehicles/' + this.vehicle.id);
+                const response = await axios.delete('http://localhost:8080/api/vehicles/current/' + this.vehicle.id, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization':this.tokenConBearer
+                    }});
                 console.log(response);
-                window.location.href = './profile.html?user=' + this.loggedUserId;
+                window.location.href = './profile-edition.html';
             }
         },
 

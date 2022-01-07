@@ -34,26 +34,42 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+  <!--VUE 2.0-->
+  <script src="./vue/vue.js" defer></script>
+  <script src="./vue/node_modules/vue-cookies/vue-cookies.js" defer></script>
+  <script src="./js/paths.js" defer></script>
+  <script src="./js/index.js" defer></script>
 </head>
 
 <body>
 
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top ">
-    <div class="container d-flex align-items-center">
+    <div id="app" class="container d-flex align-items-center">
 
       <h1 class="logo me-auto"><a href="index.html">ShareTravel</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
-      <nav id="navbar" class="navbar">
+      <!-- Si no hay una sesión iniciada -->
+      <nav v-if="tokenConBearer === null" id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto" href="index.html">Inicio</a></li>
+          <li><a class="nav-link scrollto active" href="search.html">Buscar</a></li>
+          <li><a class="getstarted scrollto" href="login.html">Iniciar Sesión</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+      <!-- Si existe una sesión iniciada -->
+      <nav v-else id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto" href="index.html">Inicio</a></li>
           <li><a class="nav-link scrollto active" href="search.html">Buscar</a></li>
           <li><a class="nav-link scrollto" href="organize-journey.html">Publicar viaje</a></li>
           <li><a class="nav-link scrollto" href="your-travels.html">Tus viajes</a></li>
-          <li><a class="nav-link scrollto" href="profile.html">Mi perfil</a></li>
-          <li><a class="getstarted scrollto" href="login.html">Iniciar Sesión</a></li>
+          <li><a class="getstarted scrollto" href="profile.html">Mi perfil</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->

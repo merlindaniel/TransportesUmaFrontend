@@ -117,7 +117,7 @@ const app = new Vue({
                 if (!this.editionUser.password || this.editionUser.password === '')
                     this.editionUser.password = this.user.password;
 
-                const response = await axios.put('http://localhost:8080/api/users/' + this.user.id, this.editionUser, {
+                const response = await axios.put('http://localhost:8080/api/users/current', this.editionUser, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization':this.tokenConBearer
@@ -199,15 +199,22 @@ const app = new Vue({
             const editionPassword = document.getElementById('edition-password').value;
             const editionPasswordRepeat = document.getElementById('edition-password-repeat').value;
 
-            if (editionPassword !== editionPasswordRepeat) {
+            if (editionPassword !== editionPasswordRepeat || (editionPassword.length < 3 && editionPassword.length > 0)) {
                 this.errors.push(`Las contraseñas no coinciden o no son válidas`);
             }
         },
 
         async deleteUser() {
             if (confirm("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.")) {
-                const response = await axios.delete('http://localhost:8080/api/users/' + this.user.id);
+                const response = await axios.delete('http://localhost:8080/api/users/' + this.user.id, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization':this.tokenConBearer
+                    }});
                 console.log(response);
+                // Logout
+                Vue.$cookies.remove('TokenJWT');
+
                 window.location.href = './index.html';
             }
         },
