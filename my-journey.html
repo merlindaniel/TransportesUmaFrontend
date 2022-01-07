@@ -80,7 +80,7 @@
             <div class="container" data-aos="fade-up">
     
             <div class="section-title">
-                <h2>Mi viaje de {{journey.origin.title}} a {{journey.destination.title}}</h2>
+                <h2>{{journey.name}}</h2>
             </div>
     
             <div class="row content">
@@ -97,6 +97,8 @@
                 <p>Estado: <span v-if="journey.participants.length == journey.numberParticipants">Completo</span>
                            <span v-if="journey.participants.length != journey.numberParticipants">Disponible</span> 
                 </p>
+                <p>Examen: <span v-if="journey.exam == true">Si</span>
+                           <span v-if="journey.exam == false">No</span></p>
                 </div>
                 <div class="col-lg-3 pt-4 pt-lg-0 d-flex flex-column text-center">
                 <a :href="'passengers.html?journey='+journey.id" class="btn-learn-more">Ver lista de pasajeros</a>

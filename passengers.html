@@ -77,33 +77,31 @@
     </section><!-- End Hero -->
     <main id="main">
         <!-- ======= Team Section ======= -->
-    <section id="journeysDetail" class="team section-bg">
+    <section id="journeysDetail" class="team section-bg" style="padding-bottom: 150px;">
         <div class="container" data-aos="fade-up">
   
-          <div class="section-title">
+          <div v-if="journey.participants.length == 0" class="section-title" style="margin-top: 200px;">
             <h2>Pasajeros</h2>
+            <h4 class="col-5 card text-danger mt-4 p-2 mx-auto d-block text-center">Aún no hay pasajeros</h4>
+            <a class="col-2 mt-5 mx-auto d-block text-center btn-primary rounded-pill" :href="'my-journey.html?journey='+journey.id" >Volver</a>
           </div>
-
-          <h4 v-if="journey.participants.length == 0" class="col-5 card text-danger mt-4 p-2 mx-auto d-block text-center">Aún no hay pasajeros</h4>
-  
-          <div class="row" v-for="participant in participants">
-  
-            <div class="col-lg-6">
-              <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
-                <div class="pic">
-                  <img v-if="participant.picture == null || !participant.picture" class="rounded-circle mt-3 d-block pr-3" src="assets/img/car.png" width="280px" height="180px"/>
-                  <img v-if="participant.picture" class="rounded-circle mt-3 d-block pr-3" :src="participants.picture" width="280px" height="180px"/>
-                <div class="member-info">
-                  <h4>{{participant.name}}</h4>
+          <div v-if="journey.participants.length != 0" >
+            <h2>Pasajeros</h2>
+            <div class="row" v-for="participant in participants">
+              <div class="col-lg-6">
+                <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
+                  <div class="pic">
+                    <img v-if="participant.picture == null || !participant.picture" class="rounded-circle mt-3 d-block pr-3" src="assets/img/car.png" width="280px" height="180px"/>
+                    <img v-if="participant.picture" class="rounded-circle mt-3 d-block pr-3" :src="participants.picture" width="280px" height="180px"/>
+                    <div class="member-info">
+                      <h4>{{participant.name}}</h4>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-  
           </div>
-
-          <a class="col-2 btn-primary rounded-pill" :href="'my-journey.html?journey='+journey.id" >Volver</a>
-  
-        </div>
+          <a class="col-2 mt-5 mx-auto d-block text-center btn-primary rounded-pill" :href="'my-journey.html?journey='+journey.id" >Volver</a>
+          
       </section><!-- End Team Section -->
       
     </main>
