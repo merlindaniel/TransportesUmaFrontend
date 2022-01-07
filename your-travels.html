@@ -123,8 +123,8 @@
                               <div class="member-info">
                                 <h4>{{journey.name}}</h4>
                                 <span>{{loggedUser.name}}</span>
-                                <p>Fecha: {{journey.startDate}}</p>
-                                <p>Hora de Salida: {{journey.hour}}</p>
+                                <p>Fecha: {{ obtenerFecha(journey.startDate)}}</p>
+                                <p>Hora de Salida: {{ obtenerHora(journey.startDate) }}</p>
                               </div>
                             </div>
                           </div>
@@ -145,16 +145,16 @@
                   <div class="col-lg12">
 
                     <div v-for="journey in listaViajesParticipados">
-                      <a class="journeysLink" href="my-journey.html">
+                      <a class="journeysLink" :href="'view-journey.html?journey='+journey.id">
                         <div class="mt-4">
                           <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
                             <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid" alt="">
                             </div>
                             <div class="member-info">
                               <h4>{{journey.name}}</h4>
-                              <span>Chief Executive Officer</span>
-                              <p>Fecha: {{journey.startDate}}</p>
-                              <p>Hora de Salida: </p>
+                              <span>{{loggedUser.name}}</span>
+                              <p>Fecha: {{ obtenerFecha(journey.startDate)}}</p>
+                              <p>Hora de Salida: {{ obtenerHora(journey.startDate) }}</p>
                             </div>
                           </div>
                         </div>

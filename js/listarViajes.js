@@ -56,6 +56,33 @@ const app = new Vue({
             }
 
         },
+
+        obtenerFecha(fecha){
+            var dateJourney = new Date(Date.parse(fecha));
+            var day = dateJourney.getDate();
+            if (day < 10){
+                day = "0" + day;
+            }
+            var month = dateJourney.getMonth() + 1;
+            if(month < 10){
+                month = "0" + month;
+            }
+            return day + "/" + month + "/" + dateJourney.getFullYear();
+        },
+
+        obtenerHora(fecha){
+            var dateJourney = new Date(Date.parse(fecha));
+            var hours = dateJourney.getHours();
+            if (hours < 10){
+                hours = "0" + dateJourney.getHours();
+            }
+            var minutes = dateJourney.getMinutes();
+            if(minutes < 10){
+                minutes = "0" + dateJourney.getMinutes();
+            }
+            return hours + ":" + minutes;
+        },
+
         obtenerTokenBearer() {
             this.tokenConBearer = Vue.$cookies.get('TokenJWT');
             if (this.tokenConBearer === null) {

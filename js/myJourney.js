@@ -31,6 +31,7 @@ let myJourneyApp = new Vue({
                     'Authorization':this.tokenConBearer
                 }});
             this.loggedUser = await response.json();
+            this.getJourneyId();
             console.log("Logged user: " + this.loggedUser);
 
         },
@@ -42,7 +43,7 @@ let myJourneyApp = new Vue({
 
             if (journey) {
                 this.journeyId = journey;
-                await this.getJourney();
+                this.getJourney();
             } else {
                 console.log("Error, no journey specified");
             }
@@ -56,12 +57,17 @@ let myJourneyApp = new Vue({
             }});
 
             this.journey = response.data;
-            this.origen = this.journey.origin.address;
-            this.destino = this.journey.destination.address;
-            this.selected = this.journey.vehicle;
-            this.getParticipants();
-            this.obtenerVehiculos();
-            this.getDate();
+            if(this.journey.organizer != this.loggedUser.id){
+                window.location.href = './your-travels.html';
+            }else{
+                this.origen = this.journey.origin.address;
+                this.destino = this.journey.destination.address;
+                this.selected = this.journey.vehicle;
+                this.getParticipants();
+                this.obtenerVehiculos();
+                this.getDate();
+            }
+            
         },
 
         async deleteJourney() {
@@ -217,7 +223,6 @@ let myJourneyApp = new Vue({
             if(minutes < 10){
                 minutes = "0" + dateJourney.getMinutes();
             }
-            console.log("Journey")
             this.hour = hours + ":" + minutes;
             this.fecha = dateJourney.getFullYear() + "-" + month +"-"+day;
         },
@@ -249,7 +254,5 @@ let myJourneyApp = new Vue({
     },
     created: function () {
         this.getTokenBearer();
-        this.getJourneyId();
-        this.getJourney();
     },
 });
