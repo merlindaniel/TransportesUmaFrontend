@@ -7,5 +7,6 @@ let backendPaths = {
 
 let frontendPaths = {
     pathIndex: "./index.html",
-    pathLogin: "./login.html"
+    pathLogin: "./login.html",
+    pathmyJourney: "./my-journey.html?journey="
 }

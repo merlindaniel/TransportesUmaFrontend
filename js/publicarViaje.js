@@ -31,6 +31,7 @@ const app = new Vue({
             exam: null,                 
             finished: false             
         },
+        data: null,
         origen: '',
         destino: '',
         listaVehiculos: [],
@@ -71,7 +72,10 @@ const app = new Vue({
 
             if(response.ok){
                 // Redirecciona a la página del viaje publicado
-
+                this.data = await response.json();
+                //console.log(this.data);
+                //Vue.$cookies.set('TokenJWT', this.data.jwttoken);
+                window.location.href = frontendPaths.pathmyJourney + this.data.id;
             } else {
                 // Muestra un error
                 this.errorDePublicacion = 'ERROR';
