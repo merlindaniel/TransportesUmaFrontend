@@ -69,25 +69,20 @@
 
         </div>
     </header><!-- End Header -->
-    <section id="hero" class="d-flex align-items-center" style="padding-bottom: 20px;">
 
-    
-    </section><!-- End Hero -->
     <main id="main">
         <!-- ======= Services Section ======= -->
-    <section id="journeysDetail" class="team section-bg" style="padding-bottom: 300px;">
-        <div class="container" data-aos="fade-up">
+    <section id="journeysDetail" class="team section-bg py-5"">
+        <div class="container py-5" data-aos="fade-up">
   
-          <div class="section-title pt-5 mt-5">
+          <div class="section-title py-5 mt-5">
             <h2>¿Estás seguro que quieres eliminar el viaje?</h2>
             <p>Esta acción cancelará las reservas de los pasajeros y no podrás volver atrás.</p>
           </div>
   
-          <div class="row text-center">
-            <a class="col-3"></a>
-            <a class="col-2 btn-primary rounded-pill" :href="'my-journey.html?journey='+journey.id" >Volver</a>
-            <a class="col-1"></a>
-            <button class="col-2 btn-danger rounded-pill align-right" v-on:click="deleteJourney">Eliminar</button>
+          <div class="row text-center d-flex justify-content-center">
+            <a class="col-2 mx-2 btn-primary rounded-pill" :href="'my-journey.html?journey='+journey.id" >Volver</a>
+            <button class="col-2 mx-2 btn-danger rounded-pill align-right" v-on:click="deleteJourney">Eliminar</button>
         </div>
   
         </div>

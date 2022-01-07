@@ -54,8 +54,8 @@
         <div class="container d-flex align-items-center">
 
             <h1 class="logo me-auto"><a href="index.html">ShareTravel</a></h1>
-            <!-- Uncomment below if you prefer to use an image logo -->
             <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+            <!-- Uncomment below if you prefer to use an image logo -->
 
             <nav id="navbar" class="navbar">
                 <ul>
@@ -71,20 +71,19 @@
         </div>
     </header><!-- End Header -->
     <!-- ======= Hero Section ======= -->
-    <section id="hero" class="d-flex align-items-center">
+    <section id="hero" >
 
-        <div class="container" id="journeysDetail">
-            <div class="row">
+        <div class="container-lg pt-5 d-flex align-items-center justify-content-center" id="journeysDetail">
+            <div class="row col-8">
                 <div v-if="journey.participants.length > 0">
                     <div class="section-title pt-5 mt-5">
                         <h2>No es posible editar los datos del viaje</h2>
                         <p>Esta acción sólo es posible cuando aún no hay plazas reservadas.</p>
                         <p>Si gustas puedes eliminar el viaje:</p>
-                        <div class="row text-center">
-                            <a class="col-3"></a>
-                            <a class="col-2 btn-primary rounded-pill" :href="'my-journey.html?journey='+journey.id" >Volver</a>
+                        <div class="row text-center mx-auto">
+                            <a class="col-2 col-sm-4 btn-primary rounded-pill" :href="'my-journey.html?journey='+journey.id" >Volver</a>
                             <a class="col-1"></a>
-                            <a class="col-2 btn-danger rounded-pill" :href="'confirm-delete-journey.html?journey='+journey.id" >Eliminar</a>
+                            <a class="col-2 col-sm-4 btn-danger rounded-pill" :href="'confirm-delete-journey.html?journey='+journey.id" >Eliminar</a>
                         </div>
                     </div>
                 </div>
@@ -95,7 +94,7 @@
                 
                     </div>
 
-                    <div class="col-8 mx-auto d-flex flex-column justify-content-center pt-4 order-2 order-lg-1" data-aos="fade-up"
+                    <div class="col-12 mx-auto d-flex flex-column justify-content-center pt-4 " data-aos="fade-up"
                         data-aos-delay="200">
 
                         <div class="row mb-4">
