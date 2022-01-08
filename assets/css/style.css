@@ -552,6 +552,226 @@ h1, h2, h3, h4, h5, h6 {
   margin-left: 8px;
 }
 
+
+
+/*--------------------------------------------------------------
+# Viajes By Javier
+--------------------------------------------------------------*/
+
+#viajes{
+  width: 100%;
+  background: #37517e;
+}
+
+#viajes .container{
+  padding-top: 72px;
+}
+
+#viajes h1 {
+  margin: 0 0 10px 0;
+  font-size: 35px;
+  font-weight: 700;
+  line-height: 56px;
+  color: #fff;
+}
+
+#viajes h2 {
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 50px;
+  font-size: 24px;
+}
+
+
+#viajes .viaje{
+  position: relative;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  border-radius: 5px;
+  background: #fff;
+  transition: 0.5s;
+}
+
+#viajes .viaje .push{
+  margin-left: auto;
+}
+
+#viajes .viaje .pic {
+  overflow: hidden;
+  width: 100px;
+  border-radius: 50%;
+}
+
+#viajes .viaje .pic img {
+  transition: ease-in-out 0.3s;
+}
+
+#viajes .viaje:hover {
+  transform: translateY(-10px);
+}
+
+#viajes .viaje .viaje-info {
+  padding-left: 30px;
+}
+
+#viajes .viaje .precio {
+  border-radius: 5px;
+  text-align: center;
+}
+/*
+#viajes .viaje .precio .container{
+  position: relative;
+  
+  
+  width: 100px;
+  text-align: start;
+}
+*/
+#viajes .viaje .precio h4{
+  color:rgb(255, 255, 255);
+  font-size: 25px;
+  background-color: #47e76d;
+  padding: 7px;
+}
+
+
+#viajes .viaje h4 {
+  font-weight: 700;
+  margin-bottom: 5px;
+  font-size: 25px;
+  color: #37517e;
+}
+#viajes .viaje span {
+  display: block;
+  font-size: 15px;
+  padding-bottom: 10px;
+  position: relative;
+  font-weight: 500;
+}
+#viajes .viaje span::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 1px;
+  background: #cbd6e9;
+  bottom: 0;
+  left: 0;
+}
+
+#viajes .viaje p {
+  margin: 10px 0 0 0;
+  font-size: 16px;
+  color: #333;
+}
+
+#viajes li{
+  padding: 15px;
+}
+
+#viajes ol{
+  color: #37517e;
+}
+
+#viajes .viajeD{
+  position: relative;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  padding: 50px;
+  border-radius: 5px;
+  background: #fff;
+  transition: 0.5s;
+  margin-top: 30px;
+}
+
+#viajes .viajeD .pic-res {
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  background:rgb(236, 236, 236);
+  padding: 5px;
+  text-align: center;
+}
+
+#viajes .viajeD .pic-res h1{
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  background:rgb(236, 236, 236);
+  margin-top: 30px;
+  padding: 5px;
+}
+
+#viajes .viajeD .pic {
+  overflow: hidden;
+  width: 200px;
+  border-radius: 50%;
+}
+
+#viajes .viajeD .pic img {
+  transition: ease-in-out 0.3s;
+}
+
+#viajes .viajeD .padd:hover {
+  transform: translateY(-5px);
+}
+#viajes .viajeD .padd {
+  margin-top: 30px;
+}
+
+#viajes .viajeD .viaje-info {
+  padding-left: 80px;
+}
+
+#viajes .viajeD .viaje-info2 {
+  padding-top: 20px;
+  border-radius: 10px;
+}
+
+#viajes .viajeD .precio {
+  
+}
+
+#viajes .viajeD .precio .container{
+  position: relative;
+  background-color: #47e76d;
+  width: auto;
+}
+
+#viajes .viajeD .precio .container h1{
+  color:white;
+}
+
+
+#viajes .viajeD h4 {
+  font-weight: 700;
+  margin-bottom: 5px;
+  font-size: 25px;
+  color: #37517e;
+}
+#viajes .viajeD span {
+  display: block;
+  font-size: 15px;
+  padding-bottom: 10px;
+  position: relative;
+  font-weight: 500;
+}
+#viajes .viajeD span::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 1px;
+  background: #cbd6e9;
+  bottom: 0;
+  left: 0;
+}
+
+#viajes .viajeD p {
+  margin: 10px 0 0 0;
+  font-size: 16px;
+  color: #333;
+}
+
+#viajes li{
+  padding: 15px;
+}
+
+
 /*--------------------------------------------------------------
 # Sections General
 --------------------------------------------------------------*/
