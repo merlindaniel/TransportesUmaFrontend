@@ -39,7 +39,7 @@
   <script src="./vue/vue.js" defer></script>
   <script src="./vue/node_modules/vue-cookies/vue-cookies.js" defer></script>
   <script src="./js/paths.js" defer></script>
-  <script src="./js/index.js" defer></script>
+  <script src="./js/search.js" defer></script>
 </head>
 
 <body>
@@ -80,7 +80,7 @@
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex align-items-center">
 
-    <div class="container">
+    <div id="app2" class="container">
         <div class="row">
 
             <div class="col-12">
@@ -88,15 +88,20 @@
             </div>
 
             <div class="col-6 d-flex flex-column justify-content-center pt-4 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-                
-                <input class="form-control customFirstBorders" type="text" placeholder="Origen" aria-describedby="buttonSearch">
-                <input class="form-control customFirstBorders mt-3" type="text" placeholder="Destino" aria-describedby="textSet1">
+                <input class="form-control customFirstBorders" type="text" placeholder="Origen" aria-describedby="buttonSearch" list="listOrigin" v-model="origin" v-on:input="getListOrigin">
+                <datalist id="listOrigin">
+                  <option v-for="origins in listOrigin">{{origins.address}}</option>
+                </datalist>
+                <input class="form-control customFirstBorders mt-3" type="text" placeholder="Destino" aria-describedby="textSet1" list="listDestination"v-model="destination" v-on:input="getListDestination">
+                <datalist id="listDestination">
+                  <option v-for="destinations in listDestination">{{destinations.address}}</option>
+                </datalist>
             </div>
 
             <div class="col-6 d-flex flex-column justify-content-center pt-4 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
             
-                <input class="form-control customFirstBorders" type="number" min="1" placeholder="Número de plazas" aria-describedby="buttonSearch">
-                <input class="form-control customFirstBorders mt-3" type="date" placeholder="Fecha" aria-describedby="textSet1">
+                <input class="form-control customFirstBorders" type="number" min="1" placeholder="Número de plazas" aria-describedby="buttonSearch" v-model="nSpots">
+                <input class="form-control customFirstBorders mt-3" type="date" placeholder="Fecha" aria-describedby="textSet1" v-model="date">
             </div>
 
             
@@ -104,7 +109,7 @@
 
         <div class="row">
           <div class="col-12 d-flex justify-content-center justify-content-lg-center mt-3 inputCustom" data-aos="fade-up" data-aos-delay="200">
-            <button class="btn btn-primary rounded-pill w-25" type="button">Buscar</button>
+            <button class="btn btn-primary rounded-pill w-25" type="button" v-on:click="searchJourney">Buscar</button>
           </div>
         </div>
         
