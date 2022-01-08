@@ -55,15 +55,15 @@ const app = new Vue({
             for(journey of this.journeysList){
                 var numSpots = journey.vehicle.seats - journey.numberParticipants ;
                 var h = this.hoursFunction(journey.startDate,toString());
-                /**
+                
                 let response = await fetch('http://localhost:8080/api/users/'+ journey.organizer, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization':this.tokenConBearer
                 }});
                  
-                if(response.ok){*/
-                    //var org = await response.json();
+                if(response.ok){
+                    var org = await response.json();
                     this.journeysListDef.push({
                         id : journey.id,
                         name : journey.name,
@@ -81,7 +81,7 @@ const app = new Vue({
                             address: journey.destination.address
                         },
                         // Organizador
-                        organizer: journey.organizer,              
+                        organizer: org,              
                         numberParticipants: journey.numberParticipants,
                         // Numero de asientos restantes      
                         numberSpots: numSpots,
@@ -94,7 +94,7 @@ const app = new Vue({
                         exam: journey.exam,                 
                         finished: journey.finished  
                     });
-                //}
+                }
 
             }
         },

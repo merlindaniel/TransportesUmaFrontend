@@ -11,6 +11,7 @@ const app = new Vue({
         nSpots: '',
         hour: '',
         date: '',
+        showModal: false
     },
 
     methods: {
@@ -20,7 +21,7 @@ const app = new Vue({
             const urlParams = new URLSearchParams(queryString);
             const id = urlParams.get('journey');
             const nspots = urlParams.get('nSpots');
-            if(id){
+            if(id && nspots){
                 
                 this.id = id;
                 this.nSpots = nspots;
@@ -43,26 +44,6 @@ const app = new Vue({
                 //error
             }
         },
-        /**
-        async book(){
-
-            let response = await fetch('http://localhost:8080/api/journeys/'+ this.journey.id + this.loggedUser.id, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization':this.tokenConBearer
-            }});
-
-            
-            if(response.ok){
-               
-            }else{
-                //error
-            }
-
-        },
-
-         */
 
         async setArgs(){
             
@@ -74,31 +55,15 @@ const app = new Vue({
 
             if(response.ok){
                 this.organizer = await response.json();
-                this.date = this.journey.startDate.split("T")[0];
-                this.hour = this.hoursFunction(this.journey.startDate);
             }else{
                 //error
-                this.journey = 'TERRIBLE';
             }
+            this.date = this.journey.startDate.split("T")[0];
+            this.hour = this.hoursFunction(this.journey.startDate);
 
         },
 
         async goReservation(){
-            /*
-             
-            let response = await fetch('http://localhost:8080/api/journeys/'+ this.journey.id + this.loggedUser.id, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization':this.tokenConBearer
-            }});
-
-            
-            if(response.ok){
-                window.location.href = frontendPaths.pathReservation;
-            }else{
-                //error
-            }*/
             window.location.href = frontendPaths.pathReservation + "?journey=" + this.journey.id + "&nSpots=" + this.nSpots;
         },
 

@@ -15,17 +15,27 @@ const app = new Vue({
     },
 
     methods: {
-        /*
+        
         async getLoggedUser() {
             let response = await fetch('http://localhost:8080/api/users/current', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization':this.tokenConBearer
                 }});
-            this.loggedUser = await response.json();
+            
+            if(response.ok){
+                this.loggedUser = await response.json();
+                if(!this.loggedUser){
+                    window.location.href = frontendPaths.pathLogin;
+                }
+            }else{
+                window.location.href = frontendPaths.pathLogin;
+            }
+            
+            
             console.log("Logged user: " + this.loggedUser);
 
-        }, **/
+        },
 
         async getJourney(){
             const queryString = window.location.search;
@@ -62,7 +72,9 @@ const app = new Vue({
         },
 
         async book(){
-            /**
+
+            this.getLoggedUser();
+            
             let response = await fetch('http://localhost:8080/api/journeys/'+ this.journey.id + this.loggedUser.id, {
             method: 'POST',
             headers: {
@@ -70,13 +82,12 @@ const app = new Vue({
                 'Authorization':this.tokenConBearer
             }});
 
-            
             if(response.ok){
-                // ir a mis viajes (?)
+                window.location.href = frontendPaths.pathmyJourney;
             }else{
-                //error
+                window.location.href = frontendPaths.pathReservation + "?journey=" + this.journey.id + "&nSpots=" + this.nSpots;
             }
-             */
+            
         },
 
         getTokenBearer() {

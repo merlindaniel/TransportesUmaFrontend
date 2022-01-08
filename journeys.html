@@ -85,12 +85,12 @@
           <li v-for="(journey, key) of journeysListDef" :key="journey.id">
             <a class="viaje d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100" :href="'journey.html?journey='+journey.id+'&nSpots='+nSpots">
               <div class="pic">
-                <img :src="journey" class="img-fluid" alt=""/>
+                <img :src="journey.organizer.picture" class="img-fluid" alt=""/>
               </div>
               <div class="viaje-info">
                 <h4>{{journey.name}}</h4>
                 <p>{{journey.hour}} &rarr; {hora llegada}</p> <!--&rarr;-->
-                <p>{{journey.vehicle.name}}</p>
+                <p>{{journey.organizer.name}}</p>
                 <span></span>
                 <p>{{journey.numberParticipants}} plazas restantes</p>
               </div>

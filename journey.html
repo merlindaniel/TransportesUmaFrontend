@@ -83,21 +83,21 @@
                 <div class="viajeD d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100" href="travel.html">
                     <div class="pic-res">
                         <div class="pic">
-                            <img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt=""/>
+                            <img :src="journey.organizer.picture" class="img-fluid" alt=""/>
                         </div>
                         <div class="padd">
-                            <button class="btn btn-primary rounded-pill w-100 mb-2" type="submit" v-on:click="goReservation"> Reservar <i class="fas fa-chevron-right"></i></button>  
+                          <button class="btn btn-primary rounded-pill w-100 mb-2" v-on:click="goReservation"> Reservar</button>  
                         </div>
                     </div>
                     <div class="viaje-info">
-                        <p>{{date}}</p>
-                        <p>{{hour}} &rarr; {hora salida}</p>
-                        <p>{{journey.numberParticipants}}  plazas restantes</p>
+                          <p>{{date}}</p>
+                          <p>{{hour}} &rarr; {hora llegada}</p>
+                          <p>{{journey.numberParticipants}}  plazas restantes</p>
                         <span></span>
-                        <p></p>
                         <div class="viaje-info2">
-                        <p>{{organizer.username}}</p>
+                        <p>{{journey.description}}</p>
                         <p>{{organizer.name}}</p>
+                        <p>{{journey.vehicle.model}}</p>
                         <section id="portfolio" class="portfolio">
                         <div class="container" data-aos="fade-up">
                 
@@ -105,9 +105,7 @@
                           <h2 class="text-dark">Imágenes del vehículo</h2>
                           <p></p>
                         </div>
-                
-                        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
-                
+                        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">          
                           <div class="col-lg-4 col-md-6 portfolio-item filter-app">
                             <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt=""></div>
                             <div class="portfolio-info">
