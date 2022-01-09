@@ -1,5 +1,5 @@
 new Vue({
-    el: '#hero',
+    el: '#vueApp',
     data: {
         // Logged user id
         loggedUserId: null,
