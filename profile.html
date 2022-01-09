@@ -117,7 +117,7 @@
                                     <h4 v-if="vehicles.length == 0" class="col-5 card text-danger mt-4 p-2 mx-auto d-block text-center">Aún no tiene vehículos</h4>
                                 </div>
 
-                                <div class="list-group-item" v-for="vehicle in vehicles">
+                                <div class="list-group-item px-md-5 py-4 px-3" v-for="vehicle in vehicles">
                                     <div class="image-cropper mb-3">
                                         <img id="picture" v-if="vehicle.picture == null || !vehicle.picture" class="rounded mx-auto d-block mt-5" src="https://i.pinimg.com/originals/21/36/d8/2136d8d0e80aad580f170736f5e469ee.png" width="280px" height="180px"/>
                                         <img id="picture" v-if="vehicle.picture" class="rounded mx-auto d-block mt-5" :src="vehicle.picture" width="280px" height="180px"/>
