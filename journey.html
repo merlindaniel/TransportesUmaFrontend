@@ -85,19 +85,27 @@
                         <div class="pic">
                             <img :src="journey.organizer.picture" class="img-fluid" alt=""/>
                         </div>
+                        <div class="precio"><h4>Precio: {{journey.price}} €</h4></div>
                         <div class="padd">
                           <button class="btn btn-primary rounded-pill w-100 mb-2" v-on:click="goReservation"> Reservar</button>  
                         </div>
                     </div>
                     <div class="viaje-info">
+                          <h4>Fecha:</h4>
                           <p>{{date}}</p>
-                          <p>{{hour}} &rarr; {hora llegada}</p>
+                          <h4>Horario:</h4>
+                          <p>{{hour}}</p>
+                          <h4>Plazas restantes:</h4>
                           <p>{{journey.numberParticipants}}  plazas restantes</p>
                         <span></span>
                         <div class="viaje-info2">
+                        <h4>Descripción:</h4>
                         <p>{{journey.description}}</p>
+                        <h4>Conductor:</h4>
                         <p>{{organizer.name}}</p>
+                        <h4>Coche:</h4>
                         <p>{{journey.vehicle.model}}</p>
+                        <!--
                         <section id="portfolio" class="portfolio">
                         <div class="container" data-aos="fade-up">
                 
@@ -197,7 +205,7 @@
                           </div>
                 
                         </div>
-                
+                        -->
                       </div>
                     </section>
                   </div>      
