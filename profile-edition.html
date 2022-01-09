@@ -27,6 +27,8 @@
     <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
+    <link href="./css/customBorders.css" rel="stylesheet">
+
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/image-cropper.css" rel="stylesheet">
@@ -40,7 +42,7 @@
 <body>
 
     <!-- ======= Header ======= -->
-    <header id="header" class="fixed-top ">
+    <header id="header" class="fixed-top header-inner-pages">
         <div class="container d-flex align-items-center">
 
             <h1 class="logo me-auto"><a href="index.html">ShareTravel</a></h1>
@@ -61,132 +63,127 @@
         </div>
     </header><!-- End Header -->
 
-    <!-- ======= Hero Section ======= -->
-    <section id="hero" class="d-flex align-items-center">
+    <main id="main" class="bg-light">
         <div id="vueApp">
-        <div class="container">
-            <div class="row">
+            <section class="inner-page mt-5">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-11 col-md-10 col-lg-8" data-aos="fade-up" data-aos-delay="200">
+                            
+                            <!-- Datos Personales -->
+                            <div class="list-group custom-rounded-borders shadow-sm bg-white">
+                                <div class="list-group-item px-3 py-4">
+                                    <div class="section-title">
+                                        <h2>{{user.username}}</h2>
+                                    </div>
+                                    <div class="mx-auto image-cropper">
+                                        <img v-if="!user.picture" class="rounded-circle mx-auto mt-3 d-block" src="https://cdn.blablacar.com/comuto3/images/avatar/pixar/passenger-m-02.svg" width="200px" height="200px"/>
+                                        <img v-if="user.picture" class="rounded-circle mx-auto mt-3 d-block" :src="user.picture" width="200px" height="200px"/>
+                                        
+                                    </div>
+                                </div>
+                                <div class="list-group-item px-md-5 py-4 px-3">
+                                    <div class="d-flex flex-row">
+                                        <h3>Datos personales</h3>
+                                        
+                                    </div>
+                                    <p>Edite los campos que vea necesario</p>
+                                    <!-- Mensaje de error -->
+                                    <div v-if="errors && errors.length > 0" class="card pt-3 pb-0 my-1 bg-danger text-white">
+                                        <ul>
+                                            <li v-for="error in errors" class="fw-bold">{{error}}</li>
+                                        </ul>
+                                    </div>
+                                    <hr>
 
-                <div class="col-12">
-                    <h1 class="text-center">{{user.username}}</h1>
-                    <div class="mx-auto image-cropper">
-                        <img v-if="!editionUser.picture" class="rounded-circle mx-auto mt-3 d-block" src="https://cdn.blablacar.com/comuto3/images/avatar/pixar/passenger-m-02.svg" width="200px" height="200px"/>
-                        <img id="picture" v-if="editionUser.picture" class="rounded-circle mx-auto mt-3 d-block" :src="editionUser.picture" width="200px" height="200px"/>
-                    </div>
-                    <div class="card mx-auto d-block mt-4 p-2 col-4">
-                        <label class="lead">Imagen de perfil:&nbsp&nbsp</label>
-                        <input class="" type="file" id="profile-pic" @change="updateImg">
-                    </div>
-                </div>
-
-                <div class="col-8 mx-auto d-flex flex-column justify-content-center pt-4 order-2 order-lg-1" data-aos="fade-up"
-                    data-aos-delay="200">
-
-                    <div class="row mb-4">
-                        <div class="col-12 d-flex justify-content-center justify-content-lg-center mt-3 inputCustom"
-                            data-aos="fade-up" data-aos-delay="200">
-                            <button v-on:click="userEditionSubmit" v-if="isLoggedUser" class="btn btn-success rounded-pill w-25" type="button">Confirmar</button>
-                            <a :href="'profile.html?user=' + userId" v-if="isLoggedUser" class="btn btn-dark rounded-pill w-25 mx-2" type="button">Cancelar</a>
-                        </div>
-                    </div>
-
-                    <!-- Mensaje de error -->
-                    <div v-if="errors && errors.length > 0" class="card pt-3 pb-0 my-1 bg-danger text-white">
-                        <ul>
-                            <li v-for="error in errors" class="fw-bold">{{error}}</li>
-                        </ul>
-                    </div>
-
-                    <!-- Nombre -->
-                    <div class="card p-2 my-1">
-                        <div class="mx-1">
-                            <label class="lead">Nombre:</label>
-                            <input id="edition-name" class="form-control customFirstBorders fw-bold m-1" type="text" placeholder="Nombre" v-model="editionUser.name" required>
-                        </div>
-                    </div>
-                    
-
-                    <!-- Nombre de Usuario -->
-                    <div class="card p-2 my-1">
-                        <div class="mx-1">
-                            <label class="lead">Usuario:</label>
-                            <input id="edition-username" class="form-control customFirstBorders fw-bold m-1" type="text" placeholder="Nombre de usuario" v-model="editionUser.username" disabled required>
-                        </div>
-                    </div>
-
-
-                    <!-- Email -->
-                    <div class="card p-2 my-1">
-                        <div class="mx-1">
-                            <label class="lead">Email:</label>
-                            <input id="edition-email" class="form-control customFirstBorders fw-bold m-1" type="email" placeholder="Email" v-model="editionUser.email" required>
-                        </div>
-                    </div>
-
-                    
-                    <!-- Contraseña -->
-                    <div class="card p-2 my-1">
-                        <div class="mx-1">
-                            <label class="lead">Contraseña:</label>
-                            <input id="edition-password" class="form-control customFirstBorders fw-bold m-1" type="password" placeholder="Contraseña" v-model="editionUser.password" required>
-                        </div>
-
-                        <div class="mx-1">
-                            <label class="lead mt-2">Repetir contraseña:</label>
-                            <input id="edition-password-repeat" class="form-control customFirstBorders fw-bold m-1" type="password" placeholder="Repetir contraseña" v-model="editionUser.password" required>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="fw-bold text-white mt-5 mb-4 text-center">Vehículos</h3>
-
-                       <!-- Vehículos -->
-                       <div class="row modal-body bg-white rounded p-3 mt-2" v-for="vehicle in vehicles">
-                            <div class="col-md-6">
-                                <div class="mx-1">
-                                    <label class="lead">Apodo del vehículo:</label>
-                                    <p class="fw-bold m-1">{{vehicle.name}}</p>
+                                    <div class="row g-3 px-3 mb-5">
+                                        <div class="col-12">
+                                            <label for="profile-pic" class="form-label">Foto de perfil</label>
+                                            <input class="form-control" type="file" id="profile-pic" @change="updateImg">
+                                        </div>
+                                        
+                                        <div class="col-12">
+                                            <label for="edition-name" class="form-label">Nombre</label>
+                                            <input id="edition-name" class="form-control fw-bold" type="text" placeholder="Nombre" v-model="editionUser.name" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="edition-username" class="form-label">Usuario</label>
+                                            <input id="edition-username" class="form-control fw-bold" type="text" placeholder="Nombre de usuario" v-model="editionUser.username" disabled required>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="edition-email" class="form-label">Email</label>
+                                            <input id="edition-email" class="form-control fw-bold" type="email" placeholder="Email" v-model="editionUser.email" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="edition-password" class="form-label">Contraseña</label>
+                                            <input id="edition-password" class="form-control fw-bold" type="password" placeholder="Contraseña" v-model="editionUser.password" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="edition-password-repeat" class="form-label">Repite Contraseña</label>
+                                            <input id="edition-password-repeat" class="form-control fw-bold" type="password" placeholder="Repetir contraseña" v-model="editionUser.password" required>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    <hr>
+                                    <div class="d-flex flex-row mt-4">
+                                        <a :href="'profile.html?user=' + userId" v-if="isLoggedUser" class="btn btn-outline-dark rounded-pill px-4" type="button">Cancelar</a>
+                                        <div class="flex-fill"></div>
+                                        <button v-on:click="userEditionSubmit" v-if="isLoggedUser" class="btn btn-success rounded-pill px-4" type="button">Confirmar</button>
+                                    </div>
                                 </div>
 
-                                <div class="mx-1">
-                                    <label class="lead">Matricula:</label>
-                                    <p class="fw-bold m-1">{{vehicle.registration}}</p>
+                                <div class="list-group-item px-md-5 py-4 px-3">
+                                    <div class="d-flex flex-row">
+                                        <h3>Ajustes adicionales</h3>
+                                        
+                                    </div>
+                                    <p>Puede eliminar su cuenta si así lo desea</p>
+                                    <hr>
+                                    <button v-on:click="deleteUser" class="btn btn-danger rounded-pill px-4" type="button">Eliminar mi cuenta</button>
                                 </div>
 
-                                <div class="mx-1">
-                                    <label class="lead">Modelo:</label>
-                                    <p class="fw-bold m-1">{{vehicle.model}}</p>
+                            </div>
+
+                            <!-- Vehículos -->
+                            <div class="list-group custom-rounded-borders shadow-sm bg-white mt-4">
+                                <div class="list-group-item px-3 py-4">
+                                    <div class="section-title">
+                                        <h2>Vehículos</h2>
+                                    </div>
+                                    <div v-if="isLoggedUser" class="row justify-content-center">
+                                        <a href="vehicle-crud.html" class="col-auto btn btn-primary px-5 rounded-pill">Añadir vehículo</a>
+                                    </div>
                                 </div>
 
-                                <div class="mx-1">
-                                    <label class="lead">Combustible:</label>
-                                    <p class="fw-bold m-1">{{vehicle.combustible}}</p>
+                                <div class="list-group-item px-md-5 py-4 px-3" v-for="vehicle in vehicles">
+                                    <div class="image-cropper mb-3">
+                                        <img id="picture" v-if="vehicle.picture == null || !vehicle.picture" class="rounded mx-auto d-block mt-5" src="https://i.pinimg.com/originals/21/36/d8/2136d8d0e80aad580f170736f5e469ee.png" width="280px" height="180px"/>
+                                        <img id="picture" v-if="vehicle.picture" class="rounded mx-auto d-block mt-5" :src="vehicle.picture" width="280px" height="180px"/>
+                                    </div>
+                                    <p class="lead">Apodo del vehículo: <b>{{vehicle.name}}</b> </p>
+
+                                    <p class="lead">Matricula: <b>{{vehicle.registration}}</b> </p>
+
+                                    <p class="lead">Modelo: <b>{{vehicle.model}}</b> </p>
+
+                                    <p class="lead">Combustible: <b>{{vehicle.combustible}}</b> </p>
+                                    
+                                    <div class="row justify-content-center">
+                                        <a :href="'vehicle-crud.html?vehicle=' + vehicle.id" class="col-auto btn btn-success rounded-pill mt-4 px-5" type="button">Editar vehículo</a>
+
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="image-cropper">
-                                    <img id="picture" v-if="vehicle.picture == null || !vehicle.picture" class="rounded mx-auto d-block mt-5" src="https://i.pinimg.com/originals/21/36/d8/2136d8d0e80aad580f170736f5e469ee.png" width="280px" height="180px"/>
-                                    <img id="picture" v-if="vehicle.picture" class="rounded mx-auto d-block mt-5" :src="vehicle.picture" width="280px" height="180px"/>
-                                </div>
 
-                                <a :href="'vehicle-crud.html?vehicle=' + vehicle.id" class="col-5 btn btn-success rounded-pill mx-auto mt-4 d-block" type="button">Editar vehículo</a>
-                            </div>
+
+
                         </div>
-
-                        <div v-if="isLoggedUser" class="mt-4 mx-auto d-block">
-                            <a href="vehicle-crud.html" class="col-5 btn btn-primary rounded-pill mx-auto d-block" type="button">Añadir vehículo</a>
-                        </div>
-                    </div>
-
-                    <div v-if="isLoggedUser" class="col-8 mx-auto card px-5 py-2 mt-5">
-                        <h3 class="mx-auto">Ajustes adicionales:</h3>
-                        <button v-on:click="deleteUser" class="btn btn-danger rounded-pill mx-auto d-block mt-2" type="button">Borrar mi cuenta</button>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
-    </div>
-    </section><!-- End Hero -->
+    </main>
 
     
     <div id="preloader"></div>
