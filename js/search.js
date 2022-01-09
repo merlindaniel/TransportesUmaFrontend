@@ -1,7 +1,7 @@
 // javascript para la página de las búsquedas de trayecto (search.html)
 const app = new Vue({
 
-    el: '#app2',
+    el: '#app',
     data: {
 
         tokenConBearer: null,
