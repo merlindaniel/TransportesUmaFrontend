@@ -113,23 +113,32 @@
                         <input type="text" v-model="name" class="form-control" id="name" required>
                       </div>
                       <div class="col-12">
-                          <label for="email" class="form-label" >Email</label>
-                          <input type="email" v-model="email" class="form-control" id="email" placeholder="ejemplo@gmail.com" required>
-                      </div>
+                          <label for="email" class="form-label">Email</label>
+                          <input type="email" v-model="email" class="form-control" v-bind:class="{'is-invalid' : existsEmail}" aria-describedby="emailFeedback" id="email" placeholder="ejemplo@gmail.com" required>
+                          <div v-if="existsEmail" id="emailFeedback" class="invalid-feedback">
+                            El email introducido ya existe, prueba con otro.
+                          </div>
+                        </div>
                       <div class="col-12">
                         <label for="user" class="form-label">Nombre de usuario</label>
                         <div class="input-group">
                           <div class="input-group-text">@</div>
-                          <input type="text" v-model="username" class="form-control" id="user" required placeholder="Nombre De Usuario">
+                          <input type="text" v-model="username" class="form-control" v-bind:class="{'is-invalid' : existsUsername}" aria-describedby="usernameFeedback" id="user" required placeholder="Nombre De Usuario">
+                          <div v-if="existsUsername" id="usernameFeedback" class="invalid-feedback">
+                            El nombre de usuario introducido ya existe, prueba con otro.
+                          </div>
                         </div>
                       </div>
                       <div class="col-12">
                         <label for="password" class="form-label">Contraseña</label>
-                        <input type="password" v-model="password" class="form-control" id="password" placeholder="Contraseña" required>
+                        <input type="password" v-model="password" class="form-control" v-bind:class="{'is-invalid' : notEqualsPassword}" id="password" placeholder="Contraseña" required>
                       </div>
                       <div class="col-12">
                         <label for="password2" class="form-label">Confirmar contraseña</label>
-                        <input type="password" v-model="confirmPassword" class="form-control" id="password2" placeholder="Confirmar contraseña" required>
+                        <input type="password" v-model="confirmPassword" class="form-control" v-bind:class="{'is-invalid' : notEqualsPassword}" id="password2" aria-describedby="password2Feedback" placeholder="Confirmar contraseña" required>
+                        <div v-if="notEqualsPassword" id="password2Feedback" class="invalid-feedback">
+                          Las contraseñas no coinciden.
+                        </div>
                       </div>
                       <div class="col-12 d-grid gap-2 mt-5">
                         <button type="submit" class="btn btn-success rounded-pill">Registrarse !</button>

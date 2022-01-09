@@ -5,12 +5,17 @@ let app = new Vue({
         email: "",
         username: "",
         password: "",
-        confirmPassword: ""
+        confirmPassword: "",
+        notEqualsPassword: false,
+        existsUsername: false,
+        existsEmail: false
     },
     methods: {
         async signUp(e){
             e.preventDefault();
             if(this.password === this.confirmPassword){
+                this.resetErrors();
+
                 let response = await fetch(backendPaths.preffix + backendPaths.pathApiUsers, {
                     method: 'POST',
                     headers: {
@@ -26,11 +31,23 @@ let app = new Vue({
                 if(response.status === 200){
                     window.location.href = frontendPaths.pathLogin;
                 } else {
+                    let data = await response.json();
+                    if(data.fieldError === "USERNAME")
+                        this.existsUsername = true;
+                    else if(data.fieldError === "EMAIL")
+                        this.existsEmail = true;
+                    console.log(response);
                     console.log("Error en la respuesta");
                 }
             } else {
+                this.notEqualsPassword = true;
                 console.log("Contraseña no iguales");
             }
+        },
+        resetErrors(){
+            this.notEqualsPassword = false;
+            this.existsUsername = false;
+            this.existsEmail = false;
         }
     },
     beforeCreate: function() {
