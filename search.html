@@ -90,11 +90,11 @@
             </div>
 
             <div class="col-6 d-flex flex-column justify-content-center pt-4 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-                <input class="form-control customFirstBorders" type="text" placeholder="Origen" aria-describedby="buttonSearch" list="listOrigin" v-model="origin" v-on:input="getListOrigin()">
+                <input class="form-control customFirstBorders" type="text" placeholder="Origen" aria-describedby="buttonSearch" list="listOrigin" v-model="origin" v-on:input="getListOrigin">
                 <datalist id="listOrigin">
                   <option v-for="origins in listOrigin">{{origins.address}}</option>
                 </datalist>
-                <input class="form-control customFirstBorders mt-3" type="text" placeholder="Destino" aria-describedby="textSet1" list="listDestination"v-model="destination" v-on:input="getListDestination()">
+                <input class="form-control customFirstBorders mt-3" type="text" placeholder="Destino" aria-describedby="textSet1" list="listDestination"v-model="destination" v-on:input="getListDestination">
                 <datalist id="listDestination">
                   <option v-for="destinations in listDestination">{{destinations.address}}</option>
                 </datalist>
