@@ -34,18 +34,13 @@
     <script src="./vue/node_modules/vue-cookies/vue-cookies.js"></script>
     <script src="vue/axios.js"></script>
 
-    <!-- =======================================================
-  * Template Name: Transportes UMA - v4.7.0
-  * Template URL: https://bootstrapmade.com/Transportes UMA-free-bootstrap-html-template-corporate/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+    <link href="./css/customBorders.css" rel="stylesheet">
 </head>
 
 <body>
 
     <!-- ======= Header ======= -->
-    <header id="header" class="fixed-top ">
+    <header id="header" class="fixed-top header-inner-pages">
         <div class="container d-flex align-items-center">
 
             <h1 class="logo me-auto"><a href="index.html">ShareTravel</a></h1>
@@ -67,96 +62,132 @@
     </header><!-- End Header -->
 
     <!-- ======= Hero Section ======= -->
-    <section id="hero" class="d-flex align-items-center">
+    <!-- <section id="hero" class="d-flex align-items-center">
 
         <div class="container">
-            <div class="row">
-
-                <div class="col-12">
-                    <h1 class="text-center">{{user.username}}</h1>
-                    <div class="mx-auto image-cropper">
-                        <img v-if="!user.picture" class="rounded-circle mx-auto mt-3 d-block" src="https://cdn.blablacar.com/comuto3/images/avatar/pixar/passenger-m-02.svg" width="200px" height="200px"/>
-                        <img v-if="user.picture" class="rounded-circle mx-auto mt-3 d-block" :src="user.picture" width="200px" height="200px"/>
-                    </div>
-                </div>
-
-                <div class="col-8 mx-auto d-flex  flex-column justify-content-center pt-4 order-2 order-lg-1" data-aos="fade-up"
-                    data-aos-delay="200">
-
-                    <div class="row mb-4">
-                        <div class="col-12 d-flex justify-content-center justify-content-lg-center mt-3 inputCustom"
-                            data-aos="fade-up" data-aos-delay="200">
-                            <a href="profile-edition.html" v-if="isLoggedUser" class="btn btn-primary rounded-pill w-25" type="button">Editar mi perfil</a>
-                        </div>
-                    </div>
-
-                    <!-- Nombre -->
-                    <div class="card p-2 my-1">
-                        <div class="mx-1">
-                            <label class="lead">Nombre:</label>
-                            <p class="fw-bold m-1">{{user.name}}</p>
-                        </div>
-                    </div>
-
-                    <!-- Nombre de Usuario -->
-                    <div class="card p-2 my-1">
-                        <div class="mx-1">
-                            <label class="lead">Usuario:</label>
-                            <p class="fw-bold m-1">{{user.username}}</p>
-                        </div>
-                    </div>
-
-
-
-                    <!-- Email -->
-                    <div class="card p-2 my-1">
-                        <div class="mx-1">
-                            <label class="lead">Email:</label>
-                            <p class="fw-bold m-1">{{user.email}}</p>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="fw-bold text-white mt-5 mb-4 text-center">Vehículos</h3>
-
-                        <h4 v-if="vehicles.length == 0" class="col-5 card text-danger mt-4 p-2 mx-auto d-block text-center">Aún no tiene vehículos</h4>
-
-                        <!-- Vehículos -->
-                        <div class="row modal-body bg-white rounded p-3 mt-2" v-for="vehicle in vehicles">
-                            <div class="col-md-6">
-                                <div class="mx-1">
-                                    <label class="lead">Apodo del vehículo:</label>
-                                    <p class="fw-bold m-1">{{vehicle.name}}</p>
-                                </div>
-    
-                                <div class="mx-1">
-                                    <label class="lead">Matricula:</label>
-                                    <p class="fw-bold m-1">{{vehicle.registration}}</p>
-                                </div>
-    
-                                <div class="mx-1">
-                                    <label class="lead">Modelo:</label>
-                                    <p class="fw-bold m-1">{{vehicle.model}}</p>
-                                </div>
-    
-                                <div class="mx-1">
-                                    <label class="lead">Combustible:</label>
-                                    <p class="fw-bold m-1">{{vehicle.combustible}}</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="image-cropper">
-                                    <img id="picture" v-if="vehicle.picture == null || !vehicle.picture" class="rounded mx-auto d-block mt-5" src="https://i.pinimg.com/originals/21/36/d8/2136d8d0e80aad580f170736f5e469ee.png" width="280px" height="180px"/>
-                                    <img id="picture" v-if="vehicle.picture" class="rounded mx-auto d-block mt-5" :src="vehicle.picture" width="280px" height="180px"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
 
-    </section><!-- End Hero -->
+    </section> --><!-- End Hero -->
+
+    <main id="main" class="bg-light">
+        <div id="vueApp">
+            <section class="inner-page mt-5">
+                <div class="container">
+                    <div class="row justify-content-center">
+
+                        <div class="col-11 col-md-10 col-lg-8" data-aos="fade-up" data-aos-delay="200">
+                            
+                            <!-- Perfil -->
+                            <div class="list-group custom-rounded-borders shadow-sm bg-white">
+                                <div class="list-group-item px-3 py-4">
+                                    <div class="section-title">
+                                        <h2>{{user.username}}</h2>
+                                    </div>
+                                    <div class="mx-auto image-cropper">
+                                        <img v-if="!user.picture" class="rounded-circle mx-auto mt-3 d-block" src="https://cdn.blablacar.com/comuto3/images/avatar/pixar/passenger-m-02.svg" width="200px" height="200px"/>
+                                        <img v-if="user.picture" class="rounded-circle mx-auto mt-3 d-block" :src="user.picture" width="200px" height="200px"/>
+                                        
+                                    </div>
+                                </div>
+                                <div class="list-group-item px-md-5 py-4 px-3">
+                                    <div class="d-flex flex-row">
+                                        <h3>Datos personales</h3>
+                                        <div class="ms-4">
+                                            <a href="profile-edition.html" v-if="isLoggedUser" class="btn btn-primary badge rounded-pill" type="button">Editar mi perfil</a>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <p class="lead">Nombre: <b>{{user.name}}</b> </p>
+
+                                    <p class="lead">Usuario: <b>{{user.username}}</b> </p>
+                                    
+                                    <p class="lead">Usuario: <b>{{user.email}}</b> </p>
+                                </div>
+
+                            </div>
+
+                            
+                            <!-- Vehículos -->
+                            <div class="list-group custom-rounded-borders shadow-sm bg-white mt-4">
+                                <div class="list-group-item px-3 py-4">
+                                    <div class="section-title">
+                                        <h2>Vehículos</h2>
+                                    </div>
+                                    <h4 v-if="vehicles.length == 0" class="col-5 card text-danger mt-4 p-2 mx-auto d-block text-center">Aún no tiene vehículos</h4>
+                                </div>
+
+                                <div class="list-group-item" v-for="vehicle in vehicles">
+                                    <div class="image-cropper mb-3">
+                                        <img id="picture" v-if="vehicle.picture == null || !vehicle.picture" class="rounded mx-auto d-block mt-5" src="https://i.pinimg.com/originals/21/36/d8/2136d8d0e80aad580f170736f5e469ee.png" width="280px" height="180px"/>
+                                        <img id="picture" v-if="vehicle.picture" class="rounded mx-auto d-block mt-5" :src="vehicle.picture" width="280px" height="180px"/>
+                                    </div>
+                                    <p class="lead">Apodo del vehículo: <b>{{vehicle.name}}</b> </p>
+
+                                    <p class="lead">Matricula: <b>{{vehicle.registration}}</b> </p>
+
+                                    <p class="lead">Modelo: <b>{{vehicle.model}}</b> </p>
+
+                                    <p class="lead">Combustible: <b>{{vehicle.combustible}}</b> </p>
+                                    
+                                </div>
+                            </div>
+
+                                
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+
+
+
+    <!--<div class="col-12 mx-auto d-flex  flex-column justify-content-center pt-4"> 
+                                    <div>
+                                    <h3 class="fw-bold text-white mt-5 mb-4 text-center">Vehículos</h3>
+            
+                                    <h4 v-if="vehicles.length == 0" class="col-5 card text-danger mt-4 p-2 mx-auto d-block text-center">Aún no tiene vehículos</h4>
+            
+
+                                    <div class="row modal-body bg-white rounded p-3 mt-2" v-for="vehicle in vehicles">
+                                        <div class="col-md-6">
+                                            <div class="mx-1">
+                                                <label class="lead">Apodo del vehículo:</label>
+                                                <p class="fw-bold m-1">{{vehicle.name}}</p>
+                                            </div>
+                
+                                            <div class="mx-1">
+                                                <label class="lead">Matricula:</label>
+                                                <p class="fw-bold m-1">{{vehicle.registration}}</p>
+                                            </div>
+                
+                                            <div class="mx-1">
+                                                <label class="lead">Modelo:</label>
+                                                <p class="fw-bold m-1">{{vehicle.model}}</p>
+                                            </div>
+                
+                                            <div class="mx-1">
+                                                <label class="lead">Combustible:</label>
+                                                <p class="fw-bold m-1">{{vehicle.combustible}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="image-cropper">
+                                                <img id="picture" v-if="vehicle.picture == null || !vehicle.picture" class="rounded mx-auto d-block mt-5" src="https://i.pinimg.com/originals/21/36/d8/2136d8d0e80aad580f170736f5e469ee.png" width="280px" height="180px"/>
+                                                <img id="picture" v-if="vehicle.picture" class="rounded mx-auto d-block mt-5" :src="vehicle.picture" width="280px" height="180px"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+
+
+
+
+
 
     <div id="preloader"></div>
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
