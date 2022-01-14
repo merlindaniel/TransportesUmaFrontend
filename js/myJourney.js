@@ -101,7 +101,7 @@ let myJourneyApp = new Vue({
                 // Configuración de la fecha, nombre, descripción y organizador del viaje
                 this.journey.startDate = new Date(this.fecha+'T'+this.hour);
                 this.journey.name = 'Viaje de ' + this.journey.origin.title + ' a ' + this.journey.destination.title;
-                this.journey.description = 'El viaje se realizará el día ' + this.fecha+ ' a las ' + this.hour + ' horas.\nSe han ofertado ' + this.journey.numberParticipants + ' sitios a un precio de ' + this.journey.price + '€ por plaza.';
+                this.journey.description = 'El viaje se realizará el día ' + this.fecha+ ' a las ' + this.getHours(this.journey.startDate) + ' horas.\nSe han ofertado ' + this.journey.numberParticipants + ' sitios a un precio de ' + this.journey.price + '€ por plaza.';
                 
                 // Escoger el vehículo elegido en la lista de vehículos
                 await this.obtenerVehiculoElegido();
@@ -215,16 +215,12 @@ let myJourneyApp = new Vue({
             }
             this.date = day + "/" + month + "/" + dateJourney.getFullYear();
 
-            var hours = dateJourney.getHours();
-            if (hours < 10){
-                hours = "0" + dateJourney.getHours();
-            }
-            var minutes = dateJourney.getMinutes();
-            if(minutes < 10){
-                minutes = "0" + dateJourney.getMinutes();
-            }
-            this.hour = hours + ":" + minutes;
+            this.hour = this.hoursFunction(this.journey.startDate);
             this.fecha = dateJourney.getFullYear() + "-" + month +"-"+day;
+        },
+
+        hoursFunction: function (string) {   
+            return string.split("T")[1].split(":")[0] + ":" + string.split("T")[1].split(":")[1];
         },
 
         async getParticipants() {

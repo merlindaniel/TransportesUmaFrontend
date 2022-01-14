@@ -43,172 +43,95 @@
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top ">
-    <div class="container d-flex align-items-center">
+    <header id="header" class="fixed-top " style="background-color: #37517e;">
+        <div class="container d-flex align-items-center">
 
-      <h1 class="logo me-auto"><a href="index.html">ShareTravel</a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+            <h1 class="logo me-auto"><a href="index.html">ShareTravel</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto" href="index.html">Inicio</a></li>
-          <li><a class="nav-link scrollto" href="search.html">Buscar</a></li>
-          <li><a class="nav-link scrollto" href="organize-journey.html">Publicar viaje</a></li>
-          <li><a class="nav-link scrollto active" href="your-travels.html">Tus viajes</a></li>
-          <li><a class="nav-link scrollto" href="profile.html">Mi perfil</a></li>
-          <li><a class="getstarted scrollto" href="login.html">Iniciar Sesión</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li><a class="nav-link scrollto" href="index.html">Inicio</a></li>
+                    <li><a class="nav-link scrollto" href="search.html">Buscar</a></li>
+                    <li><a class="nav-link scrollto" href="organize-journey.html">Publicar viaje</a></li>
+                    <li><a class="nav-link scrollto" href="your-travels.html">Tus viajes</a></li>
+                    <li><a class="getstarted scrollto" href="profile.html">Mi perfil</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
 
-    </div>
-  </header><!-- End Header -->
+        </div>
+    </header><!-- End Header -->
 
- 
+  <main id="main" class="pt-5">
     <!-- Viaje Section -->
-    <section id="viajes" class="d-flex align-items-center">
-        <div id="app" class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h1 class="text-center">Viaje de {{journey.origin.address}} a {{journey.destination.address}}</h1>
-                </div>
-                <div class="viajeD d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100" href="travel.html">
-                    <div class="pic-res">
-                        <div class="pic">
-                            <img :src="journey.organizer.picture" class="img-fluid" alt=""/>
-                        </div>
-                        <div class="precio"><h4>Precio: {{journey.price}} €</h4></div>
-                        <div class="padd">
-                          <button class="btn btn-primary rounded-pill w-100 mb-2" v-on:click="goReservation"> Reservar</button>  
+    <!--id="viajes"-->
+    <section class="about">
+      <div id="app" class="container">
+        <div class="row">
+          <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-12 col-lg-10" data-aos="fade-up" data-aos-delay="200">
+                <div class="list-group custom-rounded-borders shadow-sm bg-white py-5 px-5">
+                    <div class="list-group-item px-3 py-4">
+                        <div class="section-title">
+                            <h2>Viaje de {{journey.origin.address}} a {{journey.destination.address}}</h2>
                         </div>
                     </div>
-                    <div class="viaje-info">
-                          <h4>Fecha:</h4>
-                          <p>{{date}}</p>
-                          <h4>Horario:</h4>
-                          <p>{{hour}}</p>
-                          <h4>Plazas restantes:</h4>
-                          <p>{{journey.numberParticipants}}  plazas restantes</p>
-                        <span></span>
-                        <div class="viaje-info2">
-                        <h4>Descripción:</h4>
-                        <p>{{journey.description}}</p>
-                        <h4>Conductor:</h4>
-                        <p>{{organizer.name}}</p>
-                        <h4>Coche:</h4>
-                        <p>{{journey.vehicle.model}}</p>
-                        <!--
-                        <section id="portfolio" class="portfolio">
-                        <div class="container" data-aos="fade-up">
-                
-                        <div class="section-title">
-                          <h2 class="text-dark">Imágenes del vehículo</h2>
-                          <p></p>
+                    <div class="list-group-item px-md-5 py-4 px-3">
+                        <div class="d-flex flex-row">
+                            <h3>Datos del viaje</h3>
                         </div>
-                        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">          
-                          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                            <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt=""></div>
-                            <div class="portfolio-info">
-                              <h4>App 1</h4>
-                              <p>App</p>
-                              <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
-                              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        <hr>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                <p class="lead">Fecha: <b>{{date}}</b> </p>
+
+                                <p class="lead">Horario: <b>{{hour}}</b> </p>
+
+                                <p class="lead">Plazas restantes: <b>{{journey.numberParticipants - journey.participants.length}}</b> </p>
+
+                                <p class="lead">Descripción: <b>{{journey.description}}</b> </p>
+                                
+                                <p class="lead">Conductor: <b>{{organizer.name}}</b> </p>
+
+                                <p class="lead">Vehículo: <b>{{journey.vehicle.model}}</b> </p>
+                                
+                                <p class="lead">Estado: 
+                                    <b>
+                                        <span v-if="journey.participants.length == journey.numberParticipants">Completo</span>
+                                        <span v-if="journey.participants.length != journey.numberParticipants">Disponible</span> 
+                                    </b> 
+                                </p>
+
+                                <p class="lead">Examen: 
+                                    <b>
+                                        <span v-if="journey.exam == true">Si</span>
+                                        <span v-if="journey.exam == false">No</span>
+                                    </b>
+                                </p>
                             </div>
-                          </div>
-                
-                          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                            <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt=""></div>
-                            <div class="portfolio-info">
-                              <h4>Web 3</h4>
-                              <p>Web</p>
-                              <a href="assets/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-                              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                            <div class="col-lg-6 col-md-12 col-sm-12 d-lg-inline d-sm-none my-auto">
+                                    <img class="rounded-circle mx-auto d-block img-responsive" src="assets/img/car.png" width="200px" height="200px"/>
                             </div>
-                          </div>
-                
-                          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                            <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-3.jpg" class="img-fluid" alt=""></div>
-                            <div class="portfolio-info">
-                              <h4>App 2</h4>
-                              <p>App</p>
-                              <a href="assets/img/portfolio/portfolio-3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 2"><i class="bx bx-plus"></i></a>
-                              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                            </div>
-                          </div>
-                
-                          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                            <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-4.jpg" class="img-fluid" alt=""></div>
-                            <div class="portfolio-info">
-                              <h4>Card 2</h4>
-                              <p>Card</p>
-                              <a href="assets/img/portfolio/portfolio-4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 2"><i class="bx bx-plus"></i></a>
-                              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                            </div>
-                          </div>
-                
-                          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                            <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-5.jpg" class="img-fluid" alt=""></div>
-                            <div class="portfolio-info">
-                              <h4>Web 2</h4>
-                              <p>Web</p>
-                              <a href="assets/img/portfolio/portfolio-5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 2"><i class="bx bx-plus"></i></a>
-                              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                            </div>
-                          </div>
-                
-                          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                            <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-6.jpg" class="img-fluid" alt=""></div>
-                            <div class="portfolio-info">
-                              <h4>App 3</h4>
-                              <p>App</p>
-                              <a href="assets/img/portfolio/portfolio-6.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 3"><i class="bx bx-plus"></i></a>
-                              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                            </div>
-                          </div>
-                
-                          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                            <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-7.jpg" class="img-fluid" alt=""></div>
-                            <div class="portfolio-info">
-                              <h4>Card 1</h4>
-                              <p>Card</p>
-                              <a href="assets/img/portfolio/portfolio-7.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 1"><i class="bx bx-plus"></i></a>
-                              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                            </div>
-                          </div>
-                
-                          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                            <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-8.jpg" class="img-fluid" alt=""></div>
-                            <div class="portfolio-info">
-                              <h4>Card 3</h4>
-                              <p>Card</p>
-                              <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 3"><i class="bx bx-plus"></i></a>
-                              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                            </div>
-                          </div>
-                
-                          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                            <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-9.jpg" class="img-fluid" alt=""></div>
-                            <div class="portfolio-info">
-                              <h4>Web 3</h4>
-                              <p>Web</p>
-                              <a href="assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-                              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                            </div>
-                          </div>
-                
                         </div>
-                        -->
+                        
+                    </div>
+                    <div class="list-group-item px-md-5 py-4 px-3">
+                      <div class="row content text-center justify-content-center">
+                        <h4 class="col-12">Precio: {{journey.price}} €</h4>
+                        <button class="col-6 btn btn-primary rounded-pill mb-2" v-on:click="goReservation"> Reservar</button>  
                       </div>
-                    </section>
-                  </div>      
+                    </div>
                 </div>
             </div>
+          </div>
         </div>
+      </div>
     </section> 
   
     <!-- End Viaje Section -->
-
+  </main>
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
