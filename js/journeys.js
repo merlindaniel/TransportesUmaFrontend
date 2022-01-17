@@ -5,15 +5,26 @@ const app = new Vue({
     data: {
 
         tokenConBearer: null,
+        loggedUser: '',
         origin: '',
         destination: '',
         date: '',
         nSpots: '',
         journeysList: [],
-        journeysListDef: []
+        journeysListDef: [], 
+        all: true
     },
 
     methods: {
+
+        async getLoggedUser() {
+            let response = await fetch('http://localhost:8080/api/users/current', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization':this.tokenConBearer
+                }});
+            this.loggedUser = await response.json();
+        },
 
         async getJourneys() {
             
@@ -24,25 +35,54 @@ const app = new Vue({
             const nSpots = urlParams.get('nSpots');
             const date = urlParams.get('date');
 
-            if(origin && destination && nSpots){
+            this.getLoggedUser();
+
+            let response;
+
+            if(origin && destination && nSpots && date){
                 
                 this.origin = origin;
                 this.destination = destination;
                 this.nSpots = nSpots;
                 this.date = date;
-                
-                let response = await fetch('http://localhost:8080/api/journeys/search/'+ this.origin + "/" + this.destination + "/" + this.nSpots + "/" + this.date, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization':this.tokenConBearer
-                }});
+                this.all = false;
 
-                if (response.ok) {    
-                    this.journeysList = await response.json();
-                    this.setList();
+                if(this.loggedUser){
+                     response = await fetch('http://localhost:8080/api/journeys/search/'+ this.origin + "/" + this.destination + "/" + this.nSpots + "/" + this.date + "/" + this.loggedUser.id, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization':this.tokenConBearer
+                    }});
                 }else{
-                    //error
+                    response = await fetch('http://localhost:8080/api/journeys/search/'+ this.origin + "/" + this.destination + "/" + this.nSpots + "/" + this.date + "/", {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization':this.tokenConBearer
+                    }});
                 }
+
+            }else{
+                
+                if(this.loggedUser){
+                    response = await fetch('http://localhost:8080/api/journeys/search/'+ this.loggedUser.id, {
+                    headers: {
+                       'Content-Type': 'application/json',
+                       'Authorization':this.tokenConBearer
+                    }});
+               }else{
+                    response = await fetch('http://localhost:8080/api/journeys/', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization':this.tokenConBearer
+                    }});
+               }
+
+               this.nSpots = 1;
+            } 
+
+            if (response.ok) {    
+                this.journeysList = await response.json();
+                this.setList();
             }else{
                 //error
             }
@@ -53,8 +93,7 @@ const app = new Vue({
             
             
             for(journey of this.journeysList){
-                var numSpots = journey.vehicle.seats - journey.numberParticipants ;
-                var h = this.hoursFunction(journey.startDate,toString());
+                var h = this.hoursFunction(journey.startDate);
                 
                 let response = await fetch('http://localhost:8080/api/users/'+ journey.organizer, {
                 headers: {
@@ -84,7 +123,7 @@ const app = new Vue({
                         organizer: org,              
                         numberParticipants: journey.numberParticipants,
                         // Numero de asientos restantes      
-                        numberSpots: numSpots,
+                        numberSpots: journey.numberParticipants - journey.participants.length,
                         participants: journey.participants,           
                         vehicle: journey.vehicle,                
                         price: journey.price,                  

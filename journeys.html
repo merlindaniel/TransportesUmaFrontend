@@ -70,8 +70,14 @@
     <div id="app" class="container">
       <div class="row">
         <div class="col-12">
-          <h1 class="text-center">Viaje de {{origin}} a {{destination}}</h1>
-          <h2 class="text-center">{{date}}, {{nSpots}} plazas</h2>
+          <div v-if="all == true">
+            <h1 class="text-center">Todos los viajes:</h1>
+          </div>
+          <div v-else>
+            <h1 class="text-center">Viaje de {{origin}} a {{destination}}</h1>
+            <h2 class="text-center">{{date}}, {{nSpots}} plazas</h2>
+          </div>
+
         </div>
         <ol>
           <li v-for="(journey, key) of journeysListDef" :key="journey.id">
@@ -84,7 +90,7 @@
                 <p>{{journey.hour}}</p> <!--&rarr;-->
                 <p>{{journey.organizer.name}}</p>
                 <span></span>
-                <p>{{journey.numberParticipants}} plazas restantes</p>
+                <p>{{journey.numberSpots}} plazas restantes</p>
               </div>
               <div class="push"></div>
               <div class="precio"><h4>{{journey.price}} €</h4></div>

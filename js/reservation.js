@@ -25,15 +25,7 @@ const app = new Vue({
             
             if(response.ok){
                 this.loggedUser = await response.json();
-                if(!this.loggedUser){
-                    window.location.href = frontendPaths.pathLogin;
-                }
-            }else{
-                window.location.href = frontendPaths.pathLogin;
             }
-            
-            
-            console.log("Logged user: " + this.loggedUser);
 
         },
 
@@ -73,21 +65,25 @@ const app = new Vue({
 
         async book(){
 
-            this.getLoggedUser();
-            
-            let response = await fetch('http://localhost:8080/api/journeys/'+ this.journey.id + this.loggedUser.id, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization':this.tokenConBearer
-            }});
+            if(this.loggedUser){ // Comprobamos si está logueado para realizar la reserva
+                let response = await fetch('http://localhost:8080/api/journeys/participants/' + this.journey.id + "/" + this.loggedUser.id,  {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization':this.tokenConBearer
+                    }
+                });
 
-            if(response.ok){
-                window.location.href = frontendPaths.pathmyJourney;
-            }else{
-                window.location.href = frontendPaths.pathReservation + "?journey=" + this.journey.id + "&nSpots=" + this.nSpots;
+                if(response.ok){
+                    window.location.href = frontendPaths.pathYourTravels;
+                }else{
+                    window.location.href = frontendPaths.pathReservation + "?journey=" + this.journey.id + "&nSpots=" + this.nSpots;
+                    // frontendPaths.pathReservation + "?journey=" + this.journey.id + "&nSpots=" + this.nSpots;
+                }
+            }else{ // Si no está logueado 
+                window.location.href = frontendPaths.pathLogin;
             }
-            
+
         },
 
         getTokenBearer() {
@@ -96,7 +92,7 @@ const app = new Vue({
             if (this.tokenConBearer === null) {
                 window.location.href = frontendPaths.pathIndex;
             }else{
-                //this.getLoggedUser();
+                this.getLoggedUser();
                 this.getJourney();
             }
 

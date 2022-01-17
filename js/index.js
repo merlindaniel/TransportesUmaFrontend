@@ -55,6 +55,7 @@ const app = new Vue({
             + this.destination + "&nSpots=" + this.nSpots + "&date=" + this.date;
 
         },
+        
         obtenerTokenBearer() {
             this.tokenConBearer = Vue.$cookies.get('TokenJWT');
         }
