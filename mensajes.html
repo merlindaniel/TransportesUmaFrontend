@@ -86,15 +86,15 @@
               <div v-for="chat in chats">
                 <div class="chat_list" :class="selectedChat === chat ? 'active_chat' : ''" v-on:click="selectChat(chat)">
                     <div class="chat_people">
-                      <div class="chat_img"> 
-                        <img class="rounded-circle img-responsive" v-if="chat.user1 == loggedUser.id && usersInfo.find(x => x.id === chat.user2) && usersInfo.find(x => x.id === chat.user2).picture.length > 0" :src="usersInfo.find(x => x.id === chat.user2).picture">
-                        <img class="rounded-circle img-responsive" v-else-if="chat.user2 == loggedUser.id && usersInfo.find(x => x.id === chat.user1) && usersInfo.find(x => x.id === chat.user1).picture.length > 0" :src="usersInfo.find(x => x.id === chat.user1).picture"> 
-                        <img class="rounded-circle img-responsive" v-else src="https://ptetutorials.com/images/user-profile.png">
+                      <div class="chat_img col-2"> 
+                        <img class="rounded-circle img-responsive" v-if="chat.user1 == loggedUser.id && usersInfo.find(x => x.id === chat.user2) && usersInfo.find(x => x.id === chat.user2).picture.length > 0" :src="usersInfo.find(x => x.id === chat.user2).picture" width="40px" height="40px">
+                        <img class="rounded-circle img-responsive" v-else-if="chat.user2 == loggedUser.id && usersInfo.find(x => x.id === chat.user1) && usersInfo.find(x => x.id === chat.user1).picture.length > 0" :src="usersInfo.find(x => x.id === chat.user1).picture" width="40px" height="40px"> 
+                        <img class="rounded-circle img-responsive" v-else src="https://ptetutorials.com/images/user-profile.png" width="40px" height="40px">
                       </div>
-                      <div class="chat_ib">
+                      <div class="chat_ib col-auto">
                         <h5 v-if="chat.user1 == loggedUser.id && usersInfo.find(x => x.id === chat.user2)">{{ usersInfo.find(x => x.id === chat.user2).username }}<span class="chat_date">{{getDateChat(chat.messages.at(-1).date)}}</span></h5>
                         <h5 v-else-if="chat.user2 == loggedUser.id && usersInfo.find(x => x.id === chat.user1)">{{ usersInfo.find(x => x.id === chat.user1).username }}<span class="chat_date">{{getDateChat(chat.messages.at(-1).date)}}</span></h5>
-                        <p>{{chat.messages.at(-1).message}}</p>
+                        <p>{{ usersInfo.find(x => x.id == chat.messages.at(-1).user).username}}: {{chat.messages.at(-1).message}}</p>
                       </div>
                     </div>
                 </div>
@@ -114,7 +114,10 @@
             <div class="msg_history">
               <div v-for="message in selectedChat.messages">
                 <div v-if="message.user != loggedUser.id" class="incoming_msg">
-                    <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png"> </div>
+                    <div class="incoming_msg_img">
+                      <img class="rounded-circle img-responsive" v-if="usersInfo.find(x => x.id === message.user) && usersInfo.find(x => x.id === message.user).picture.length > 0" :src="usersInfo.find(x => x.id === message.user).picture" width="40px" height="40px">
+                      <img class="rounded-circle img-responsive" v-else src="https://ptetutorials.com/images/user-profile.png">
+                    </div>
                     <div class="received_msg">
                       <div class="received_withd_msg">
                         <p>{{message.message}}</p>
@@ -131,16 +134,16 @@
             </div>
             <div class="type_msg">
               <div class="input_msg_write">
-                  <input type="text" class="write_msg" v-model="currentMessage" placeholder="Type a message" />
+                  <input type="text" class="write_msg" v-model="currentMessage" placeholder="Escribe un mensaje" />
                   <button class="msg_send_btn" v-on:click="sendMessage" type="button"><i class="fa-regular fa-paper-plane" aria-hidden="true"></i></button>
               </div>
             </div>
           </div>
           <!----NEW CHAT-->
-          <div v-else-if="newChat" class="text-center">
+          <div v-else-if="newChat" class="text-left">
             <h3>Nuevo mensaje</h3>
             <h5>Busca al usuario por nombre de usuario, o correo electrónico: </h5>
-            <div class="srch_bar" style="width:100%; margin-left:0px; text-align: center;">
+            <div class="srch_bar" style="width:100%; margin-left:0px; text-align: left;">
               <div class="stylish-input-group" style="margin-left: 0px;">
                 <input type="text" class="search-bar"  placeholder="Buscar usuario" v-model="newMessageRecipient">
                 <span class="input-group-addon">
@@ -148,8 +151,16 @@
                 </span> 
               </div>
             </div>
-            <div v-if="possibleRecipient != null">
-              <p>{{possibleRecipient.name}} | {{possibleRecipient.username}} <button class="btn btn-primary" v-on:click="startNewChat(possibleRecipient.id)">Enviar mensaje</button></p>
+            <div v-if="possibleRecipient != null" class="mt-5">
+              <h6>Resultados:</h6>
+              <div class="d-flex row justify-content-between">
+                <div class="col-auto">
+                  <p>{{possibleRecipient.name}} | {{possibleRecipient.username}} </p>
+                </div>
+                <div class="col-auto">
+                  <button class="btn btn-primary" v-on:click="startNewChat(possibleRecipient.id)">Enviar mensaje</button>
+                </div>
+              </div>
             </div>
             <div v-if="searchError != null">
               <p>Error: {{searchError}}</p>

@@ -262,9 +262,9 @@ let myJourneyApp = new Vue({
             const yesterday = new Date();
             yesterday.setDate(yesterday.getDate() - 1);
             if(this.isToday(date)){
-                dateString = 'Today';
+                dateString = 'Hoy';
             }else if(yesterday.toDateString() === date.toDateString()){
-                dateString = 'Yesterday';
+                dateString = 'Ayer';
             }else{
                 dateString = this.getDateChat(date);
             }
