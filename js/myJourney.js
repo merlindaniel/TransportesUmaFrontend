@@ -231,7 +231,7 @@ let myJourneyApp = new Vue({
                     'Authorization':this.tokenConBearer
                 }});
                 this.participants = response.data;
-                if(participants != null && participants != undefined){
+                if(this.participants != null && participants != undefined){
                     console.log(participants);
                 }
             }

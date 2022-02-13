@@ -55,7 +55,9 @@ const app = new Vue({
 
         },
 
-        async publicarViaje(){
+        async publicarViaje(e){
+            e.preventDefault();
+            console.log("Publicando...");
 
             await this.configurarViaje();
 
@@ -83,7 +85,9 @@ const app = new Vue({
             }
 
         },
-        async obteneListaOrigenes(){
+        async obtenerListaOrigenes(){
+
+            console.log("11110000");
 
             let response = await fetch('http://localhost:8080/api/opendata/get/places/40.416729/-3.703339/'+this.origen, {
                 headers: {
@@ -100,7 +104,7 @@ const app = new Vue({
             }
 
         },
-        async obteneListaDestinos(){
+        async obtenerListaDestinos(){
 
             // if(this.destino != ''){
 
@@ -181,18 +185,18 @@ const app = new Vue({
             this.errorDePublicacion = '';
 
             // Mostrar los datos en la consola
-            // console.log('Name: '+this.journey.name); 
-            // console.log('Descripcion: '+this.journey.description); 
-            // console.log('Origen: '+this.journey.origin); 
-            // console.log('Destino: '+this.journey.destination); 
-            // console.log('Numero de Participantes: '+this.journey.numberParticipants); 
-            // console.log('Organizador: '+this.journey.organizer); 
-            // console.log('Vehiculo: '+this.journey.vehicle); 
-            // console.log('Precio: '+this.journey.price); 
-            // console.log('StartDate: '+this.journey.startDate);
-            // console.log('Hour: '+this.journey.hour);
-            // console.log('Exam: '+this.journey.exam); 
-            // console.log('Finisehd: '+this.journey.finished); 
+            console.log('Name: '+this.journey.name); 
+            console.log('Descripcion: '+this.journey.description); 
+            console.log('Origen: '+this.journey.origin); 
+            console.log('Destino: '+this.journey.destination); 
+            console.log('Numero de Participantes: '+this.journey.numberParticipants); 
+            console.log('Organizador: '+this.journey.organizer); 
+            console.log('Vehiculo: '+this.journey.vehicle); 
+            console.log('Precio: '+this.journey.price); 
+            console.log('StartDate: '+this.journey.startDate);
+            console.log('Hour: '+this.journey.hour);
+            console.log('Exam: '+this.journey.exam); 
+            console.log('Finisehd: '+this.journey.finished); 
         },
         obtenerTokenBearer(){
             this.tokenConBearer = Vue.$cookies.get('TokenJWT');

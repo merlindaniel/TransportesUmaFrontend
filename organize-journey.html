@@ -42,7 +42,7 @@
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top ">
+  <header id="header" class="fixed-top header-inner-pages">
     <div class="container d-flex align-items-center">
 
       <h1 class="logo me-auto"><a href="index.html">ShareTravel</a></h1>
@@ -62,75 +62,91 @@
     </div>
   </header><!-- End Header -->
 
-  <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex align-items-center">
+  <main id="main" class="bg-light">
 
+    <section class="inner-page mt-5">
+      <div class="container">
+        <div class="row justify-content-center">
 
-    <div id="app" class="container">
-      <div class="row">
-
-        <div class="col-12">
-          <h1 class="text-center">{{cabecera}}</h1>
-        </div>
-
-        <div class="col-6 d-flex flex-column justify-content-center pt-4 order-2 order-lg-1" data-aos="fade-up"
-          data-aos-delay="200">
-
-
-
-          <input class="form-control dropdown-toggle custom-dropdown-size customFirstBorders" list="listaOrigenes" type="text" placeholder="Origen" v-model="origen"
-          v-on:input="obteneListaOrigenes"/>
-          <datalist id="listaOrigenes">
-            <option v-for="origenes in listaOrigenes">{{origenes.address}}</option>
-          </datalist>
-          <input class="form-control dropdown-toggle custom-dropdown-size customFirstBorders mt-3" list="listaDestinos" type="text" placeholder="Destino" v-model="destino"
-          v-on:input="obteneListaDestinos"/>
-          <datalist id="listaDestinos">
-            <option v-for="destinos in listaDestinos">{{destinos.address}}</option>
-          </datalist>
-          <input class="form-control customFirstBorders mt-3" type="number" min="1" placeholder="Número de plazas"
-            id="numberParticipants" v-model="journey.numberParticipants" />
-          <select class="form-control customFirstBorders mt-3" v-model="vehicleUser">
-            <option v-if="listaVehiculos.length === 0">Sin vehiculos</option>
-            <div v-else>
-              <option v-for="(vehicle, index) in listaVehiculos" v-bind:value="vehicle.id" v-bind:selected="index === 0" >{{vehicle.name}} </option>
+          <div
+            class="col-11 col-sm-10 col-md-8 col-lg-7 col-xl-6 col-xxl-5 border shadow-sm p-4 p-sm-5 custom-rounded-borders bg-white">
+            <div class="row text-center">
+              <h1>Publicar un Viaje</h1>
+              <hr />
             </div>
-          </select>
+
+            <div id="app">
+              <div class="text-center justify-content-center" v-if="listaVehiculos.length === 0">
+                Para publicar un viaje debe registrar un coche.
+                <a href="vehicle-crud.html" class="col-auto btn btn-primary px-5 rounded-pill mt-3">Añadir vehículo</a>
+              </div>
+              <div v-else>
+                <form action="" method="" @submit="publicarViaje">
+                  <div class="row g-3 mt-2">
+                    <div class="col-12">
+                      <label for="name" class="form-label">Origen</label>
+                      <input class="form-control dropdown-toggle custom-dropdown-size" list="listaOrigenes" type="text" v-model="origen" v-on:input="obtenerListaOrigenes" required/>
+                      <datalist id="listaOrigenes">
+                        <option v-for="origenes in listaOrigenes">{{origenes.address}}</option>
+                      </datalist>
+                    </div>
+                    <div class="col-12">
+                      <label for="name" class="form-label">Destino</label>
+                      <input class="form-control dropdown-toggle custom-dropdown-size" list="listaDestinos" type="text" v-model="destino" v-on:input="obtenerListaDestinos" required/>
+                      <datalist id="listaDestinos">
+                        <option v-for="destinos in listaDestinos">{{destinos.address}}</option>
+                      </datalist>
+                    </div>
+                    <div class="col-12">
+                      <label for="name" class="form-label">Vehículo</label>
+                      <select class="form-control " v-model="vehicleUser" required>
+                        <option v-if="listaVehiculos.length === 0">Sin vehiculos</option>
+                        <div v-else>
+                          <option v-for="(vehicle, index) in listaVehiculos" v-bind:value="vehicle.id"
+                            v-bind:selected="index === 0">{{vehicle.name}} </option>
+                        </div>
+                      </select>
+                    </div>
+                    <div class="col-6">
+                      <label for="name" class="form-label">Número de plazas</label>
+                      <input type="number" min="1" v-model="journey.numberParticipants" class="form-control" id="numberParticipants" required>
+                    </div>
+                    <div class="col-6">
+                      <label for="user" class="form-label">Precio por plaza</label>
+                      <div class="input-group">
+                        <input type="number" v-model="journey.price" class="form-control" id="price" required>
+                        <div class="input-group-text">€</div>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <label for="name" class="form-label">Fecha</label>
+                      <input type="date" v-model="fecha" class="form-control" id="fecha" required>
+                    </div>
+                    <div class="col-6">
+                      <label for="name" class="form-label">Hora</label>
+                      <input type="time" v-model="journey.hour" class="form-control" id="hour" required>
+                    </div>
+                    <div class="col-12">
+                      <label for="name" class="form-label">Examen</label>
+                      <select class="form-control" id="exam" v-model="journey.exam" required>
+                        <option v-bind:value="true">Sí</option>
+                        <option v-bind:value="false">No</option>
+                      </select>
+                    </div>
+                    <div class="col-12 d-grid gap-2 mt-5">
+                      <button type="submit" class="btn btn-success rounded-pill">Publicar</button>
+                    </div>
+                  </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div class="col-6 d-flex flex-column justify-content-center pt-4 order-2 order-lg-1" data-aos="fade-up"
-          data-aos-delay="200">
-
-          <input class="form-control customFirstBorders" type="number" placeholder="Precio por plaza" id="price"
-            v-model="journey.price">
-          <input class="form-control customFirstBorders mt-3" type="date" placeholder="Fecha" id="fecha"
-            v-model="fecha">
-          <input class="form-control customFirstBorders mt-3" type="time" placeholder="Hora" id="hour"
-            v-model="journey.hour">
-          <select class="form-control customFirstBorders mt-3" id="exam" v-model="journey.exam">
-            <option v-bind:selected="0 === 0" disabled>Examen</option>
-            <option v-bind:value="true">Sí</option>
-            <option v-bind:value="false">No</option>
-          </select>
-          <!-- v-bind:selected -->
-        </div>
-
-
       </div>
+    </section>
 
-      <div class="row">
-        <div class="col-12 d-flex justify-content-center justify-content-lg-center mt-3 inputCustom" data-aos="fade-up"
-          data-aos-delay="200">
-          <button class="btn btn-primary rounded-pill w-25" type="button" v-on:click="publicarViaje">Publicar</button>
-        </div>
-      </div>
-
-      {{errorDePublicacion}}
-
-
-    </div>
-
-  </section><!-- End Hero -->
+  </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
