@@ -98,6 +98,18 @@
 
                             </div>
 
+                            <!-- Pagos Online -->
+                            <div class="list-group custom-rounded-borders shadow-sm bg-white mt-4">
+                                <div class="list-group-item px-3 py-4">
+                                    <div class="section-title">
+                                        <h2>Pagos Online</h2>
+                                        <img class="rounded mx-auto d-block mt-5 img-responsive mx-3" src="./assets/img/stripe-logo.svg" width="100%" height="100px"/>
+                                        <h4 v-if="!stripeOnBoardingCompleted" class="col-5 card text-danger mt-4 p-2 mx-auto d-block text-center">Aún no ha configurado correctamente Stripe</h4>
+                                        <p class="lead mt-4 mx-4"><b>Comienza ahora con los pagos online!</b> Ahora, puede gestionar todos los pagos online con Stripe!</p>
+                                        <a class="btn btn-primary rounded-pill mt-4 px-4 fw-bold" :href="stripeUrl" target="_blank">{{ !stripeOnBoardingCompleted ? "Configurar Stripe" : "Acceder a Stripe"}}</a>
+                                    </div>
+                                </div>
+                            </div>
                             
                             <!-- Vehículos -->
                             <div class="list-group custom-rounded-borders shadow-sm bg-white mt-4">

@@ -16,6 +16,8 @@ const app = new Vue({
         isLoggedUser: false,
 
         errors: [],
+        stripeOnBoardingCompleted: false,
+        stripeUrl: ''
     },
     methods: {
         async getUserId() {
@@ -237,11 +239,39 @@ const app = new Vue({
                 console.log('User is logged');
             }
         },
+        async comprobarStripeOnBoardingCompletado(){
+            let response = await fetch('http://localhost:8080/api/stripe/enable', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization':this.tokenConBearer
+                }});
+            if(200===response.status){
+                console.log("Stripe on boarding SI completado");
+                this.stripeOnBoardingCompleted = true;
+            } else {
+                console.log("Stripe on boarding NO completado");
+            }
+        },
+        async getUrlStripe(){
+            let response = await fetch('http://localhost:8080/api/stripe/url', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization':this.tokenConBearer
+                }});
+            if(200===response.status){
+                console.log("Stripe url obtenida");
+                let u = await response.json();
+                this.stripeUrl = u.url;
+            }
+        }
     },
     mounted: function () {
         this.getTokenBearer();    
         this.getUserId();
         if (this.userId != null) this.getUser();
         this.getLoggedUser();
+        this.comprobarStripeOnBoardingCompletado();
+        this.getUrlStripe();
+
     },
 });
