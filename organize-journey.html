@@ -37,6 +37,8 @@
   <script src="vue/axios.js" defer></script>
   <script src="js/publicarViaje.js" defer></script>
 
+
+  <link href="./css/customBorders.css" rel="stylesheet">
 </head>
 
 <body>
@@ -114,7 +116,7 @@
                     <div class="col-6">
                       <label for="user" class="form-label">Precio por plaza</label>
                       <div class="input-group">
-                        <input type="number" v-model="journey.price" class="form-control" id="price" required>
+                        <input type="number" v-model="journey.price" class="form-control" id="price" required min="0">
                         <div class="input-group-text">€</div>
                       </div>
                     </div>
@@ -133,6 +135,13 @@
                         <option v-bind:value="false">No</option>
                       </select>
                     </div>
+                    <div class="col-12">
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="pagosOnline" v-model="journey.onlinePayment" :disabled="!stripeOnBoardingCompleted">
+                        <label class="form-check-label" for="pagosOnline">Habilitar pagos online <span class="badge rounded-pill bg-info fst-italic px-3 ms-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Debe tener Stripe completamente configurado. Para ello, diríjase a 'Mi perfil' y posteriormente al apartado de 'Stripe' ">Info</span></label>
+                      </div>
+                    </div>
+                    
                     <div class="col-12 d-grid gap-2 mt-5">
                       <button type="submit" class="btn btn-success rounded-pill">Publicar</button>
                     </div>

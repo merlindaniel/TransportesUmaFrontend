@@ -29,7 +29,8 @@ const app = new Vue({
             startDate: '',
             hour: '',   
             exam: null,                 
-            finished: false             
+            finished: false,
+            onlinePayment: false           
         },
         data: null,
         origen: '',
@@ -39,7 +40,8 @@ const app = new Vue({
         listaDestinos: [],
         vehicleUser: null,
         fecha: '',
-        errorDePublicacion: ''
+        errorDePublicacion: '',
+        stripeOnBoardingCompleted: false
 
     },
     methods: {
@@ -137,7 +139,7 @@ const app = new Vue({
             if(200===response.status){
                 this.listaVehiculos = await response.json();
             } else {
-            window.location.href = frontendPaths.pathIndex;
+                window.location.href = frontendPaths.pathIndex;
             }
 
         },
@@ -203,12 +205,39 @@ const app = new Vue({
             if(this.tokenConBearer===null){
                 window.location.href = frontendPaths.pathIndex;
             } 
+        },
+        async comprobarStripeOnBoardingCompletado(){
+            let response = await fetch('http://localhost:8080/api/stripe/enable', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization':this.tokenConBearer
+                }});
+            if(200===response.status){
+                console.log("Stripe on boarding SI completado");
+                this.stripeOnBoardingCompleted = true;
+            } else {
+                console.log("Stripe on boarding NO completado");
+            }
+            
         }
     },
     created: function (){
         this.obtenerTokenBearer();
         this.getLoggedUser();
         this.obtenerVehiculos();
-    }
+        this.comprobarStripeOnBoardingCompletado();
+    },
+    updated() {
+        if(this.listaVehiculos.length >= 1){
+            console.log("entraa2");
+            let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
+            tooltipList.forEach(element => {
+                console.log(element);
+            });
+        }
+    },
 
 })
