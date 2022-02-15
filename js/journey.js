@@ -147,7 +147,7 @@ const app = new Vue({
                 elements: this.stripeElements,
                 confirmParams: {
                     // Make sure to change this to your payment completion page
-                    return_url: "http://localhost:8080/",
+                    return_url: "http://localhost:5500/",
                 },
             });
 
