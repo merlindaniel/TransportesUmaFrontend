@@ -74,11 +74,12 @@ const app = new Vue({
         getTokenBearer() {
 
             this.tokenConBearer = Vue.$cookies.get('TokenJWT');
-            if (this.tokenConBearer === null) {
-                window.location.href = frontendPaths.pathIndex;
-            } else {
-                this.getJourney();
-            }
+            this.getJourney();
+            //if (this.tokenConBearer === null) {
+            //    window.location.href = frontendPaths.pathIndex;
+            //} else {
+            //    this.getJourney();
+            //}
 
         },
         hoursFunction: function (string) {

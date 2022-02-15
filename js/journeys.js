@@ -141,11 +141,12 @@ const app = new Vue({
         getTokenBearer() {
 
             this.tokenConBearer = Vue.$cookies.get('TokenJWT');
-            if (this.tokenConBearer === null) {
-                window.location.href = frontendPaths.pathIndex;
-            }else{
-                this.getJourneys();
-            }
+            this.getJourneys();
+           //if (this.tokenConBearer === null) {
+           //    window.location.href = frontendPaths.pathIndex;
+           //}else{
+           //    this.getJourneys();
+           //}
 
         },
 

@@ -90,7 +90,7 @@ const app = new Vue({
 
             this.tokenConBearer = Vue.$cookies.get('TokenJWT');
             if (this.tokenConBearer === null) {
-                window.location.href = frontendPaths.pathIndex;
+                window.location.href = frontendPaths.pathLogin;
             }else{
                 this.getLoggedUser();
                 this.getJourney();

@@ -62,9 +62,9 @@ const app = new Vue({
         getTokenBearer() {
 
             this.tokenConBearer = Vue.$cookies.get('TokenJWT');
-            if (this.tokenConBearer === null) {
-                window.location.href = frontendPaths.pathIndex;
-            }
+            //if (this.tokenConBearer === null) {
+            //    window.location.href = frontendPaths.pathIndex;
+            //}
 
         }
     },
