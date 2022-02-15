@@ -41,6 +41,8 @@
   <script src="js/chats.js" defer></script>
   <script src="vue/axios.js"></script>
   <script src="./js/logout.js" defer></script>
+
+  <link href="./css/customBorders.css" rel="stylesheet">
 </head>
 
 <body>
@@ -69,10 +71,10 @@
   <!-- ======= Hero Section ======= -->
   <section id="viajes" class="d-flex align-items-center">
     <div class="container" id="chats">
-      <h3 class="text-center text-white">Mensajes</h3>
+      <h3 class="text-center text-white mb-4">Mensajes</h3>
       <div class="messaging">
-        <div class="inbox_msg bg-white" style="height: 600px;">
-          <div class="inbox_people ">
+        <div class="inbox_msg bg-white custom-rounded-borders p-2" style="height: 600px;">
+          <div class="inbox_people bg-white">
             <div class="headind_srch row justify-content-between">
               <div class="recent_heading col-auto">
                   <h4>Recientes</h4>
@@ -102,6 +104,7 @@
         </div>
         <div class="mesgs bg-white">
           <!--SELECTED CHAT-->
+          
           <div v-if="chatSelected">
             <div class="row">
               <h5 v-if="temporaryNewUser != null">{{temporaryNewUser.username}}</h5>
@@ -131,7 +134,7 @@
                 </div>
               </div>
             </div>
-            <div class="type_msg">
+            <div class="type_msg pb-1">
               <div class="input_msg_write">
                   <input type="text" class="write_msg" v-model="currentMessage" placeholder="Escribe un mensaje" />
                   <button class="msg_send_btn" v-on:click="sendMessage" type="button"><i class="fa-regular fa-paper-plane" aria-hidden="true"></i></button>

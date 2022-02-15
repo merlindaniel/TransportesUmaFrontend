@@ -19,6 +19,9 @@ let myJourneyApp = new Vue({
         searchError: null,
     },
     mounted: function () {
+        if(this.chats.length == 0){
+            this.setNoChats();
+        }
         window.setInterval(() => {
           this.obtenerChats()
         }, 1000)
@@ -36,6 +39,8 @@ let myJourneyApp = new Vue({
         },
 
         async obtenerChats() {
+            console.log('LOG: chatSelected: ' + this.chatSelected + ' newChat: '+ this.newChat + ' noChats: ' + this.noChats);
+
             updated = false;
             let response = await axios.get('http://localhost:8080/api/chats/current', {
                 headers: {
@@ -49,17 +54,15 @@ let myJourneyApp = new Vue({
                 this.chats = JSON.parse(JSON.stringify(response.data));
                 console.log(this.chats);
             }
-            if(this.chats.length == 0){
-                this.setNoChats();
-            }else{
-                if(this.newChat == false && updated){
-                    if(this.chatSelected == false){
-                        this.selectChat(this.chats.at(0));
-                    }else{
-                        this.selectChat(this.chats.find(x => x.id == this.selectedChat.id));
-                    }
+            
+            if(!this.newChat && updated){
+                if(this.chatSelected == false){
+                    this.selectChat(this.chats.at(0));
+                }else{
+                    this.selectChat(this.chats.find(x => x.id == this.selectedChat.id));
                 }
             }
+            
             if(updated){
                 await this.getUsers();
             }
@@ -124,7 +127,7 @@ let myJourneyApp = new Vue({
         },
 
         startNewChat: function(userId) {
-            this.temporaryNewUser = null;
+            this.temporaryNewUser = null;   
             foundchat = null;
             for(i = 0; i < this.chats.length; i++){
                 if(this.chats[i].user1 == this.loggedUser.id && this.chats[i].user2 == userId ||
