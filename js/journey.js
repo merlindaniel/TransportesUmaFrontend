@@ -57,7 +57,7 @@ const app = new Vue({
 
             if (response.ok) {
                 this.organizer = await response.json();
-                if(this.journey.onlinePayment){
+                if(this.journey.onlinePayment && this.tokenConBearer !== null){
                     console.log("Es online");
                     this.configureStripe(this.organizer.stripeAccount);
                 }
