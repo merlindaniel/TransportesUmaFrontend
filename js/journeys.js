@@ -11,7 +11,7 @@ const app = new Vue({
         date: '',
         nSpots: '',
         journeysList: [],
-        journeysListDef: [], 
+        journeysListDef: [],
         all: true
     },
 
@@ -21,13 +21,14 @@ const app = new Vue({
             let response = await fetch('http://localhost:8080/api/users/current', {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization':this.tokenConBearer
-                }});
+                    'Authorization': this.tokenConBearer
+                }
+            });
             this.loggedUser = await response.json();
         },
 
         async getJourneys() {
-            
+
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             const origin = urlParams.get('origin');
@@ -39,74 +40,79 @@ const app = new Vue({
 
             let response;
 
-            if(origin && destination && nSpots && date){
-                
+            if (origin && destination && nSpots && date) {
+
                 this.origin = origin;
                 this.destination = destination;
                 this.nSpots = nSpots;
                 this.date = date;
                 this.all = false;
 
-                if(this.loggedUser){
-                     response = await fetch('http://localhost:8080/api/journeys/search/'+ this.origin + "/" + this.destination + "/" + this.nSpots + "/" + this.date + "/" + this.loggedUser.id, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization':this.tokenConBearer
-                    }});
-                }else{
-                    response = await fetch('http://localhost:8080/api/journeys/search/'+ this.origin + "/" + this.destination + "/" + this.nSpots + "/" + this.date + "/", {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization':this.tokenConBearer
-                    }});
+                if (this.loggedUser) {
+                    response = await fetch('http://localhost:8080/api/journeys/search/' + this.origin + "/" + this.destination + "/" + this.nSpots + "/" + this.date + "/" + this.loggedUser.id, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': this.tokenConBearer
+                        }
+                    });
+                } else {
+                    response = await fetch('http://localhost:8080/api/journeys/search/' + this.origin + "/" + this.destination + "/" + this.nSpots + "/" + this.date + "/", {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': this.tokenConBearer
+                        }
+                    });
                 }
 
-            }else{
-                
-                if(this.loggedUser){
-                    response = await fetch('http://localhost:8080/api/journeys/search/'+ this.loggedUser.id, {
-                    headers: {
-                       'Content-Type': 'application/json',
-                       'Authorization':this.tokenConBearer
-                    }});
-               }else{
+            } else {
+
+                if (this.loggedUser) {
+                    response = await fetch('http://localhost:8080/api/journeys/search/' + this.loggedUser.id, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': this.tokenConBearer
+                        }
+                    });
+                } else {
                     response = await fetch('http://localhost:8080/api/journeys/', {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization':this.tokenConBearer
-                    }});
-               }
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': this.tokenConBearer
+                        }
+                    });
+                }
 
-               this.nSpots = 1;
-            } 
+                this.nSpots = 1;
+            }
 
-            if (response.ok) {    
+            if (response.ok) {
                 this.journeysList = await response.json();
                 this.setList();
-            }else{
+            } else {
                 //error
             }
 
         },
 
-        async setList(){
-            
-            
-            for(journey of this.journeysList){
+        async setList() {
+
+
+            for (journey of this.journeysList) {
                 var h = this.hoursFunction(journey.startDate);
-                
-                let response = await fetch('http://localhost:8080/api/users/'+ journey.organizer, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization':this.tokenConBearer
-                }});
-                 
-                if(response.ok){
+
+                let response = await fetch('http://localhost:8080/api/users/' + journey.organizer, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': this.tokenConBearer
+                    }
+                });
+
+                if (response.ok) {
                     var org = await response.json();
                     this.journeysListDef.push({
-                        id : journey.id,
-                        name : journey.name,
-                        description : journey.description,
+                        id: journey.id,
+                        name: journey.name,
+                        description: journey.description,
                         origin: {
                             title: journey.origin.title,
                             lat: journey.origin.lat,
@@ -120,18 +126,18 @@ const app = new Vue({
                             address: journey.destination.address
                         },
                         // Organizador
-                        organizer: org,              
+                        organizer: org,
                         numberParticipants: journey.numberParticipants,
                         // Numero de asientos restantes      
                         numberSpots: journey.numberParticipants - journey.participants.length,
-                        participants: journey.participants,           
-                        vehicle: journey.vehicle,                
-                        price: journey.price,                  
+                        participants: journey.participants,
+                        vehicle: journey.vehicle,
+                        price: journey.price,
                         startDate: journey.startDate,
                         // hora
-                        hour: h,   
-                        exam: journey.exam,                 
-                        finished: journey.finished  
+                        hour: h,
+                        exam: journey.exam,
+                        finished: journey.finished
                     });
                 }
 
@@ -142,23 +148,37 @@ const app = new Vue({
 
             this.tokenConBearer = Vue.$cookies.get('TokenJWT');
             this.getJourneys();
-           //if (this.tokenConBearer === null) {
-           //    window.location.href = frontendPaths.pathIndex;
-           //}else{
-           //    this.getJourneys();
-           //}
+            //if (this.tokenConBearer === null) {
+            //    window.location.href = frontendPaths.pathIndex;
+            //}else{
+            //    this.getJourneys();
+            //}
 
         },
 
-        hoursFunction: function (string) {   
+        hoursFunction: function (string) {
             return string.split("T")[1].split(":")[0] + ":" + string.split("T")[1].split(":")[1];
+        },
+        
+        logout() {
+            Vue.$cookies.remove('TokenJWT');
+
+            try {
+                let auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                    console.log('User signed out.');
+                    window.location.href = './index.html';
+                });
+            } catch (error) {
+                window.location.href = './index.html';
+            }
         }
 
-        
+
     },
 
     created: function () {
         this.getTokenBearer();
     },
-    
+
 });

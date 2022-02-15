@@ -57,7 +57,7 @@ const app = new Vue({
 
             if (response.ok) {
                 this.organizer = await response.json();
-                if(this.journey.onlinePayment){
+                if (this.journey.onlinePayment && this.tokenConBearer !== null) {
                     console.log("Es online");
                     this.configureStripe(this.organizer.stripeAccount);
                 }
@@ -99,9 +99,10 @@ const app = new Vue({
 
             const response = await fetch(backendPaths.preffix + "/api/stripe/payment-intent", {
                 method: "POST",
-                headers: { 
-                    'Content-Type': 'application/json', 
-                    'Authorization': this.tokenConBearer },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': this.tokenConBearer
+                },
                 body: JSON.stringify({ items }),
             });
             const fetchData = await response.json();
@@ -109,8 +110,8 @@ const app = new Vue({
             const appearance = {
                 theme: 'stripe',
             };
-            this.stripeElements = this.stripe.elements({ 
-                appearance, 
+            this.stripeElements = this.stripe.elements({
+                appearance,
                 clientSecret: fetchData.clientSecret
             });
 
@@ -165,11 +166,24 @@ const app = new Vue({
 
             this.setLoading(false);
         },
+        logout() {
+            Vue.$cookies.remove('TokenJWT');
+
+            try {
+                let auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                    console.log('User signed out.');
+                    window.location.href = './index.html';
+                });
+            } catch (error) {
+                window.location.href = './index.html';
+            }
+        }
 
     },
 
     created: function () {
         this.getTokenBearer();
-            
+
     },
 });
