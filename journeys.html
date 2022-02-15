@@ -38,7 +38,6 @@
   <script src="vue/axios.js"></script>
   <script src="js/journeys.js" defer></script>
   <script src="vue/axios.js"></script>
-  <script src="./js/logout.js" defer></script>
 
   <!--Google OAuth 2.0-->
   <meta name="google-signin-client_id"
@@ -84,7 +83,7 @@
             <li><a class="nav-link scrollto active" href="your-travels.html">Tus viajes</a></li>
             <li><a class="nav-link scrollto" href="mensajes.html">Mensajes</a></li>
             <li><a class="nav-link scrollto" href="profile.html">Mi perfil</a></li>
-            <li><button class="getstarted scrollto btn btn-outline-primary" id="logoutBtn">Cerrar sesión</button></li>
+            <li><button class="getstarted scrollto btn btn-outline-primary" id="logoutBtn" @click="logout">Cerrar sesión</button></li>
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->
