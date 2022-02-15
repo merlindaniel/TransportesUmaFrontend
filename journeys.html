@@ -39,6 +39,21 @@
   <script src="js/journeys.js" defer></script>
   <script src="vue/axios.js"></script>
   <script src="./js/logout.js" defer></script>
+
+  <!--Google OAuth 2.0-->
+  <meta name="google-signin-client_id"
+    content="634135800903-t4lnnd9m66u3lr82d4h4ncat75qbt1br.apps.googleusercontent.com">
+  <script>
+    function onLoad() {
+      console.log("Entra el onLoad");
+      gapi.load('auth2', function () {
+        console.log("Entra a la funcion - antes");
+        gapi.auth2.init();
+        console.log("Entra a la funcion - despues");
+      });
+    }
+  </script>
+  <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 </head>
 
 <body>
@@ -119,7 +134,7 @@
 
 
 
-    
+
 
   </div>
 

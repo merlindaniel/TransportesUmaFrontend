@@ -14,7 +14,9 @@
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
@@ -35,85 +37,107 @@
   <script src="vue/axios.js" defer></script>
   <script src="./js/search.js" defer></script>
   <script src="./js/logout.js" defer></script>
+
+  <!--Google OAuth 2.0-->
+  <meta name="google-signin-client_id"
+    content="634135800903-t4lnnd9m66u3lr82d4h4ncat75qbt1br.apps.googleusercontent.com">
+  <script>
+    function onLoad() {
+      console.log("Entra el onLoad");
+      gapi.load('auth2', function () {
+        console.log("Entra a la funcion - antes");
+        gapi.auth2.init();
+        console.log("Entra a la funcion - despues");
+      });
+    }
+  </script>
+  <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 </head>
 
 <body>
 
   <div id="app">
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top ">
-    <div class="container d-flex align-items-center">
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top ">
+      <div class="container d-flex align-items-center">
 
-      <h1 class="logo me-auto"><a href="index.html">ShareTravel</a></h1>
-    
-      <nav v-if="tokenConBearer === null" id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto" href="index.html">Inicio</a></li>
-          <li><a class="nav-link scrollto active" href="search.html">Buscar</a></li>
-          <li><a class="getstarted scrollto" href="login.html">Iniciar Sesión</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+        <h1 class="logo me-auto"><a href="index.html">ShareTravel</a></h1>
 
-      <!-- Si existe una sesión iniciada -->
-      <nav v-else id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto" href="index.html">Inicio</a></li>
-          <li><a class="nav-link scrollto active" href="search.html">Buscar</a></li>
-          <li><a class="nav-link scrollto" href="organize-journey.html">Publicar viaje</a></li>
-          <li><a class="nav-link scrollto" href="your-travels.html">Tus viajes</a></li>
-          <li><a class="nav-link scrollto" href="mensajes.html">Mensajes</a></li>
-          <li><a class="nav-link scrollto" href="profile.html">Mi perfil</a></li>
-                    <li><button class="getstarted scrollto btn btn-outline-primary" id="logoutBtn">Cerrar sesión</button></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+        <nav v-if="tokenConBearer === null" id="navbar" class="navbar">
+          <ul>
+            <li><a class="nav-link scrollto" href="index.html">Inicio</a></li>
+            <li><a class="nav-link scrollto active" href="search.html">Buscar</a></li>
+            <li><a class="getstarted scrollto" href="login.html">Iniciar Sesión</a></li>
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
 
-    </div>
-  </header><!-- End Header -->
+        <!-- Si existe una sesión iniciada -->
+        <nav v-else id="navbar" class="navbar">
+          <ul>
+            <li><a class="nav-link scrollto" href="index.html">Inicio</a></li>
+            <li><a class="nav-link scrollto active" href="search.html">Buscar</a></li>
+            <li><a class="nav-link scrollto" href="organize-journey.html">Publicar viaje</a></li>
+            <li><a class="nav-link scrollto" href="your-travels.html">Tus viajes</a></li>
+            <li><a class="nav-link scrollto" href="mensajes.html">Mensajes</a></li>
+            <li><a class="nav-link scrollto" href="profile.html">Mi perfil</a></li>
+            <li><button class="getstarted scrollto btn btn-outline-primary" id="logoutBtn">Cerrar sesión</button></li>
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
 
-  <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex align-items-center vh-100">
+      </div>
+    </header><!-- End Header -->
 
-    <div class="container">
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="d-flex align-items-center vh-100">
+
+      <div class="container">
         <div class="row">
 
-            <div class="col-12">
-                <h1 class="text-center">Buscar un Viaje</h1>
-            </div>
+          <div class="col-12">
+            <h1 class="text-center">Buscar un Viaje</h1>
+          </div>
 
-            <div class="col-6 d-flex flex-column justify-content-center pt-4 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-                <input class="form-control customFirstBorders" type="text" placeholder="Origen" aria-describedby="buttonSearch" list="listOrigin" v-model="origin" v-on:input="getListOrigin">
-                <datalist id="listOrigin">
-                  <option v-for="origins in listOrigin">{{origins.address}}</option>
-                </datalist>
-                <input class="form-control customFirstBorders mt-3" type="text" placeholder="Destino" aria-describedby="textSet1" list="listDestination"v-model="destination" v-on:input="getListDestination">
-                <datalist id="listDestination">
-                  <option v-for="destinations in listDestination">{{destinations.address}}</option>
-                </datalist>
-            </div>
+          <div class="col-6 d-flex flex-column justify-content-center pt-4 order-2 order-lg-1" data-aos="fade-up"
+            data-aos-delay="200">
+            <input class="form-control customFirstBorders" type="text" placeholder="Origen"
+              aria-describedby="buttonSearch" list="listOrigin" v-model="origin" v-on:input="getListOrigin">
+            <datalist id="listOrigin">
+              <option v-for="origins in listOrigin">{{origins.address}}</option>
+            </datalist>
+            <input class="form-control customFirstBorders mt-3" type="text" placeholder="Destino"
+              aria-describedby="textSet1" list="listDestination" v-model="destination" v-on:input="getListDestination">
+            <datalist id="listDestination">
+              <option v-for="destinations in listDestination">{{destinations.address}}</option>
+            </datalist>
+          </div>
 
-            <div class="col-6 d-flex flex-column justify-content-center pt-4 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-            
-                <input class="form-control customFirstBorders" type="number" min="1" placeholder="Número de plazas" aria-describedby="buttonSearch" v-model="nSpots">
-                <input class="form-control customFirstBorders mt-3" type="date" placeholder="Fecha" aria-describedby="textSet1" v-model="date">
-            </div>
+          <div class="col-6 d-flex flex-column justify-content-center pt-4 order-2 order-lg-1" data-aos="fade-up"
+            data-aos-delay="200">
 
-            
+            <input class="form-control customFirstBorders" type="number" min="1" placeholder="Número de plazas"
+              aria-describedby="buttonSearch" v-model="nSpots">
+            <input class="form-control customFirstBorders mt-3" type="date" placeholder="Fecha"
+              aria-describedby="textSet1" v-model="date">
+          </div>
+
+
         </div>
 
         <div class="row">
-          <div class="col-12 d-flex justify-content-center justify-content-lg-center mt-3 inputCustom" data-aos="fade-up" data-aos-delay="200">
+          <div class="col-12 d-flex justify-content-center justify-content-lg-center mt-3 inputCustom"
+            data-aos="fade-up" data-aos-delay="200">
             <button class="btn btn-primary rounded-pill w-25" type="button" v-on:click="searchJourney">Buscar</button>
           </div>
         </div>
-        
 
-    </div>
 
-  </section><!-- End Hero -->
+      </div>
+
+    </section><!-- End Hero -->
   </div>
-  
+
   <!-- ======= Footer ======= -->
   <footer id="footer">
 

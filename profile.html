@@ -35,6 +35,21 @@
     <script src="vue/axios.js"></script>
     <script src="./js/logout.js" defer></script>
 
+    <!--Google OAuth 2.0-->
+    <meta name="google-signin-client_id"
+        content="634135800903-t4lnnd9m66u3lr82d4h4ncat75qbt1br.apps.googleusercontent.com">
+    <script>
+        function onLoad() {
+            console.log("Entra el onLoad");
+            gapi.load('auth2', function () {
+                console.log("Entra a la funcion - antes");
+                gapi.auth2.init();
+                console.log("Entra a la funcion - despues");
+            });
+        }
+    </script>
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+
     <link href="./css/customBorders.css" rel="stylesheet">
     <link href="./css/objective-img.css" rel="stylesheet">
 </head>
@@ -54,7 +69,8 @@
                     <li><a class="nav-link scrollto" href="your-travels.html">Tus viajes</a></li>
                     <li><a class="nav-link scrollto" href="mensajes.html">Mensajes</a></li>
                     <li><a class="nav-link scrollto" href="profile.html">Mi perfil</a></li>
-                    <li><button class="getstarted scrollto btn btn-outline-primary" id="logoutBtn">Cerrar sesión</button></li>
+                    <li><button class="getstarted scrollto btn btn-outline-primary" id="logoutBtn">Cerrar
+                            sesión</button></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
@@ -70,7 +86,7 @@
                     <div class="row justify-content-center">
 
                         <div class="col-11 col-md-10 col-lg-8" data-aos="fade-up" data-aos-delay="200">
-                            
+
                             <!-- Perfil -->
                             <div class="list-group custom-rounded-borders shadow-sm bg-white">
                                 <div class="list-group-item px-3 py-4">
@@ -78,23 +94,30 @@
                                         <h2>{{user.username}}</h2>
                                     </div>
                                     <div class="mx-auto image-cropper">
-                                        <img v-if="!user.picture" class="rounded-circle mx-auto mt-3 d-block img-responsive" src="https://cdn.blablacar.com/comuto3/images/avatar/pixar/passenger-m-02.svg" width="200px" height="200px"/>
-                                        <img v-if="user.picture" class="rounded-circle mx-auto mt-3 d-block img-responsive" :src="user.picture" width="200px" height="200px"/>
-                                        
+                                        <img v-if="!user.picture"
+                                            class="rounded-circle mx-auto mt-3 d-block img-responsive"
+                                            src="https://cdn.blablacar.com/comuto3/images/avatar/pixar/passenger-m-02.svg"
+                                            width="200px" height="200px" />
+                                        <img v-if="user.picture"
+                                            class="rounded-circle mx-auto mt-3 d-block img-responsive"
+                                            :src="user.picture" width="200px" height="200px" />
+
                                     </div>
                                 </div>
                                 <div class="list-group-item px-md-5 py-4 px-3">
                                     <div class="d-flex flex-row">
                                         <h3>Datos personales</h3>
                                         <div class="ms-4">
-                                            <a href="profile-edition.html" v-if="isLoggedUser" class="btn btn-primary badge rounded-pill" type="button">Editar mi perfil</a>
+                                            <a href="profile-edition.html" v-if="isLoggedUser"
+                                                class="btn btn-primary badge rounded-pill" type="button">Editar mi
+                                                perfil</a>
                                         </div>
                                     </div>
                                     <hr>
                                     <p class="lead">Nombre: <b>{{user.name}}</b> </p>
 
                                     <p class="lead">Usuario: <b>{{user.username}}</b> </p>
-                                    
+
                                     <p class="lead">Email: <b>{{user.email}}</b> </p>
                                 </div>
 
@@ -105,27 +128,39 @@
                                 <div class="list-group-item px-3 py-4">
                                     <div class="section-title">
                                         <h2>Pagos Online</h2>
-                                        <img class="rounded mx-auto d-block mt-5 img-responsive mx-3" src="./assets/img/stripe-logo.svg" width="100%" height="100px"/>
-                                        <h4 v-if="!stripeOnBoardingCompleted" class="col-5 card text-danger mt-4 p-2 mx-auto d-block text-center">Aún no ha configurado correctamente Stripe</h4>
-                                        <p class="lead mt-4 mx-4"><b>Comienza ahora con los pagos online!</b> Ahora, puede gestionar todos los pagos online con Stripe!</p>
-                                        <a class="btn btn-primary rounded-pill mt-4 px-4 fw-bold" :href="stripeUrl" target="_blank">{{ !stripeOnBoardingCompleted ? "Configurar Stripe" : "Acceder a Stripe"}}</a>
+                                        <img class="rounded mx-auto d-block mt-5 img-responsive mx-3"
+                                            src="./assets/img/stripe-logo.svg" width="100%" height="100px" />
+                                        <h4 v-if="!stripeOnBoardingCompleted"
+                                            class="col-5 card text-danger mt-4 p-2 mx-auto d-block text-center">Aún no
+                                            ha configurado correctamente Stripe</h4>
+                                        <p class="lead mt-4 mx-4"><b>Comienza ahora con los pagos online!</b> Ahora,
+                                            puede gestionar todos los pagos online con Stripe!</p>
+                                        <a class="btn btn-primary rounded-pill mt-4 px-4 fw-bold" :href="stripeUrl"
+                                            target="_blank">{{ !stripeOnBoardingCompleted ? "Configurar Stripe" :
+                                            "Acceder a Stripe"}}</a>
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <!-- Vehículos -->
                             <div class="list-group custom-rounded-borders shadow-sm bg-white mt-4">
                                 <div class="list-group-item px-3 py-4">
                                     <div class="section-title">
                                         <h2>Vehículos</h2>
                                     </div>
-                                    <h4 v-if="vehicles.length == 0" class="col-5 card text-danger mt-4 p-2 mx-auto d-block text-center">Aún no tiene vehículos</h4>
+                                    <h4 v-if="vehicles.length == 0"
+                                        class="col-5 card text-danger mt-4 p-2 mx-auto d-block text-center">Aún no tiene
+                                        vehículos</h4>
                                 </div>
 
                                 <div class="list-group-item px-md-5 py-4 px-3" v-for="vehicle in vehicles">
                                     <div class="image-cropper mb-3">
-                                        <img id="picture" v-if="vehicle.picture == null || !vehicle.picture" class="rounded mx-auto d-block mt-5 img-responsive" src="assets/img/car.png" width="280px" height="180px"/>
-                                        <img id="picture" v-if="vehicle.picture" class="rounded mx-auto d-block mt-5 img-responsive" :src="vehicle.picture" width="280px" height="180px"/>
+                                        <img id="picture" v-if="vehicle.picture == null || !vehicle.picture"
+                                            class="rounded mx-auto d-block mt-5 img-responsive" src="assets/img/car.png"
+                                            width="280px" height="180px" />
+                                        <img id="picture" v-if="vehicle.picture"
+                                            class="rounded mx-auto d-block mt-5 img-responsive" :src="vehicle.picture"
+                                            width="280px" height="180px" />
                                     </div>
                                     <p class="lead">Apodo del vehículo: <b>{{vehicle.name}}</b> </p>
 
@@ -134,13 +169,13 @@
                                     <p class="lead">Modelo: <b>{{vehicle.model}}</b> </p>
 
                                     <p class="lead">Combustible: <b>{{vehicle.combustible}}</b> </p>
-                                    
+
                                 </div>
                             </div>
 
-                                
+
                         </div>
-                        
+
                     </div>
                 </div>
             </section>
@@ -165,6 +200,7 @@
     <script src="assets/js/main.js"></script>
 
 </body>
+
 </html>
 <script src="vue/profile.js"></script>
 

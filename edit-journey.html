@@ -32,13 +32,28 @@
     <link href="assets/css/image-cropper.css" rel="stylesheet">
     <script src="vue/axios.js"></script>
 
-      <!--VUE 2.0-->
+    <!--VUE 2.0-->
     <script src="vue/axios.js"></script>
     <script src="./vue/vue.js" defer></script>
     <script src="./vue/node_modules/vue-cookies/vue-cookies.js" defer></script>
     <script src="./js/paths.js" defer></script>
     <script src="./js/myJourney.js" defer></script>
     <script src="./js/logout.js" defer></script>
+
+    <!--Google OAuth 2.0-->
+    <meta name="google-signin-client_id"
+        content="634135800903-t4lnnd9m66u3lr82d4h4ncat75qbt1br.apps.googleusercontent.com">
+    <script>
+        function onLoad() {
+            console.log("Entra el onLoad");
+            gapi.load('auth2', function () {
+                console.log("Entra a la funcion - antes");
+                gapi.auth2.init();
+                console.log("Entra a la funcion - despues");
+            });
+        }
+    </script>
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 </head>
 
 <body>
@@ -59,7 +74,8 @@
                     <li><a class="nav-link scrollto" href="your-travels.html">Tus viajes</a></li>
                     <li><a class="nav-link scrollto" href="mensajes.html">Mensajes</a></li>
                     <li><a class="nav-link scrollto" href="profile.html">Mi perfil</a></li>
-                    <li><button class="getstarted scrollto btn btn-outline-primary" id="logoutBtn">Cerrar sesión</button></li>
+                    <li><button class="getstarted scrollto btn btn-outline-primary" id="logoutBtn">Cerrar
+                            sesión</button></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
@@ -67,7 +83,7 @@
         </div>
     </header><!-- End Header -->
     <!-- ======= Hero Section ======= -->
-    <section id="hero" >
+    <section id="hero">
 
         <div class="container-lg pt-5 d-flex align-items-center justify-content-center" id="journeysDetail">
             <div class="row col-8">
@@ -77,9 +93,11 @@
                         <p>Esta acción sólo es posible cuando aún no hay plazas reservadas.</p>
                         <p>Si gustas puedes eliminar el viaje:</p>
                         <div class="row text-center mx-auto">
-                            <a class="col-2 col-sm-4 btn-primary rounded-pill" :href="'my-journey.html?journey='+journey.id" >Volver</a>
+                            <a class="col-2 col-sm-4 btn-primary rounded-pill"
+                                :href="'my-journey.html?journey='+journey.id">Volver</a>
                             <a class="col-1"></a>
-                            <a class="col-2 col-sm-4 btn-danger rounded-pill" :href="'confirm-delete-journey.html?journey='+journey.id" >Eliminar</a>
+                            <a class="col-2 col-sm-4 btn-danger rounded-pill"
+                                :href="'confirm-delete-journey.html?journey='+journey.id">Eliminar</a>
                         </div>
                     </div>
                 </div>
@@ -87,7 +105,7 @@
 
                     <div class="col-12">
                         <h1 class="text-center">Editar viaje</h1>
-                
+
                     </div>
 
                     <div class="col-12 mx-auto d-flex flex-column justify-content-center pt-4 " data-aos="fade-up"
@@ -96,8 +114,10 @@
                         <div class="row mb-4">
                             <div class="col-12 d-flex justify-content-center justify-content-lg-center mt-3 inputCustom"
                                 data-aos="fade-up" data-aos-delay="200">
-                                <button v-on:click="updateJourney" class="btn btn-success rounded-pill w-25" type="button">Confirmar</button>
-                                <a :href="'my-journey.html?journey='+journey.id" class="btn btn-dark rounded-pill w-25 mx-2" type="button">Cancelar</a>
+                                <button v-on:click="updateJourney" class="btn btn-success rounded-pill w-25"
+                                    type="button">Confirmar</button>
+                                <a :href="'my-journey.html?journey='+journey.id"
+                                    class="btn btn-dark rounded-pill w-25 mx-2" type="button">Cancelar</a>
                             </div>
                         </div>
 
@@ -112,8 +132,10 @@
                         <div class="card p-2 my-1">
                             <div class="mx-1">
                                 <label class="lead">Origen:</label>
-                                <input class="form-control dropdown-toggle custom-dropdown-size fw-bold m-1 customFirstBorders" list="listaOrigenes" type="text" placeholder="Origen" v-model="origen"
-                                v-on:input="obtenerListaOrigenes" required/>
+                                <input
+                                    class="form-control dropdown-toggle custom-dropdown-size fw-bold m-1 customFirstBorders"
+                                    list="listaOrigenes" type="text" placeholder="Origen" v-model="origen"
+                                    v-on:input="obtenerListaOrigenes" required />
                                 <datalist id="listaOrigenes">
                                     <option v-for="origenes in listaOrigenes">{{origenes.address}}</option>
                                 </datalist>
@@ -124,8 +146,10 @@
                         <div class="card p-2 my-1">
                             <div class="mx-1">
                                 <label class="lead">Destino:</label>
-                                <input class="form-control dropdown-toggle custom-dropdown-size fw-bold m-1 customFirstBorders mt-3" list="listaDestinos" type="text" placeholder="Destino" v-model="destino"
-                                v-on:input="obtenerListaDestinos" required/>
+                                <input
+                                    class="form-control dropdown-toggle custom-dropdown-size fw-bold m-1 customFirstBorders mt-3"
+                                    list="listaDestinos" type="text" placeholder="Destino" v-model="destino"
+                                    v-on:input="obtenerListaDestinos" required />
                                 <datalist id="listaDestinos">
                                     <option v-for="destinos in listaDestinos">{{destinos.address}}</option>
                                 </datalist>
@@ -136,8 +160,9 @@
                         <div class="card p-2 my-1">
                             <div class="mx-1">
                                 <label class="lead">Número de plazas:</label>
-                                <input class="form-control customFirstBorders fw-bold m-1 mt-3" type="number" min="1" placeholder="Número de plazas"
-                                id="numberParticipants" v-model="journey.numberParticipants" required/>
+                                <input class="form-control customFirstBorders fw-bold m-1 mt-3" type="number" min="1"
+                                    placeholder="Número de plazas" id="numberParticipants"
+                                    v-model="journey.numberParticipants" required />
                             </div>
                         </div>
 
@@ -145,8 +170,8 @@
                         <div class="card p-2 my-1">
                             <div class="mx-1">
                                 <label class="lead">Precio por plaza:</label>
-                                <input class="form-control customFirstBorders fw-bold m-1" type="number" placeholder="Precio por plaza" id="price"
-                                v-model="journey.price" required>
+                                <input class="form-control customFirstBorders fw-bold m-1" type="number"
+                                    placeholder="Precio por plaza" id="price" v-model="journey.price" required>
                             </div>
                         </div>
 
@@ -154,18 +179,18 @@
                         <div class="card p-2 my-1">
                             <div class="mx-1">
                                 <label class="lead">Fecha:</label>
-                                <input class="form-control customFirstBorders fw-bold m-1 mt-3" type="date" placeholder="Fecha" id="fecha"
-                                v-model="fecha" required>
+                                <input class="form-control customFirstBorders fw-bold m-1 mt-3" type="date"
+                                    placeholder="Fecha" id="fecha" v-model="fecha" required>
                             </div>
                         </div>
-                        
+
 
                         <!-- Hora -->
                         <div class="card p-2 my-1">
                             <div class="mx-1">
                                 <label class="lead">Hora:</label>
-                                <input class="form-control customFirstBorders mt-3" type="time" placeholder="Hora" id="hour"
-                                v-model="hour" required>
+                                <input class="form-control customFirstBorders mt-3" type="time" placeholder="Hora"
+                                    id="hour" v-model="hour" required>
                             </div>
                         </div>
 
@@ -176,7 +201,8 @@
                                 <select class="form-control customFirstBorders fw-bold m-1 mt-3" v-model="vehicleUser">
                                     <option v-if="listaVehiculos.length === 0">Sin vehiculos</option>
                                     <div v-else>
-                                    <option v-for="(vehicle, index) in listaVehiculos" v-bind:value="vehicle.id">{{vehicle.name}} </option>
+                                        <option v-for="(vehicle, index) in listaVehiculos" v-bind:value="vehicle.id">
+                                            {{vehicle.name}} </option>
                                     </div>
                                 </select required>
                             </div>
@@ -186,7 +212,8 @@
                         <!-- Examen -->
                         <div class="card p-2 my-1">
                             <div class="mx-1">
-                                <select class="form-control customFirstBorders fw-bold m-1 mt-3" id="exam" v-model="journey.exam">
+                                <select class="form-control customFirstBorders fw-bold m-1 mt-3" id="exam"
+                                    v-model="journey.exam">
                                     <option v-bind:selected="0 === 0" disabled>Examen</option>
                                     <option v-bind:value="true">Sí</option>
                                     <option v-bind:value="false">No</option>
@@ -196,7 +223,8 @@
 
                         <div class="col-8 mx-auto card px-5 py-2 mt-5">
                             <h3 class="mx-auto">Ajustes adicionales:</h3>
-                            <a class="text-center btn-danger rounded-pill" :href="'confirm-delete-journey.html?journey='+journey.id" >Eliminar viaje</a>
+                            <a class="text-center btn-danger rounded-pill"
+                                :href="'confirm-delete-journey.html?journey='+journey.id">Eliminar viaje</a>
                         </div>
                     </div>
                 </div>
@@ -205,7 +233,7 @@
 
     </section><!-- End Hero -->
 
-    
+
     <div id="preloader"></div>
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
@@ -223,4 +251,5 @@
     <script src="assets/js/main.js"></script>
 
 </body>
+
 </html>

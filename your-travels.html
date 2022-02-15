@@ -39,6 +39,21 @@
   <script src="js/listarViajes.js" defer></script>
   <script src="./js/logout.js" defer></script>
 
+  <!--Google OAuth 2.0-->
+  <meta name="google-signin-client_id"
+    content="634135800903-t4lnnd9m66u3lr82d4h4ncat75qbt1br.apps.googleusercontent.com">
+  <script>
+    function onLoad() {
+      console.log("Entra el onLoad");
+      gapi.load('auth2', function () {
+        console.log("Entra a la funcion - antes");
+        gapi.auth2.init();
+        console.log("Entra a la funcion - despues");
+      });
+    }
+  </script>
+  <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+
 </head>
 
 <body>
@@ -60,7 +75,7 @@
           <li><a class="nav-link scrollto active" href="your-travels.html">Tus viajes</a></li>
           <li><a class="nav-link scrollto" href="mensajes.html">Mensajes</a></li>
           <li><a class="nav-link scrollto" href="profile.html">Mi perfil</a></li>
-                    <li><button class="getstarted scrollto btn btn-outline-primary" id="logoutBtn">Cerrar sesión</button></li>
+          <li><button class="getstarted scrollto btn btn-outline-primary" id="logoutBtn">Cerrar sesión</button></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -116,7 +131,8 @@
                         <a class="journeysLink" :href="'my-journey.html?journey='+journey.id">
                           <div class="mt-4">
                             <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
-                              <div class="pic"><img v-if="loggedUser.picture" :src="loggedUser.picture" class="img-fluid " alt=""></div>
+                              <div class="pic"><img v-if="loggedUser.picture" :src="loggedUser.picture"
+                                  class="img-fluid " alt=""></div>
                               <div class="member-info">
                                 <h4>{{journey.name}}</h4>
                                 <span>{{loggedUser.name}}</span>
@@ -172,26 +188,26 @@
               <div class="tab-content" id="nav-tabContent">
 
                 <!-- Viajes Participados -->
-                  <div class="col-lg-12">
-                    
-                    <div v-for="journey in listaViajesParticipados">
-                      <a class="journeysLink" href="#">
-                        <div class="mt-4">
-                          <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
-                            <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="member-info">
-                              <h4>{{journey.name}}</h4>
-                              <span>Chief Executive Officer</span>
-                              <p>Fecha: {{journey.startDate}}</p>
-                              <p>Hora de Salida: </p>
-                            </div>
+                <div class="col-lg-12">
+
+                  <div v-for="journey in listaViajesParticipados">
+                    <a class="journeysLink" href="#">
+                      <div class="mt-4">
+                        <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
+                          <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid" alt="">
+                          </div>
+                          <div class="member-info">
+                            <h4>{{journey.name}}</h4>
+                            <span>Chief Executive Officer</span>
+                            <p>Fecha: {{journey.startDate}}</p>
+                            <p>Hora de Salida: </p>
                           </div>
                         </div>
-                      </a>
-                    </div>
-
+                      </div>
+                    </a>
                   </div>
+
+                </div>
 
               </div>
             </div>
@@ -258,7 +274,7 @@
     </div>
   </footer><!-- End Footer -->
 
-    
+
 
   <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i

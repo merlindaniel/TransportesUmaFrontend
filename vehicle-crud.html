@@ -39,6 +39,21 @@
     <script src="vue/vehicle.js" defer></script>
     <script src="./js/logout.js" defer></script>
 
+    <!--Google OAuth 2.0-->
+    <meta name="google-signin-client_id"
+        content="634135800903-t4lnnd9m66u3lr82d4h4ncat75qbt1br.apps.googleusercontent.com">
+    <script>
+        function onLoad() {
+            console.log("Entra el onLoad");
+            gapi.load('auth2', function () {
+                console.log("Entra a la funcion - antes");
+                gapi.auth2.init();
+                console.log("Entra a la funcion - despues");
+            });
+        }
+    </script>
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+
 </head>
 
 <body>
@@ -56,7 +71,8 @@
                     <li><a class="nav-link scrollto" href="your-travels.html">Tus viajes</a></li>
                     <li><a class="nav-link scrollto" href="mensajes.html">Mensajes</a></li>
                     <li><a class="nav-link scrollto" href="profile.html">Mi perfil</a></li>
-                    <li><button class="getstarted scrollto btn btn-outline-primary" id="logoutBtn">Cerrar sesión</button></li>
+                    <li><button class="getstarted scrollto btn btn-outline-primary" id="logoutBtn">Cerrar
+                            sesión</button></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
@@ -72,14 +88,18 @@
                     <div class="row justify-content-center">
                         <div class="col-11 col-md-10 col-lg-8" data-aos="fade-up" data-aos-delay="200">
                             <div class="list-group custom-rounded-borders shadow-sm bg-white">
-                                
+
                                 <div class="list-group-item px-3 py-4">
                                     <div class="section-title">
                                         <h2>{{vehicle.name}}</h2>
                                     </div>
                                     <div class="mx-auto image-cropper">
-                                        <img id="picture" v-if="!editionVehicle.picture" class="rounded mx-auto mt-3 d-block img-responsive" src="assets/img/car.png" width="300px" height="200px"/>
-                                        <img id="picture" v-if="editionVehicle.picture" class="rounded mx-auto mt-3 d-block img-responsive" :src="editionVehicle.picture" width="300px" height="200px"/>
+                                        <img id="picture" v-if="!editionVehicle.picture"
+                                            class="rounded mx-auto mt-3 d-block img-responsive" src="assets/img/car.png"
+                                            width="300px" height="200px" />
+                                        <img id="picture" v-if="editionVehicle.picture"
+                                            class="rounded mx-auto mt-3 d-block img-responsive"
+                                            :src="editionVehicle.picture" width="300px" height="200px" />
                                     </div>
                                 </div>
 
@@ -87,41 +107,49 @@
                                 <div class="list-group-item px-md-5 py-4 px-3">
                                     <div class="d-flex flex-row">
                                         <h3>Datos del vehículo</h3>
-                                        
+
                                     </div>
                                     <p>Edite los campos que vea necesario</p>
                                     <!-- Mensaje de error -->
-                                    <div v-if="errors && errors.length > 0" class="card pt-3 pb-0 my-1 bg-danger text-white">
+                                    <div v-if="errors && errors.length > 0"
+                                        class="card pt-3 pb-0 my-1 bg-danger text-white">
                                         <ul>
                                             <li v-for="error in errors" class="fw-bold">{{error}}</li>
                                         </ul>
                                     </div>
                                     <hr>
-                                    
+
                                     <div class="row g-3 px-3 mb-5">
                                         <div class="col-12">
                                             <label for="profile-pic" class="form-label">Foto del vehículo</label>
-                                            <input class="form-control" type="file" id="vehicle-pic" @change="updateImg">
+                                            <input class="form-control" type="file" id="vehicle-pic"
+                                                @change="updateImg">
                                         </div>
                                         <div class="col-12">
                                             <label for="apodo" class="form-label">Apodo del vehículo</label>
-                                            <input id="apodo" class="form-control fw-bold m-1" type="text" placeholder="Apodo del vehículo" v-model="editionVehicle.name" required>
+                                            <input id="apodo" class="form-control fw-bold m-1" type="text"
+                                                placeholder="Apodo del vehículo" v-model="editionVehicle.name" required>
                                         </div>
                                         <div class="col-12 col-md-6">
                                             <label for="matricula" class="form-label">Matrícula</label>
-                                            <input id="matricula" class="form-control fw-bold m-1" type="text" placeholder="Matrícula" v-model="editionVehicle.registration" required>
+                                            <input id="matricula" class="form-control fw-bold m-1" type="text"
+                                                placeholder="Matrícula" v-model="editionVehicle.registration" required>
                                         </div>
                                         <div class="col-12 col-md-6">
                                             <label for="modelo" class="form-label">Modelo</label>
-                                            <input id="modelo" class="form-control fw-bold m-1" type="text" placeholder="Modelo" v-model="editionVehicle.model" required>
+                                            <input id="modelo" class="form-control fw-bold m-1" type="text"
+                                                placeholder="Modelo" v-model="editionVehicle.model" required>
                                         </div>
                                         <div class="col-12 col-md-6">
                                             <label for="edition-seats" class="form-label">Asientos</label>
-                                            <input id="edition-seats" class="form-control fw-bold m-1" type="number" v-model="editionVehicle.seats" placeholder="Número de asientos" v-model="editionVehicle.model" min="2" required>
+                                            <input id="edition-seats" class="form-control fw-bold m-1" type="number"
+                                                v-model="editionVehicle.seats" placeholder="Número de asientos"
+                                                v-model="editionVehicle.model" min="2" required>
                                         </div>
                                         <div class="col-12 col-md-6">
                                             <label for="combustible" class="form-label">Combustible</label>
-                                            <select id="combustible"class="form-control" v-model="editionVehicle.combustible">
+                                            <select id="combustible" class="form-control"
+                                                v-model="editionVehicle.combustible">
                                                 <option value="GASOLINE">Gasolina</option>
                                                 <option value="DIESEL">Diesel</option>
                                                 <option value="HYBRID">Híbrido</option>
@@ -129,23 +157,26 @@
                                             </select>
                                         </div>
                                     </div>
-                                    
+
                                     <hr>
                                     <div class="d-flex flex-row mt-4">
-                                        <a :href="'profile.html?user=' + loggedUserId" v-if="isLoggedUser" class="btn btn-outline-dark rounded-pill px-4">Cancelar</a>
+                                        <a :href="'profile.html?user=' + loggedUserId" v-if="isLoggedUser"
+                                            class="btn btn-outline-dark rounded-pill px-4">Cancelar</a>
                                         <div class="flex-fill"></div>
-                                        <button v-on:click="vehicleSubmit" v-if="isLoggedUser" class="btn btn-success rounded-pill px-4">Confirmar</button>
+                                        <button v-on:click="vehicleSubmit" v-if="isLoggedUser"
+                                            class="btn btn-success rounded-pill px-4">Confirmar</button>
                                     </div>
                                 </div>
 
                                 <div v-if="!(editionVehicle.owner === null)" class="list-group-item px-md-5 py-4 px-3">
                                     <div class="d-flex flex-row">
                                         <h3>Ajustes adicionales</h3>
-                                        
+
                                     </div>
                                     <p>Puede eliminar el vehículo si así lo desea</p>
                                     <hr>
-                                    <button v-on:click="deleteVehicle" class="btn btn-danger rounded-pill px-4" type="button">Borrar vehículo</button>
+                                    <button v-on:click="deleteVehicle" class="btn btn-danger rounded-pill px-4"
+                                        type="button">Borrar vehículo</button>
                                 </div>
 
                             </div>

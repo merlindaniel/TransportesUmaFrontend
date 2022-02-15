@@ -39,51 +39,67 @@
   <script src="js/reservation.js" defer></script>
   <script src="./js/logout.js" defer></script>
 
+  <!--Google OAuth 2.0-->
+  <meta name="google-signin-client_id"
+    content="634135800903-t4lnnd9m66u3lr82d4h4ncat75qbt1br.apps.googleusercontent.com">
+  <script>
+    function onLoad() {
+      console.log("Entra el onLoad");
+      gapi.load('auth2', function () {
+        console.log("Entra a la funcion - antes");
+        gapi.auth2.init();
+        console.log("Entra a la funcion - despues");
+      });
+    }
+  </script>
+  <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+
 </head>
+
 <body>
 
-    <!-- ======= Header ======= -->
-    <header id="header" class="fixed-top ">
-      <div class="container d-flex align-items-center">
-  
-        <h1 class="logo me-auto"><a href="index.html">ShareTravel</a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-  
-        <nav id="navbar" class="navbar">
-          <ul>
-            <li><a class="nav-link scrollto" href="index.html">Inicio</a></li>
-            <li><a class="nav-link scrollto" href="search.html">Buscar</a></li>
-            <li><a class="nav-link scrollto" href="organize-journey.html">Publicar viaje</a></li>
-            <li><a class="nav-link scrollto active" href="your-travels.html">Tus viajes</a></li>
-            <li><a class="nav-link scrollto" href="mensajes.html">Mensajes</a></li>
-            <li><a class="nav-link scrollto" href="profile.html">Mi perfil</a></li>
-                    <li><button class="getstarted scrollto btn btn-outline-primary" id="logoutBtn">Cerrar sesión</button></li>
-          </ul>
-          <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav><!-- .navbar -->
-  
-      </div>
-    </header><!-- End Header -->
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center">
 
-<!-- Viaje Section -->
-<section id="viajes" class="d-flex align-items-center">
-    <div id="app" class="container">
-        <div class="row">
-                <h1 class="text-center">RESERVA</h1>
-                <h2 class="text-center">{{journey.origin.title}} &rarr; {{journey.destination.title}}</h2>
-                <h2 class="text-center">{{date}}, {{hour}}</h2>
-                <h2 class="text-center">{{journey.price}} €</h2>
-                <h2 class="text-center">{{nSpots}} plazas</h2>
-                
-        </div>
-        <div class="row d-flex justify-content-lg-center">
-            <button class="btn btn-primary rounded-pill w-50 mb-2" type="submit" v-on:click="book">Reservar</button>  
-        </div>
+      <h1 class="logo me-auto"><a href="index.html">ShareTravel</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto" href="index.html">Inicio</a></li>
+          <li><a class="nav-link scrollto" href="search.html">Buscar</a></li>
+          <li><a class="nav-link scrollto" href="organize-journey.html">Publicar viaje</a></li>
+          <li><a class="nav-link scrollto active" href="your-travels.html">Tus viajes</a></li>
+          <li><a class="nav-link scrollto" href="mensajes.html">Mensajes</a></li>
+          <li><a class="nav-link scrollto" href="profile.html">Mi perfil</a></li>
+          <li><button class="getstarted scrollto btn btn-outline-primary" id="logoutBtn">Cerrar sesión</button></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
     </div>
-</section> 
+  </header><!-- End Header -->
 
-    <!-- ======= Footer ======= -->
+  <!-- Viaje Section -->
+  <section id="viajes" class="d-flex align-items-center">
+    <div id="app" class="container">
+      <div class="row">
+        <h1 class="text-center">RESERVA</h1>
+        <h2 class="text-center">{{journey.origin.title}} &rarr; {{journey.destination.title}}</h2>
+        <h2 class="text-center">{{date}}, {{hour}}</h2>
+        <h2 class="text-center">{{journey.price}} €</h2>
+        <h2 class="text-center">{{nSpots}} plazas</h2>
+
+      </div>
+      <div class="row d-flex justify-content-lg-center">
+        <button class="btn btn-primary rounded-pill w-50 mb-2" type="submit" v-on:click="book">Reservar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Footer ======= -->
   <footer id="footer">
 
     <div class="footer-newsletter">

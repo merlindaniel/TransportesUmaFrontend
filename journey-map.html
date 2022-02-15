@@ -34,12 +34,12 @@
 
     <!-- Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-   crossorigin=""/>
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-   crossorigin="" defer></script>
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin="" defer></script>
 
     <!--VUE 2.0-->
     <script src="vue/axios.js"></script>
@@ -48,11 +48,29 @@
     <script src="./js/paths.js" defer></script>
     <script src="./js/myJourney-map.js" defer></script>
     <script src="./js/logout.js" defer></script>
+    
+    <!--Google OAuth 2.0-->
+    <meta name="google-signin-client_id"
+        content="634135800903-t4lnnd9m66u3lr82d4h4ncat75qbt1br.apps.googleusercontent.com">
+    <script>
+        function onLoad() {
+            console.log("Entra el onLoad");
+            gapi.load('auth2', function () {
+                console.log("Entra a la funcion - antes");
+                gapi.auth2.init();
+                console.log("Entra a la funcion - despues");
+            });
+        }
+    </script>
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+
+
     <style>
         #map {
             height: 700px;
             margin-bottom: 50px;
         }
+
         [v-cloak] {
             display: none;
         }
@@ -77,14 +95,15 @@
                     <li><a class="nav-link scrollto" href="your-travels.html">Tus viajes</a></li>
                     <li><a class="nav-link scrollto" href="mensajes.html">Mensajes</a></li>
                     <li><a class="nav-link scrollto" href="profile.html">Mi perfil</a></li>
-                    <li><button class="getstarted scrollto btn btn-outline-primary" id="logoutBtn">Cerrar sesión</button></li>
+                    <li><button class="getstarted scrollto btn btn-outline-primary" id="logoutBtn">Cerrar
+                            sesión</button></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
 
         </div>
     </header><!-- End Header -->
-    
+
     <main id="main">
         <section class="inner-page mt-5">
             <div class="container">
@@ -93,7 +112,7 @@
                         <h2>{{journeyName}}</h2>
                     </div>
 
-                    
+
                     <div class="row justify-content-center">
                         <div class="col-11">
                             <div class="list-group shadow-sm">
@@ -101,64 +120,83 @@
                                     <h3>Mapa del trayecto</h3>
                                     <hr>
                                     <div id="map">
-                
+
                                     </div>
                                 </div>
                                 <div class="list-group-item p-4 p-sm-5">
                                     <h3>Rutas</h3>
                                     <hr>
                                     <div class="btn-group" role="group" aria-label="First group">
-                                        <button type="button" class="btn btn-primary" :disabled="loadingRouteDirect" @click="getDirectRoute">
-                                            <span v-if="loadingRouteDirect" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                        <button type="button" class="btn btn-primary" :disabled="loadingRouteDirect"
+                                            @click="getDirectRoute">
+                                            <span v-if="loadingRouteDirect" class="spinner-grow spinner-grow-sm"
+                                                role="status" aria-hidden="true"></span>
                                             Ruta mas corta
                                         </button>
-                                        <button type="button" class="btn btn-primary" @click="getRouteWithFuelstationStop" :disabled="loadingRouteWithFuelstation">
-                                            <span v-if="loadingRouteWithFuelstation" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                        <button type="button" class="btn btn-primary"
+                                            @click="getRouteWithFuelstationStop"
+                                            :disabled="loadingRouteWithFuelstation">
+                                            <span v-if="loadingRouteWithFuelstation"
+                                                class="spinner-grow spinner-grow-sm" role="status"
+                                                aria-hidden="true"></span>
                                             Ruta por una gasolinera
                                         </button>
-                                        <button type="button" class="btn btn-primary" @click="cleanRoutes">Limpiar rutas</button>
+                                        <button type="button" class="btn btn-primary" @click="cleanRoutes">Limpiar
+                                            rutas</button>
                                     </div>
                                 </div>
                                 <div v-if="lastRouteSummary.length === 1" class="list-group-item p-4 p-sm-5">
                                     <h3>Detalles de la ruta actual</h3>
                                     <hr>
                                     <p><b>Longitud del trayecto: </b>{{lastRouteSummary[0].lengthInMeters}} metros.
-                                    <p><b>Tiempo de trayecto estimado: </b>{{lastRouteSummary[0].travelTimeInSeconds}} segundos.
-                                    <p><b>Tiempo de retraso debido al tráfico: </b>{{lastRouteSummary[0].trafficDelayInSeconds}} segundos.
-                                    <p><b>Longitud total de todo el trayecto donde hay tráfico: </b>{{lastRouteSummary[0].trafficLengthInMeters}} metros.
+                                    <p><b>Tiempo de trayecto estimado: </b>{{lastRouteSummary[0].travelTimeInSeconds}}
+                                        segundos.
+                                    <p><b>Tiempo de retraso debido al tráfico:
+                                        </b>{{lastRouteSummary[0].trafficDelayInSeconds}} segundos.
+                                    <p><b>Longitud total de todo el trayecto donde hay tráfico:
+                                        </b>{{lastRouteSummary[0].trafficLengthInMeters}} metros.
                                 </div>
                                 <div v-else-if="lastRouteSummary.length === 2" class="list-group-item p-4 p-sm-5">
                                     <h3>Detalles de la ruta actual</h3>
                                     <hr>
-                                    <p><b>Longitud del trayecto hasta la gasolinera: </b>{{lastRouteSummary[0].lengthInMeters}} metros.
-                                    <p><b>Tiempo de trayecto estimado hasta la gasolinera: </b>{{lastRouteSummary[0].travelTimeInSeconds}} segundos.
-                                    <p><b>Tiempo de retraso debido al tráfico hasta la gasolinera: </b>{{lastRouteSummary[0].trafficDelayInSeconds}} segundos.
-                                    <p><b>Longitud total de todo el trayecto donde hay tráfico hasta la gasolinera: </b>{{lastRouteSummary[0].trafficLengthInMeters}} metros.
-                                    <hr>
-                                    <p><b>Longitud del trayecto a partir de la gasolinera: </b>{{lastRouteSummary[1].lengthInMeters}} metros.
-                                    <p><b>Tiempo de trayecto estimado a partir de la gasolinera: </b>{{lastRouteSummary[1].travelTimeInSeconds}} segundos.
-                                    <p><b>Tiempo de retraso debido al tráfico a partir de la gasolinera: </b>{{lastRouteSummary[1].trafficDelayInSeconds}} segundos.
-                                    <p><b>Longitud total de todo el trayecto donde hay tráfico a partir de la gasolinera: </b>{{lastRouteSummary[1].trafficLengthInMeters}} metros.
+                                    <p><b>Longitud del trayecto hasta la gasolinera:
+                                        </b>{{lastRouteSummary[0].lengthInMeters}} metros.
+                                    <p><b>Tiempo de trayecto estimado hasta la gasolinera:
+                                        </b>{{lastRouteSummary[0].travelTimeInSeconds}} segundos.
+                                    <p><b>Tiempo de retraso debido al tráfico hasta la gasolinera:
+                                        </b>{{lastRouteSummary[0].trafficDelayInSeconds}} segundos.
+                                    <p><b>Longitud total de todo el trayecto donde hay tráfico hasta la gasolinera:
+                                        </b>{{lastRouteSummary[0].trafficLengthInMeters}} metros.
+                                        <hr>
+                                    <p><b>Longitud del trayecto a partir de la gasolinera:
+                                        </b>{{lastRouteSummary[1].lengthInMeters}} metros.
+                                    <p><b>Tiempo de trayecto estimado a partir de la gasolinera:
+                                        </b>{{lastRouteSummary[1].travelTimeInSeconds}} segundos.
+                                    <p><b>Tiempo de retraso debido al tráfico a partir de la gasolinera:
+                                        </b>{{lastRouteSummary[1].trafficDelayInSeconds}} segundos.
+                                    <p><b>Longitud total de todo el trayecto donde hay tráfico a partir de la
+                                            gasolinera: </b>{{lastRouteSummary[1].trafficLengthInMeters}} metros.
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
-                    
+
                     <!--Toast-->
                     <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1000">
                         <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="toast-header">
                                 <strong class="me-auto">ShareTravel</strong>
                                 <small>Info</small>
-                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast"
+                                    aria-label="Close"></button>
                             </div>
                             <div class="toast-body">
                                 Se ha cargado correctamente la ruta. También se puede ver los detalles de la ruta abajo!
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </section>
@@ -182,4 +220,5 @@
     <script src="assets/js/main.js"></script>
     <script src="bootstrap/dist/js/bootstrap.bundle.js"></script>
 </body>
+
 </html>

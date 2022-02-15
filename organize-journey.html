@@ -37,6 +37,20 @@
   <script src="vue/axios.js" defer></script>
   <script src="js/publicarViaje.js" defer></script>
   <script src="./js/logout.js" defer></script>
+  <!--Google OAuth 2.0-->
+  <meta name="google-signin-client_id"
+    content="634135800903-t4lnnd9m66u3lr82d4h4ncat75qbt1br.apps.googleusercontent.com">
+  <script>
+    function onLoad() {
+      console.log("Entra el onLoad");
+      gapi.load('auth2', function () {
+        console.log("Entra a la funcion - antes");
+        gapi.auth2.init();
+        console.log("Entra a la funcion - despues");
+      });
+    }
+  </script>
+  <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 
 
   <link href="./css/customBorders.css" rel="stylesheet">
@@ -89,14 +103,16 @@
                   <div class="row g-3 mt-2">
                     <div class="col-12">
                       <label for="name" class="form-label">Origen</label>
-                      <input class="form-control dropdown-toggle custom-dropdown-size" list="listaOrigenes" type="text" v-model="origen" v-on:input="obtenerListaOrigenes" required/>
+                      <input class="form-control dropdown-toggle custom-dropdown-size" list="listaOrigenes" type="text"
+                        v-model="origen" v-on:input="obtenerListaOrigenes" required />
                       <datalist id="listaOrigenes">
                         <option v-for="origenes in listaOrigenes">{{origenes.address}}</option>
                       </datalist>
                     </div>
                     <div class="col-12">
                       <label for="name" class="form-label">Destino</label>
-                      <input class="form-control dropdown-toggle custom-dropdown-size" list="listaDestinos" type="text" v-model="destino" v-on:input="obtenerListaDestinos" required/>
+                      <input class="form-control dropdown-toggle custom-dropdown-size" list="listaDestinos" type="text"
+                        v-model="destino" v-on:input="obtenerListaDestinos" required />
                       <datalist id="listaDestinos">
                         <option v-for="destinos in listaDestinos">{{destinos.address}}</option>
                       </datalist>
@@ -113,7 +129,8 @@
                     </div>
                     <div class="col-6">
                       <label for="name" class="form-label">Número de plazas</label>
-                      <input type="number" min="1" v-model="journey.numberParticipants" class="form-control" id="numberParticipants" required>
+                      <input type="number" min="1" v-model="journey.numberParticipants" class="form-control"
+                        id="numberParticipants" required>
                     </div>
                     <div class="col-6">
                       <label for="user" class="form-label">Precio por plaza</label>
@@ -139,11 +156,15 @@
                     </div>
                     <div class="col-12">
                       <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="pagosOnline" v-model="journey.onlinePayment" :disabled="!stripeOnBoardingCompleted">
-                        <label class="form-check-label" for="pagosOnline">Habilitar pagos online <span class="badge rounded-pill bg-info fst-italic px-3 ms-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Debe tener Stripe completamente configurado. Para ello, diríjase a 'Mi perfil' y posteriormente al apartado de 'Stripe' ">Info</span></label>
+                        <input class="form-check-input" type="checkbox" role="switch" id="pagosOnline"
+                          v-model="journey.onlinePayment" :disabled="!stripeOnBoardingCompleted">
+                        <label class="form-check-label" for="pagosOnline">Habilitar pagos online <span
+                            class="badge rounded-pill bg-info fst-italic px-3 ms-3" data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            title="Debe tener Stripe completamente configurado. Para ello, diríjase a 'Mi perfil' y posteriormente al apartado de 'Stripe' ">Info</span></label>
                       </div>
                     </div>
-                    
+
                     <div class="col-12 d-grid gap-2 mt-5">
                       <button type="submit" class="btn btn-success rounded-pill">Publicar</button>
                     </div>
