@@ -105,6 +105,8 @@ let myJourneyApp = new Vue({
         },
 
         selectChat: function(chat) {
+            console.log('CHAT SELECTED: ');
+            console.log(chat);
             this.clearNewChat();
             this.noChats = false;
             this.selectedChat = chat;
@@ -173,13 +175,12 @@ let myJourneyApp = new Vue({
                             'Authorization':this.tokenConBearer
                         }
                     });
-                    if(response.ok){
-
-                        this.selectChat(response);
-                        await this.obtenerChats();
+                    if(response){
+                        this.selectChat(response.data);
+                        this.obtenerChats();
                         this.temporaryNewUser = null;
                     }else{
-                        console.log(response);
+                        console.log('Error');
                     }
                 }else{
                     let response = await axios.put('http://localhost:8080/api/chats/current/'+this.selectedChat.id, this.selectedChat, {
