@@ -3,7 +3,7 @@ if(btnLogOut!==null){
     btnLogOut.onclick = () => {
         console.log('Cerrando sesion')
         Vue.$cookies.remove('TokenJWT');
-        window.location.href = frontendPaths.pathIndex;
+        window.location.href = './index.html';
       }
 }
     
